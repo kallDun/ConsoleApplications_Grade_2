@@ -1,4 +1,5 @@
-﻿using System;
+﻿using File_Manager.Classes.Operations;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -17,7 +18,47 @@ namespace File_Manager.Classes.Views
     {
         private object dummyNode = null;
 
+        private string GetPath() => foldersItem_1_arrow.Visibility == Visibility.Visible ? 
+            foldersItem_1_text.Text : foldersItem_2_text.Text;
+
+        private void UpdateTreeAfterOperation()
+        {
+            var tree_to_update = foldersItem_1_arrow.Visibility == Visibility.Visible ?
+                foldersItem_1 : foldersItem_2;
+            TreeViewItem selected = tree_to_update.SelectedItem as TreeViewItem;
+            if (!BasicFileOperation.IsDirectory(selected.Tag.ToString())) 
+                selected = selected.Parent as TreeViewItem;
+
+            folder_Expanded(selected, null);
+        }
+
         private void LoadTreeViews()
+        {
+            GenerateLeftTree();
+            GenerateRightTree();
+        }
+
+        private void GenerateRightTree()
+        {
+            foreach (string s in Directory.GetLogicalDrives())
+            {
+                TreeViewItem item = new TreeViewItem();
+                item.Header = s;
+                item.Tag = s;
+                item.FontWeight = FontWeights.Normal;
+                item.Items.Add(dummyNode);
+                item.Expanded += new RoutedEventHandler(folder_Expanded);
+                foldersItem_2.Items.Add(item);
+            }
+            foldersItem_2.SelectedItemChanged += ((s, args) =>
+            {
+                foldersItem_2_text.Text = (args.NewValue as TreeViewItem).Tag.ToString();
+                foldersItem_1_arrow.Visibility = Visibility.Hidden;
+                foldersItem_2_arrow.Visibility = Visibility.Visible;
+            });
+        }
+
+        private void GenerateLeftTree()
         {
             foreach (string s in Directory.GetLogicalDrives())
             {
@@ -34,22 +75,6 @@ namespace File_Manager.Classes.Views
                 foldersItem_1_text.Text = (args.NewValue as TreeViewItem).Tag.ToString();
                 foldersItem_1_arrow.Visibility = Visibility.Visible;
                 foldersItem_2_arrow.Visibility = Visibility.Hidden;
-            });
-            foreach (string s in Directory.GetLogicalDrives())
-            {
-                TreeViewItem item = new TreeViewItem();
-                item.Header = s;
-                item.Tag = s;
-                item.FontWeight = FontWeights.Normal;
-                item.Items.Add(dummyNode);
-                item.Expanded += new RoutedEventHandler(folder_Expanded);
-                foldersItem_2.Items.Add(item);
-            }
-            foldersItem_2.SelectedItemChanged += ((s, args) =>
-            {
-                foldersItem_2_text.Text = (args.NewValue as TreeViewItem).Tag.ToString();
-                foldersItem_1_arrow.Visibility = Visibility.Hidden;
-                foldersItem_2_arrow.Visibility = Visibility.Visible;
             });
         }
 

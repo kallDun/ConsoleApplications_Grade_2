@@ -8,7 +8,8 @@
         xmlns:local="clr-namespace:File_Manager.Classes.Views"
         mc:Ignorable="d" x:Name="mainWindow"
         Icon="pack://application:,,,/Images/folder.png"
-        Title="File Manager" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="File Manager" Loaded="Window_Loaded"
+        Height="450" Width="800" MinHeight="450" MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45px"/>
@@ -104,38 +105,76 @@
                              Style="{DynamicResource MaterialDesignDataGridComboBoxEditableTextBox}"
                              IsReadOnly="True" Margin="20 0 0 0" Grid.Row="1"/>
             </Grid>
-            
+            <GridSplitter Height="Auto" Width="4" Margin="0, -2, -2, 0"
+                          Grid.Column="0"/>
         </Grid>
         <Separator Background="Black" VerticalAlignment="Bottom" Grid.Row="1"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="300px"/>
+                <ColumnDefinition Width="290px"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <StackPanel Orientation="Vertical" Margin="15, 0, 0, 0">
                     <Button Width="120px" Height="35px" Margin="0 10" FontSize="17px"
-                                Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="Copy"/>
+                            Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="Copy"
+                            x:Name="Copy_Button" Click="Copy_Button_Click"/>
                     <Button Width="120px" Height="35px" FontSize="17px"
-                                Style="{DynamicResource MaterialDesignOutlinedButton}" Content="Paste"/>
+                            Style="{DynamicResource MaterialDesignOutlinedButton}" Content="Paste"
+                            x:Name="Paste_Button" Click="Paste_Button_Click"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="15, 0, 0, 0">
                     <Button Width="120px" Height="35px" Margin="0 10" FontSize="17px"
-                                Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="Cut"/>
+                            Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="Cut"
+                            x:Name="Cut_Button" Click="Cut_Button_Click"/>
                     <Button Width="120px" Height="35px" FontSize="17px"
-                                Style="{DynamicResource MaterialDesignOutlinedButton}" Content="Remove"/>
+                            Style="{DynamicResource MaterialDesignOutlinedButton}" Content="Remove"
+                            x:Name="Remove_Button" Click="Remove_Button_Click"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="15, 0, 0, 0">
                     <Button Width="120px" Height="35px" Margin="0 10" FontSize="17px"
-                                Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="Open"/>
+                            Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="Open"
+                            x:Name="Open_Button" Click="Open_Button_Click"/>
                     <Button Width="120px" Height="35px" FontSize="17px"
-                                Style="{DynamicResource MaterialDesignOutlinedButton}" Content=""/>
+                            Style="{DynamicResource MaterialDesignOutlinedButton}" Content=""/>
                 </StackPanel>
-                <ToggleButton Style="{DynamicResource MaterialDesignSwitchToggleButton}"
-                    Width="89"/>
+                <StackPanel Width="94" VerticalAlignment="Center">
+                    <TextBlock Text="Operations menu" HorizontalAlignment="Center"
+                               FontSize="10"/>
+                    <ToggleButton Style="{DynamicResource MaterialDesignSwitchToggleButton}"
+                        Margin="0, 10" x:Name="ToggleOperationsMenu"/>
+                    <TextBlock Text="Left" HorizontalAlignment="Center"
+                               FontSize="20" x:Name="TextOperationsMenu"/>
+                </StackPanel>
             </StackPanel>
 
+            <Grid Grid.Column="1" Margin="15, 0, 0, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Operations:" Margin="4, 4, 0, 0"/>
+                <StackPanel Orientation="Horizontal" Height="25px" VerticalAlignment="Bottom">
+                    <TextBlock Foreground="Black" FontSize="13.5px"
+                               Text="F5 Update" Margin="15, 0, 0, 0"/>
+                    <TextBlock Foreground="Black" FontSize="13.5px"
+                               Text="F7 Find" Margin="15, 0, 0, 0"/>
+                    <TextBlock Foreground="Black" FontSize="13.5px"
+                               Text="F8 Html" Margin="15, 0, 0, 0"/>
+                </StackPanel>
+                <TextBlock Grid.Row="1" Text="File:" Margin="4, 4, 0, 0"/>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Height="25px" VerticalAlignment="Bottom">
+                    <TextBlock Foreground="Black" FontSize="13.5px"
+                               Text="F2 Rename" Margin="15, 0, 0, 0"/>
+                    <TextBlock Foreground="Black" FontSize="13.5px"
+                               Text="F3 Copy" Margin="15, 0, 0, 0"/>
+                    <TextBlock Foreground="Black" FontSize="13.5px"
+                               Text="F4 Paste " Margin="15, 0, 0, 0"/>
+                </StackPanel>
+                
+            </Grid>
+            
         </Grid>
         
     </Grid>
