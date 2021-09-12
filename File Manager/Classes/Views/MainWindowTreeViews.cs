@@ -21,15 +21,38 @@ namespace File_Manager.Classes.Views
         private string GetPath() => foldersItem_1_arrow.Visibility == Visibility.Visible ? 
             foldersItem_1_text.Text : foldersItem_2_text.Text;
 
-        private void UpdateTreeAfterOperation()
+        private void UpdateTreesPath(string path, bool isPrevious = false)
         {
-            var tree_to_update = foldersItem_1_arrow.Visibility == Visibility.Visible ?
-                foldersItem_1 : foldersItem_2;
-            TreeViewItem selected = tree_to_update.SelectedItem as TreeViewItem;
-            if (!BasicFileOperation.IsDirectory(selected.Tag.ToString())) 
-                selected = selected.Parent as TreeViewItem;
+            var names = path.Split('\\');
 
-            folder_Expanded(selected, null);
+            var active_node_1 = foldersItem_1.Items.Cast<TreeViewItem>().FirstOrDefault(x => x is not null && x.Header.Equals(names.First() + '\\'));
+            var active_node_2 = foldersItem_2.Items.Cast<TreeViewItem>().FirstOrDefault(x => x is not null && x.Header.Equals(names.First() + '\\'));
+
+            foreach (var name in names.Skip(1))
+            {
+                active_node_1 = active_node_1?.Items.Cast<TreeViewItem>().FirstOrDefault(x => x is not null && x.Header.Equals(name));
+                active_node_2 = active_node_2?.Items.Cast<TreeViewItem>().FirstOrDefault(x => x is not null && x.Header.Equals(name));
+
+                if (active_node_1 is null && active_node_2 is null) return;
+            }
+
+            UpdateNode(active_node_1, isPrevious);
+            UpdateNode(active_node_2, isPrevious);
+        }
+
+        private void UpdateNode(TreeViewItem node, bool isPrevious)
+        {
+            if (node is null) return;
+
+            if (isPrevious) 
+            {
+                node = node.Parent as TreeViewItem; 
+                if (node is null) return;
+            }
+
+            node.Items.Clear();
+            node.Items.Add(dummyNode);
+            folder_Expanded(node, null);
         }
 
         private void LoadTreeViews()
@@ -50,12 +73,17 @@ namespace File_Manager.Classes.Views
                 item.Expanded += new RoutedEventHandler(folder_Expanded);
                 foldersItem_2.Items.Add(item);
             }
-            foldersItem_2.SelectedItemChanged += ((s, args) =>
+            foldersItem_2.SelectedItemChanged += (s, args) =>
             {
                 foldersItem_2_text.Text = (args.NewValue as TreeViewItem).Tag.ToString();
                 foldersItem_1_arrow.Visibility = Visibility.Hidden;
                 foldersItem_2_arrow.Visibility = Visibility.Visible;
-            });
+            };
+            foldersItem_2.PreviewMouseDown += (s, args) =>
+            {
+                foldersItem_1_arrow.Visibility = Visibility.Hidden;
+                foldersItem_2_arrow.Visibility = Visibility.Visible;
+            };
         }
 
         private void GenerateLeftTree()
@@ -70,12 +98,17 @@ namespace File_Manager.Classes.Views
                 item.Expanded += new RoutedEventHandler(folder_Expanded);
                 foldersItem_1.Items.Add(item);
             }
-            foldersItem_1.SelectedItemChanged += ((s, args) =>
+            foldersItem_1.SelectedItemChanged += (s, args) =>
             {
                 foldersItem_1_text.Text = (args.NewValue as TreeViewItem).Tag.ToString();
                 foldersItem_1_arrow.Visibility = Visibility.Visible;
                 foldersItem_2_arrow.Visibility = Visibility.Hidden;
-            });
+            };
+            foldersItem_1.PreviewMouseDown += (s, args) =>
+            {
+                foldersItem_2_arrow.Visibility = Visibility.Hidden;
+                foldersItem_1_arrow.Visibility = Visibility.Visible;
+            };
         }
 
         private void folder_Expanded(object sender, RoutedEventArgs e)

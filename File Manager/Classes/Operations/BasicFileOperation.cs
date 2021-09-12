@@ -1,4 +1,5 @@
-﻿using System;
+﻿using File_Manager.Classes.Views.Dialog;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace File_Manager.Classes.Operations
 {
     class BasicFileOperation
     {
-        private string copy_path;
-        private bool is_cutted;
+        public string copy_path { get; private set; }
+        public bool is_cutted { get; private set; }
 
         public void Copy(string path)
         {
@@ -23,32 +24,40 @@ namespace File_Manager.Classes.Operations
             copy_path = path;
             is_cutted = true;
         }
-
-        public void Paste(string paste_path)
+        
+        public async Task<PasteActions> Paste(string paste_path)
         {
             if (string.IsNullOrEmpty(copy_path))
             {
-                return;
+                return PasteActions.Error;
             }
-            if (!IsDirectory(paste_path))
+            if (IsDrive(copy_path))
             {
-                return;
+                return PasteActions.Error;
             }
-            var file_name = copy_path.Split('\\').Last();
-            var new_loc = $@"{paste_path}\{file_name}";
+            if (string.IsNullOrEmpty(paste_path))
+            {
+                return PasteActions.Error;
+            }
+            if (!IsDirectoryOrDrive(paste_path))
+            {
+                return PasteActions.Error;
+            }
+            if (copy_path.Contains(paste_path))
+            {
+                return PasteActions.Error;
+            }
+            
+            var _name = copy_path.Split('\\').Last();
+            var new_loc = $@"{paste_path}\{_name}";
 
-            if (File.Exists(new_loc))
-            {
-                return;
-            }
-            File.Copy(copy_path, new_loc);
-            if (is_cutted) File.Delete(copy_path);
+            PasteDialogWindow dialogWindow = new PasteDialogWindow(copy_path, new_loc, is_cutted);
+            return await dialogWindow.Paste();
         }
 
-        public static bool IsDirectory(string path)
-        {
-            return path.Last().ToString() == @"\" ||
-                            File.GetAttributes(path).HasFlag(FileAttributes.Directory);
-        }
+        public static bool IsDirectoryOrDrive(string path) => IsDirectory(path) || IsDrive(path);
+        public static bool IsDirectory(string path) => File.GetAttributes(path).HasFlag(FileAttributes.Directory);
+        public static bool IsDrive(string path) => path.Last().ToString() == @"\";
+        
     }
 }

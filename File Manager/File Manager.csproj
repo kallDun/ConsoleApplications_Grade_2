@@ -2,6 +2,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <LangVersion>preview</LangVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D31660A5-1C1C-42A9-9501-17EC908C9DC7}</ProjectGuid>
@@ -63,6 +64,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Classes\Views\Dialog\PasteDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Classes\Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,6 +77,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Operations\BasicFileOperation.cs" />
+    <Compile Include="Classes\Operations\PasteActions.cs" />
+    <Compile Include="Classes\Views\Dialog\PasteDialogWindow.xaml.cs">
+      <DependentUpon>PasteDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Views\Dialog\ReplaceActions.cs" />
     <Compile Include="Classes\Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

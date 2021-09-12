@@ -1,4 +1,5 @@
 ﻿using File_Manager.Classes.Operations;
+using File_Manager.Classes.Views.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,7 +24,7 @@ namespace File_Manager.Classes.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private BasicFileOperation fileOperations = new BasicFileOperation();
+        private BasicFileOperation fileOperations = new();
 
         public MainWindow()
         {
@@ -32,9 +33,7 @@ namespace File_Manager.Classes.Views
             {
                 TextOperationsMenu.Text = (bool)ToggleOperationsMenu.IsChecked ? "Right" : "Left";
             };
-        }
-
-        
+        }        
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -43,17 +42,16 @@ namespace File_Manager.Classes.Views
 
         private void Copy_Button_Click(object sender, RoutedEventArgs e) => fileOperations.Copy(GetPath());
 
-        private void Paste_Button_Click(object sender, RoutedEventArgs e) 
-        { 
-            fileOperations.Paste(GetPath());
-            UpdateTreeAfterOperation();
+        private async void Paste_Button_Click(object sender, RoutedEventArgs e) 
+        {
+            var paste_path = GetPath();
+            await Task.FromResult(fileOperations.Paste(paste_path));
+
+            if (fileOperations.is_cutted) UpdateTreesPath(fileOperations.copy_path, true);
+            UpdateTreesPath(paste_path);
         }
 
-        private void Cut_Button_Click(object sender, RoutedEventArgs e)
-        { 
-            fileOperations.Cut(GetPath());
-            UpdateTreeAfterOperation();
-        }
+        private void Cut_Button_Click(object sender, RoutedEventArgs e) => fileOperations.Cut(GetPath());
 
         private void Remove_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -61,6 +59,11 @@ namespace File_Manager.Classes.Views
         }
 
         private void Open_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Create_Button_Click(object sender, RoutedEventArgs e)
         {
 
         }

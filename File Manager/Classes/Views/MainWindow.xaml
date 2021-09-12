@@ -137,7 +137,8 @@
                             Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="Open"
                             x:Name="Open_Button" Click="Open_Button_Click"/>
                     <Button Width="120px" Height="35px" FontSize="17px"
-                            Style="{DynamicResource MaterialDesignOutlinedButton}" Content=""/>
+                            Style="{DynamicResource MaterialDesignOutlinedButton}" Content="Create"
+                            x:Name="Create_Button" Click="Create_Button_Click"/>
                 </StackPanel>
                 <StackPanel Width="94" VerticalAlignment="Center">
                     <TextBlock Text="Operations menu" HorizontalAlignment="Center"
