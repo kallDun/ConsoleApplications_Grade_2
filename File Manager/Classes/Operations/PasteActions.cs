@@ -8,6 +8,6 @@ namespace File_Manager.Classes.Operations
 {
     public enum PasteActions
     {
-        Ok, Error, Canceled
+        Ok, Error, Canceled, InvalidPath
     }
 }

@@ -45,7 +45,7 @@ namespace File_Manager.Classes.Views
         private async void Paste_Button_Click(object sender, RoutedEventArgs e) 
         {
             var paste_path = GetPath();
-            await Task.FromResult(fileOperations.Paste(paste_path));
+            var action = await fileOperations.Paste(paste_path);
 
             if (fileOperations.is_cutted) UpdateTreesPath(fileOperations.copy_path, true);
             UpdateTreesPath(paste_path);

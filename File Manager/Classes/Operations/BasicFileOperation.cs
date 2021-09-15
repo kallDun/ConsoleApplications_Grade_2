@@ -29,30 +29,30 @@ namespace File_Manager.Classes.Operations
         {
             if (string.IsNullOrEmpty(copy_path))
             {
-                return PasteActions.Error;
+                return PasteActions.InvalidPath;
             }
             if (IsDrive(copy_path))
             {
-                return PasteActions.Error;
+                return PasteActions.InvalidPath;
             }
             if (string.IsNullOrEmpty(paste_path))
             {
-                return PasteActions.Error;
+                return PasteActions.InvalidPath;
             }
             if (!IsDirectoryOrDrive(paste_path))
             {
-                return PasteActions.Error;
+                return PasteActions.InvalidPath;
             }
             if (copy_path.Contains(paste_path))
             {
-                return PasteActions.Error;
+                return PasteActions.InvalidPath;
             }
             
             var _name = copy_path.Split('\\').Last();
             var new_loc = $@"{paste_path}\{_name}";
 
-            PasteDialogWindow dialogWindow = new PasteDialogWindow(copy_path, new_loc, is_cutted);
-            return await dialogWindow.Paste();
+            PasteDialogWindow pasteOperationWindow = new(copy_path, new_loc, is_cutted);
+            return await pasteOperationWindow.Paste();
         }
 
         public static bool IsDirectoryOrDrive(string path) => IsDirectory(path) || IsDrive(path);
