@@ -121,7 +121,7 @@ namespace File_Manager.Classes.Views
                 {
                     foreach (string s in Directory.GetDirectories(item.Tag.ToString()))
                     {
-                        TreeViewItem subitem = new TreeViewItem();
+                        TreeViewItem subitem = new();
                         subitem.Header = s.Substring(s.LastIndexOf("\\") + 1);
                         subitem.Tag = s;
                         subitem.FontWeight = FontWeights.Normal;
@@ -132,7 +132,7 @@ namespace File_Manager.Classes.Views
                     }
                     foreach (string s in Directory.GetFiles(item.Tag.ToString()))
                     {
-                        TreeViewItem subitem = new TreeViewItem();
+                        TreeViewItem subitem = new();
                         subitem.Header = s.Substring(s.LastIndexOf("\\") + 1);
                         subitem.Tag = s;
                         subitem.FontWeight = FontWeights.Normal;
