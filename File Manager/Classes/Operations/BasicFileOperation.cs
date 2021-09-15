@@ -58,6 +58,6 @@ namespace File_Manager.Classes.Operations
         public static bool IsDirectoryOrDrive(string path) => IsDirectory(path) || IsDrive(path);
         public static bool IsDirectory(string path) => File.GetAttributes(path).HasFlag(FileAttributes.Directory);
         public static bool IsDrive(string path) => path.Last().ToString() == @"\";
-        
+        public static bool IsFile(string path) => File.Exists(path);
     }
 }

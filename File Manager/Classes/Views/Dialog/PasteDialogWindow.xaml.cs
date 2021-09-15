@@ -158,7 +158,7 @@ namespace File_Manager.Classes.Views.Dialog
                 PasteDirectory(item, new_folder);
             }
         }
-    
+
         // button actions
         private void Cancel_b_Click(object sender, RoutedEventArgs e)
         {

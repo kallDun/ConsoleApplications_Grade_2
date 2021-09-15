@@ -1,5 +1,6 @@
 ﻿using File_Manager.Classes.Operations;
 using File_Manager.Classes.Views.Dialog;
+using File_Manager.Classes.Views.Reader;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -60,7 +61,12 @@ namespace File_Manager.Classes.Views
 
         private void Open_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            var path = GetPath();
+            if (BasicFileOperation.IsFile(path))
+            {
+                var window = new TextReaderWindow(path);
+                window.FillText();
+            }
         }
 
         private void Create_Button_Click(object sender, RoutedEventArgs e)
