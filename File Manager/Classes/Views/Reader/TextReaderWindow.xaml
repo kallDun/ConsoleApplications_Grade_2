@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:File_Manager.Classes.Views.Reader"
         mc:Ignorable="d"
-        Title="TextReaderWindow" Height="450" Width="800">
+        Title="TextReaderWindow" Height="450" Width="800" MinHeight="450" MinWidth="800" SizeChanged="Window_SizeChanged">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45px"/>
@@ -23,19 +23,25 @@
             <MenuItem Header="Help">
             </MenuItem>
         </Menu>
+        <StackPanel Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="0 %" Margin="10, 0" FontSize="22" x:Name="Slider_Percent_Bar"/>
+            <Slider Width="200" x:Name="Document_Slider" Thumb.DragDelta="Document_Slider_DragDelta" Minimum="0" Maximum="100" ValueChanged="Document_Slider_ValueChanged"/>
+        </StackPanel>
+        
         <Separator Grid.Row="1" Background="Black" VerticalAlignment="Top" Margin="0, 0, 0, 0"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="15px"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" x:Name="RowNumerationBlock"/>
             <Rectangle Grid.Column="0" Fill="Black" Width="1.4px" HorizontalAlignment="Right"/>
 
+            <TextBlock Grid.Column="0" x:Name="Numeration_Field" Margin="4,4,4,0" FontWeight="Bold"/>
             <Grid Grid.Column="1">
-                <ScrollViewer HorizontalScrollBarVisibility="Visible">
-                    <TextBox x:Name="MainTextBox"/>
+                <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+                    <TextBox x:Name="Text_Field" MouseWheel="Text_Field_MouseWheel"/>
                 </ScrollViewer>
             </Grid>
         </Grid>
