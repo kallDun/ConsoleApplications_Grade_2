@@ -64,8 +64,8 @@ namespace File_Manager.Classes.Views
             var path = GetPath();
             if (BasicFileOperation.IsFile(path))
             {
-                var window = new TextReaderWindow(path);
-                window.FillText();
+                TextReaderWindow window = new();
+                window.OpenDocument(path);
             }
         }
 

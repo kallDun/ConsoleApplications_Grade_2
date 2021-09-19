@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace File_Manager.Classes.Views.Dialog
+namespace File_Manager.Classes.Operations
 {
     public enum ReplaceActions
     {

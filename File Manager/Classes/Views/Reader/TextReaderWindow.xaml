@@ -16,11 +16,23 @@
               Style="{DynamicResource MaterialDesignMenu}"
               FontSize="14px" Height="42px" VerticalAlignment="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Save"/>
+                <MenuItem Header="_New" x:Name="Menu_Create__item"/>
+                <MenuItem Header="_Open" x:Name="Menu_Open__item"/>
+                <MenuItem Header="_Save" x:Name="Menu_Save__item"/>
+                <MenuItem Header="_Save as" x:Name="Menu_SaveAs__item"/>
                 <Separator/>
                 <MenuItem Header="_Exit"/>
             </MenuItem>
+            <MenuItem Header="_Font">
+                <MenuItem Header="_12 px" Click="MenuItem_Font_Click"/>
+                <MenuItem Header="_14 px" Click="MenuItem_Font_Click"/>
+                <MenuItem Header="_16 px" Click="MenuItem_Font_Click"/>
+                <MenuItem Header="_18 px" Click="MenuItem_Font_Click"/>
+                <MenuItem Header="_20 px" Click="MenuItem_Font_Click"/>
+            </MenuItem>
             <MenuItem Header="Help">
+                <TextBlock Text="Nothing to Help"/>
+                <TextBlock Text="Sorry"/>
             </MenuItem>
         </Menu>
         <StackPanel Grid.Row="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
@@ -36,12 +48,12 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" x:Name="RowNumerationBlock"/>
-            <Rectangle Grid.Column="0" Fill="Black" Width="1.4px" HorizontalAlignment="Right"/>
+            <Rectangle Grid.Column="0" Fill="Black" Width="1.8px" HorizontalAlignment="Right"/>
 
-            <TextBlock Grid.Column="0" x:Name="Numeration_Field" Margin="4,4,4,0" FontWeight="Bold"/>
+            <TextBlock Grid.Column="0" x:Name="Numeration_Field" Margin="4,4,6,0" FontWeight="Bold"/>
             <Grid Grid.Column="1">
                 <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
-                    <TextBox x:Name="Text_Field" MouseWheel="Text_Field_MouseWheel"/>
+                    <TextBox x:Name="Text_Field" MouseWheel="Text_Field_MouseWheel" AcceptsReturn="True" TextChanged="Text_Field_TextChanged"/>
                 </ScrollViewer>
             </Grid>
         </Grid>

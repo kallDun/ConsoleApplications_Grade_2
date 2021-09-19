@@ -81,11 +81,15 @@
     <Compile Include="Classes\Views\Dialog\PasteDialogWindow.xaml.cs">
       <DependentUpon>PasteDialogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Views\Dialog\ReplaceActions.cs" />
+    <Compile Include="Classes\Operations\ReplaceActions.cs" />
     <Compile Include="Classes\Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Classes\Views\Reader\ImageReaderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Classes\Views\Reader\TextReaderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -93,6 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Views\MainWindowTreeViews.cs" />
+    <Compile Include="Classes\Views\Reader\ImageReaderWindow.xaml.cs">
+      <DependentUpon>ImageReaderWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Views\Reader\TextReaderWindow.xaml.cs">
       <DependentUpon>TextReaderWindow.xaml</DependentUpon>
     </Compile>
