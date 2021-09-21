@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace File_Manager.Classes.Operations.Observers
 {
-    class SystemObserver
+    class SystemObserver : IDisposable
     {
         public delegate void FolderChangedEventHandler(string path);
         public event FolderChangedEventHandler OnFolderChanged;
 
         private Dictionary<string, FileSystemWatcher> Watchers = new();
+
+        int size;
 
         public void AddFolder(string path)
         {
@@ -35,6 +37,28 @@ namespace File_Manager.Classes.Operations.Observers
             watcher.EnableRaisingEvents = true;
 
             Watchers.Add(path, watcher);
+            size = Watchers.Count();
+        }
+    
+        public void RemoveFolder(string path)
+        {
+            if (!Watchers.ContainsKey(path)) return;
+
+            var watcher = Watchers[path];
+            watcher.EnableRaisingEvents = false;
+            watcher.Dispose();
+
+            Watchers.Remove(path);
+            size = Watchers.Count();
+        }
+
+        public void Dispose()
+        {
+            foreach (var item in Watchers)
+            {
+                item.Value.EnableRaisingEvents = false;
+                item.Value.Dispose();
+            }
         }
     }
 }

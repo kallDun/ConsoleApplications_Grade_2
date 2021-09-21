@@ -118,7 +118,15 @@ namespace File_Manager.Classes.Views.Reader
         private void Text_Field_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (isChangedTextByProgram) return;
-            Text = Text.Replace(last_text, Text_Field.Text);
+            if (!string.IsNullOrEmpty(Text))
+            {
+                Text = Text.Replace(last_text, Text_Field.Text);
+            }
+            else
+            {
+                Text = Text_Field.Text;
+            }
+
             caret = Text_Field.CaretIndex;
             CheckForEnableSlider();
             ChangeVisibleText();            

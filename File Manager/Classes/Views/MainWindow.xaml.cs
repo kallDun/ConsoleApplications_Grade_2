@@ -1,5 +1,6 @@
 ﻿using File_Manager.Classes.Operations;
 using File_Manager.Classes.Operations.Extensions;
+using File_Manager.Classes.Operations.Observers;
 using File_Manager.Classes.Views.Dialog;
 using File_Manager.Classes.Views.Reader;
 using System;
@@ -26,7 +27,8 @@ namespace File_Manager.Classes.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private FileOperationFacade fileOperations = new();
+        private FileOperationsFacade fileOperations = new();
+        private SystemObserver observer;
 
         public MainWindow()
         {
@@ -39,18 +41,16 @@ namespace File_Manager.Classes.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            observer = SystemObserverSingleton.GetInstance();
             LoadTreeViews();
+            observer.OnFolderChanged += (string path) => Dispatcher.Invoke(() => UpdateTreesPath(path));
         }
 
         private void Copy_Button_Click(object sender, RoutedEventArgs e) => fileOperations.Copy(GetPath());
 
         private async void Paste_Button_Click(object sender, RoutedEventArgs e) 
         {
-            var paste_path = GetPath();
-            var action = await fileOperations.Paste(paste_path);
-
-            if (fileOperations.is_cutted) UpdateTreesPath(fileOperations.copy_path, true);
-            UpdateTreesPath(paste_path);
+            var action = await fileOperations.Paste(GetPath());
         }
 
         private void Cut_Button_Click(object sender, RoutedEventArgs e) => fileOperations.Cut(GetPath());
@@ -60,10 +60,7 @@ namespace File_Manager.Classes.Views
 
         }
 
-        private void Open_Button_Click(object sender, RoutedEventArgs e)
-        {
-            FileOperationFacade.TryToOpen(GetPath());
-        }
+        private void Open_Button_Click(object sender, RoutedEventArgs e) => FileOperationsFacade.TryToOpen(GetPath());
 
         private void Create_Button_Click(object sender, RoutedEventArgs e)
         {

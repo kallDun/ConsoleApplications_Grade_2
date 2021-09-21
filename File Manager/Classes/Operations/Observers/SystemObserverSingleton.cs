@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace File_Manager.Classes.Operations.Observers
 {
-    class SystemObserverSingleton
+    static class SystemObserverSingleton
     {
         static SystemObserver observer;
 
-        public SystemObserver GetInstance()
+        public static SystemObserver GetInstance()
         {
             if (observer is null)
             {

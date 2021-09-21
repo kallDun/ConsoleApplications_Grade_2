@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace File_Manager.Classes.Operations
 {
-    class FileOperationFacade
+    class FileOperationsFacade
     {
         public string copy_path { get; private set; }
         public bool is_cutted { get; private set; }

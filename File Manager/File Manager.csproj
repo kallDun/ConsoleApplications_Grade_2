@@ -79,7 +79,7 @@
     <Compile Include="Classes\Operations\DocumentMenu\IDocument.cs" />
     <Compile Include="Classes\Operations\DocumentMenu\IReadonlyDocument.cs" />
     <Compile Include="Classes\Operations\Extensions\CheckPathExtension.cs" />
-    <Compile Include="Classes\Operations\FileOperationFacade.cs" />
+    <Compile Include="Classes\Operations\FileOperationsFacade.cs" />
     <Compile Include="Classes\Operations\Observers\SystemObserver.cs" />
     <Compile Include="Classes\Operations\Observers\SystemObserverSingleton.cs" />
     <Compile Include="Classes\Operations\OpenFile\OpeningFileFactory.cs" />
