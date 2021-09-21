@@ -1,4 +1,8 @@
-﻿using File_Manager.Classes.Views.Dialog;
+﻿using File_Manager.Classes.Operations.Extensions;
+using File_Manager.Classes.Operations.OpenFile;
+using File_Manager.Classes.Views;
+using File_Manager.Classes.Views.Dialog;
+using File_Manager.Classes.Views.Reader;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace File_Manager.Classes.Operations
 {
-    class BasicFileOperation
+    class FileOperationFacade
     {
         public string copy_path { get; private set; }
         public bool is_cutted { get; private set; }
@@ -25,39 +29,47 @@ namespace File_Manager.Classes.Operations
             is_cutted = true;
         }
         
-        public async Task<PasteActions> Paste(string paste_path)
+        public async Task<PasteActions> Paste(string path)
         {
             if (string.IsNullOrEmpty(copy_path))
             {
                 return PasteActions.InvalidPath;
             }
-            if (IsDrive(copy_path))
+            if (copy_path.IsDrive())
             {
                 return PasteActions.InvalidPath;
             }
-            if (string.IsNullOrEmpty(paste_path))
+            if (string.IsNullOrEmpty(path))
             {
                 return PasteActions.InvalidPath;
             }
-            if (!IsDirectoryOrDrive(paste_path))
+            if (!path.IsDirectoryOrDrive())
             {
                 return PasteActions.InvalidPath;
             }
-            if (copy_path.Contains(paste_path))
+            if (copy_path.Contains(path))
             {
                 return PasteActions.InvalidPath;
             }
             
             var _name = copy_path.Split('\\').Last();
-            var new_loc = $@"{paste_path}\{_name}";
+            var new_loc = $@"{path}\{_name}";
 
             PasteDialogWindow pasteOperationWindow = new(copy_path, new_loc, is_cutted);
             return await pasteOperationWindow.Paste();
         }
 
-        public static bool IsDirectoryOrDrive(string path) => IsDirectory(path) || IsDrive(path);
-        public static bool IsDirectory(string path) => File.GetAttributes(path).HasFlag(FileAttributes.Directory);
-        public static bool IsDrive(string path) => path.Last().ToString() == @"\";
-        public static bool IsFile(string path) => File.Exists(path);
+        public static void TryToOpen(string path)
+        {
+            if (!path.IsFile()) return;
+            OpeningFileFactory openingFileFactory;
+
+            if (PathToImageConverter.IsImageFormat(path))
+                openingFileFactory = new OpeningImage();
+            else 
+                openingFileFactory = new OpeningTextFile();
+
+            openingFileFactory.OpenFile(path);
+        }
     }
 }

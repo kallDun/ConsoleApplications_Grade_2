@@ -1,4 +1,5 @@
-﻿using System;
+﻿using File_Manager.Classes.Operations.DocumentMenu;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,24 @@ namespace File_Manager.Classes.Views.Reader
     /// <summary>
     /// Interaction logic for ImageReaderWindow.xaml
     /// </summary>
-    public partial class ImageReaderWindow : Window
+    public partial class ImageReaderWindow : Window, IReadonlyDocument
     {
+        private string path;
         public ImageReaderWindow()
         {
             InitializeComponent();
+            Show();
+        }
+
+        // DOCUMENT METHODS
+        public void CloseDocument()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OpenDocument(string path)
+        {
+            this.path = path;
         }
     }
 }

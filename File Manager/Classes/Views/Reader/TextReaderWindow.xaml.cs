@@ -1,4 +1,5 @@
-﻿using System;
+﻿using File_Manager.Classes.Operations.DocumentMenu;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace File_Manager.Classes.Views.Reader
     /// <summary>
     /// Interaction logic for TextReaderWindow.xaml
     /// </summary>
-    public partial class TextReaderWindow : Window, IDisposable
+    public partial class TextReaderWindow : Window, IDocument, IDisposable
     {
         private string PATH;
         private string text;
@@ -141,13 +142,25 @@ namespace File_Manager.Classes.Views.Reader
         }
 
         // DOCUMENT WORKING METHODS
-        public void OpenDocument(string PATH)
+        public void OpenDocument(string path)
         {
-            this.PATH = PATH;
+            PATH = path;
             Text = File.ReadAllText(PATH);
             ChangeRowSize();
             ChangeVisibleText();
             CheckForEnableSlider();
+        }
+        public void CloseDocument()
+        {
+            throw new NotImplementedException();
+        }
+        public void SaveDocument()
+        {
+            throw new NotImplementedException();
+        }
+        public void SaveDocumentAs(string path)
+        {
+            throw new NotImplementedException();
         }
 
         // MENU BUTTONS

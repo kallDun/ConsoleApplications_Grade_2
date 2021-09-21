@@ -1,4 +1,5 @@
 ﻿using File_Manager.Classes.Operations;
+using File_Manager.Classes.Operations.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -81,7 +82,7 @@ namespace File_Manager.Classes.Views.Dialog
         }
         public async Task<PasteActions> Paste()
         {
-            if (BasicFileOperation.IsDirectory(copy_path))
+            if (copy_path.IsDirectory())
             {
                 full_size = GetDirSize(new(copy_path));
                 await Task.Run(() => PasteDirectory(copy_path, paste_path));

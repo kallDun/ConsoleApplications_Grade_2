@@ -1,4 +1,5 @@
 ﻿using File_Manager.Classes.Operations;
+using File_Manager.Classes.Operations.Extensions;
 using File_Manager.Classes.Views.Dialog;
 using File_Manager.Classes.Views.Reader;
 using System;
@@ -25,7 +26,7 @@ namespace File_Manager.Classes.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private BasicFileOperation fileOperations = new();
+        private FileOperationFacade fileOperations = new();
 
         public MainWindow()
         {
@@ -61,12 +62,7 @@ namespace File_Manager.Classes.Views
 
         private void Open_Button_Click(object sender, RoutedEventArgs e)
         {
-            var path = GetPath();
-            if (BasicFileOperation.IsFile(path))
-            {
-                TextReaderWindow window = new();
-                window.OpenDocument(path);
-            }
+            FileOperationFacade.TryToOpen(GetPath());
         }
 
         private void Create_Button_Click(object sender, RoutedEventArgs e)

@@ -18,8 +18,7 @@ namespace File_Manager.Classes.Views
     {
         private object dummyNode = null;
 
-        private string GetPath() => foldersItem_1_arrow.Visibility == Visibility.Visible ? 
-            foldersItem_1_text.Text : foldersItem_2_text.Text;
+        private string GetPath() => foldersItem_1_arrow.Visibility == Visibility.Visible ? foldersItem_1_text.Text : foldersItem_2_text.Text;
 
         private void UpdateTreesPath(string path, bool isPrevious = false)
         {
@@ -136,6 +135,7 @@ namespace File_Manager.Classes.Views
                         subitem.Header = s.Substring(s.LastIndexOf("\\") + 1);
                         subitem.Tag = s;
                         subitem.FontWeight = FontWeights.Normal;
+                        subitem.MouseDoubleClick += (s, e) => FileOperationFacade.TryToOpen(((TreeViewItem)s).Tag.ToString());
                         item.Items.Add(subitem);
                     }
                 }
@@ -149,16 +149,11 @@ namespace File_Manager.Classes.Views
     [ValueConversion(typeof(string), typeof(bool))]
     public class PathToImageConverter : IValueConverter
     {
-        public static PathToImageConverter Instance =
-            new PathToImageConverter();
+        public static PathToImageConverter Instance = new();
 
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
-            //var icon_name = (value as string).Contains(@"\") ? "diskdrive" : (value as string).Contains(".") ? "file" : "folder";
-            /*FileAttributes attr = File.GetAttributes(value.ToString());
-            var icon_name = (attr & FileAttributes.Directory) == FileAttributes.Directory ? "folder" : "file";*/
-
             var path = value.ToString();
             string icon_name;
             if (path.Last().ToString() == @"\") icon_name = "diskdrive";
@@ -167,11 +162,8 @@ namespace File_Manager.Classes.Views
             else if (IsFormat(path, "dll")) icon_name = "dll";
             else if (IsFormat(path, "exe")) icon_name = "exe";
             else if (IsFormat(path, "html")) icon_name = "html";
-            else if (IsFormat(path, "mp3") || IsFormat(path, "wav") || IsFormat(path, "flac")) 
-                icon_name = "music";
-            else if (IsFormat(path, "png") || IsFormat(path, "jpg") || IsFormat(path, "JPG") || IsFormat(path, "jpeg")
-                || IsFormat(path, "bmp") || IsFormat(path, "tiff") || IsFormat(path, "gif")) 
-                icon_name = "image";
+            else if (IsMusicFormat(path)) icon_name = "music";
+            else if (IsImageFormat(path)) icon_name = "image";
             else icon_name = "file";
 
             Uri uri = new Uri($"pack://application:,,,/Images/{icon_name}.png");
@@ -179,16 +171,16 @@ namespace File_Manager.Classes.Views
             return source;
         }
 
-        private bool IsFormat(string path, string format) => Regex.IsMatch(path, $"^(.*?)[.]{format}$");
+        public static bool IsMusicFormat(string path) => IsFormat(path, "mp3") || IsFormat(path, "wav") || IsFormat(path, "flac");
 
-        public object ConvertBack(object value, Type targetType,
-            object parameter, CultureInfo culture)
-        {
-            throw new NotSupportedException("Cannot convert back");
-        }
+        public static bool IsImageFormat(string path) => IsFormat(path, "png") || IsFormat(path, "jpg") || IsFormat(path, "JPG") || IsFormat(path, "jpeg")
+            || IsFormat(path, "bmp") || IsFormat(path, "tiff") || IsFormat(path, "gif");
+
+        private static bool IsFormat(string path, string format) => Regex.IsMatch(path, $"^(.*?)[.]{format}$");
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException("Cannot convert back");
     }
 
     #endregion // PathToImageConverter
-
 }
 

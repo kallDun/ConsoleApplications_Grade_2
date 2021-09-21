@@ -76,7 +76,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Operations\BasicFileOperation.cs" />
+    <Compile Include="Classes\Operations\DocumentMenu\IDocument.cs" />
+    <Compile Include="Classes\Operations\DocumentMenu\IReadonlyDocument.cs" />
+    <Compile Include="Classes\Operations\Extensions\CheckPathExtension.cs" />
+    <Compile Include="Classes\Operations\FileOperationFacade.cs" />
+    <Compile Include="Classes\Operations\Observers\SystemObserver.cs" />
+    <Compile Include="Classes\Operations\Observers\SystemObserverSingleton.cs" />
+    <Compile Include="Classes\Operations\OpenFile\OpeningFileFactory.cs" />
+    <Compile Include="Classes\Operations\OpenFile\OpeningImage.cs" />
+    <Compile Include="Classes\Operations\OpenFile\OpeningTextFile.cs" />
     <Compile Include="Classes\Operations\PasteActions.cs" />
     <Compile Include="Classes\Views\Dialog\PasteDialogWindow.xaml.cs">
       <DependentUpon>PasteDialogWindow.xaml</DependentUpon>
