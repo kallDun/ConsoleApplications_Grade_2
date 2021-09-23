@@ -7,6 +7,26 @@
         mc:Ignorable="d"
         Title="ImageReaderWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45px"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Background="White"
+              Style="{DynamicResource MaterialDesignMenu}"
+              FontSize="14px" Height="42px" VerticalAlignment="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" x:Name="Menu_Open__item" Click="Menu_Open__item_Click"/>
+                <MenuItem Header="_Close" x:Name="Menu_Close__item" Click="Menu_Close__item_Click"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <TextBlock Text="Nothing to Help"/>
+                <TextBlock Text="Sorry"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1">
+            <Image x:Name="IMG"/>
+        </Grid>
         
     </Grid>
 </Window>

@@ -1,13 +1,8 @@
-﻿using File_Manager.Classes.Operations.Extensions;
+﻿using File_Manager.Classes.Operations.Actions;
+using File_Manager.Classes.Operations.Extensions;
 using File_Manager.Classes.Operations.OpenFile;
-using File_Manager.Classes.Views;
 using File_Manager.Classes.Views.Dialog;
-using File_Manager.Classes.Views.Reader;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace File_Manager.Classes.Operations
@@ -16,13 +11,11 @@ namespace File_Manager.Classes.Operations
     {
         public string copy_path { get; private set; }
         public bool is_cutted { get; private set; }
-
         public void Copy(string path)
         {
             copy_path = path;
             is_cutted = false;
         }
-
         public void Cut(string path)
         {
             copy_path = path;
@@ -64,12 +57,18 @@ namespace File_Manager.Classes.Operations
             if (!path.IsFile()) return;
             OpeningFileFactory openingFileFactory;
 
-            if (PathToImageConverter.IsImageFormat(path))
+            if (Format.IsImageFormat(path))
                 openingFileFactory = new OpeningImage();
             else 
                 openingFileFactory = new OpeningTextFile();
 
             openingFileFactory.OpenFile(path);
         }
+
+        public static void Remove(string path)
+        {
+
+        }
+
     }
 }

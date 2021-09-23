@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace File_Manager.Classes.Operations.Observers
 {
@@ -14,7 +15,7 @@ namespace File_Manager.Classes.Operations.Observers
 
         private Dictionary<string, FileSystemWatcher> Watchers = new();
 
-        int size;
+        public void CallChangedEvent(string path) => OnFolderChanged.Invoke(path);
 
         public void AddFolder(string path)
         {
@@ -24,8 +25,7 @@ namespace File_Manager.Classes.Operations.Observers
             watcher.Path = path;
             /* Watch for changes in LastAccess and LastWrite times, and
                the renaming of files or directories. */
-            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-               | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
 
             // Add event handlers.
             watcher.Changed += (s, e) => OnFolderChanged.Invoke(e.FullPath);
@@ -37,7 +37,6 @@ namespace File_Manager.Classes.Operations.Observers
             watcher.EnableRaisingEvents = true;
 
             Watchers.Add(path, watcher);
-            size = Watchers.Count();
         }
     
         public void RemoveFolder(string path)
@@ -49,7 +48,6 @@ namespace File_Manager.Classes.Operations.Observers
             watcher.Dispose();
 
             Watchers.Remove(path);
-            size = Watchers.Count();
         }
 
         public void Dispose()
@@ -59,6 +57,7 @@ namespace File_Manager.Classes.Operations.Observers
                 item.Value.EnableRaisingEvents = false;
                 item.Value.Dispose();
             }
+            Watchers.Clear();
         }
     }
 }

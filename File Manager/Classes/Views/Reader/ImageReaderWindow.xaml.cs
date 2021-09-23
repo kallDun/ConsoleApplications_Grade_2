@@ -1,4 +1,6 @@
 ﻿using File_Manager.Classes.Operations.DocumentMenu;
+using File_Manager.Classes.Operations.Extensions;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,17 +27,41 @@ namespace File_Manager.Classes.Views.Reader
         {
             InitializeComponent();
             Show();
+            IMG.Stretch = Stretch.Uniform;
         }
 
         // DOCUMENT METHODS
-        public void CloseDocument()
+        public bool CloseDocument()
         {
-            throw new NotImplementedException();
+            path = null;
+            IMG.Source = null;
+            return true;
         }
 
         public void OpenDocument(string path)
         {
             this.path = path;
+
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(path);
+            bitmap.EndInit();
+            
+            IMG.Source = bitmap;
         }
+
+        // MENU BUTTONS
+        private void Menu_Open__item_Click(object sender, RoutedEventArgs e)
+        {
+            string filter_name = "Image Files";
+            OpenFileDialog dialog = DialogHelper.GetOpenFileDialog(Format.ImageFormats, filter_name);
+
+            if (dialog.ShowDialog() == true)
+            {
+                OpenDocument(dialog.FileName);
+            }
+        }
+
+        private void Menu_Close__item_Click(object sender, RoutedEventArgs e) => CloseDocument();
     }
 }

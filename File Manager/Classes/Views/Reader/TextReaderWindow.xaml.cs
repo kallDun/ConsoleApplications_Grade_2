@@ -1,6 +1,9 @@
 ﻿using File_Manager.Classes.Operations.DocumentMenu;
+using File_Manager.Classes.Operations.Extensions;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,7 +23,7 @@ namespace File_Manager.Classes.Views.Reader
     /// <summary>
     /// Interaction logic for TextReaderWindow.xaml
     /// </summary>
-    public partial class TextReaderWindow : Window, IDocument, IDisposable
+    public partial class TextReaderWindow : Window, IDocument
     {
         private string PATH;
         private string text;
@@ -38,14 +41,13 @@ namespace File_Manager.Classes.Views.Reader
         public TextReaderWindow()
         {
             InitializeComponent();
-            Closing += (s, e) => Dispose();
+            Closing += Closing_; 
             Show();
         }
 
-        public void Dispose()
+        private void Closing_(object sender, CancelEventArgs e)
         {
-            Text = "";
-            last_text = "";
+            if (!CloseDocument()) e.Cancel = true;
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -154,14 +156,23 @@ namespace File_Manager.Classes.Views.Reader
         {
             PATH = path;
             Text = File.ReadAllText(PATH);
+            Text_Field.IsReadOnly = false;
             ChangeRowSize();
             ChangeVisibleText();
             CheckForEnableSlider();
         }
-        public void CloseDocument()
+        
+        public bool CloseDocument()
         {
-            throw new NotImplementedException();
+            if (!DialogHelper.DialogYesNo("Close document", "You may have unsaved changes. Are you sure to close this file?")) return false;
+            PATH = null;
+            Text = "";
+            last_text = "";
+            Text_Field.IsReadOnly = true;
+            ChangeVisibleText();
+            return true;
         }
+
         public void SaveDocument()
         {
             throw new NotImplementedException();
@@ -172,5 +183,33 @@ namespace File_Manager.Classes.Views.Reader
         }
 
         // MENU BUTTONS
+
+        private void Menu_Create__item_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Menu_Open__item_Click(object sender, RoutedEventArgs e)
+        {
+            string filter_name = "Text File";
+            OpenFileDialog dialog = DialogHelper.GetOpenFileDialog(Format.TextFormats, filter_name, true);
+
+            if (dialog.ShowDialog() == true)
+            {
+                OpenDocument(dialog.FileName);
+            }
+        }
+
+        private void Menu_Save__item_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Menu_SaveAs__item_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItemClose_Click(object sender, RoutedEventArgs e) => CloseDocument();
     }
 }

@@ -16,12 +16,12 @@
               Style="{DynamicResource MaterialDesignMenu}"
               FontSize="14px" Height="42px" VerticalAlignment="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_New" x:Name="Menu_Create__item"/>
-                <MenuItem Header="_Open" x:Name="Menu_Open__item"/>
-                <MenuItem Header="_Save" x:Name="Menu_Save__item"/>
-                <MenuItem Header="_Save as" x:Name="Menu_SaveAs__item"/>
+                <MenuItem Header="_New" x:Name="Menu_Create__item" Click="Menu_Create__item_Click"/>
+                <MenuItem Header="_Open" x:Name="Menu_Open__item" Click="Menu_Open__item_Click"/>
+                <MenuItem Header="_Save" x:Name="Menu_Save__item" Click="Menu_Save__item_Click"/>
+                <MenuItem Header="_Save as" x:Name="Menu_SaveAs__item" Click="Menu_SaveAs__item_Click"/>
                 <Separator/>
-                <MenuItem Header="_Exit"/>
+                <MenuItem Header="_Close" Click="MenuItemClose_Click"/>
             </MenuItem>
             <MenuItem Header="_Font">
                 <MenuItem Header="_12 px" Click="MenuItem_Font_Click"/>

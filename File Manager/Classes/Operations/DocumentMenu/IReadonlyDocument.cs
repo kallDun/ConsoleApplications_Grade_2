@@ -10,6 +10,6 @@ namespace File_Manager.Classes.Operations.DocumentMenu
     {
         void OpenDocument(string path);
 
-        void CloseDocument();
+        bool CloseDocument();
     }
 }

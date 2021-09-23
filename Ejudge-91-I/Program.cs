@@ -74,7 +74,7 @@ namespace Ejudge_91_I
 
         public Node<T> GetFirstElement()
         {
-
+            return upperNode;
         }
 
         public IEnumerator<T> GetEnumerator() => new BinaryTreeIterator<T>(this);
@@ -103,15 +103,15 @@ namespace Ejudge_91_I
 
         public bool MoveNext()
         {
-            if (curItter++ >= tree.Count) return false;
+            /*if (curItter++ >= tree.Count) return false;
 
             if (curNode.right != null)
             {
                 curNode = curNode.right;
             }
             else 
-            if ()
-
+            if ()*/
+            return false;
         }
 
         public void Reset() 

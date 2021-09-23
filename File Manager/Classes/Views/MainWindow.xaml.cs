@@ -50,7 +50,9 @@ namespace File_Manager.Classes.Views
 
         private async void Paste_Button_Click(object sender, RoutedEventArgs e) 
         {
-            var action = await fileOperations.Paste(GetPath());
+            var path = GetPath();
+            var action = await fileOperations.Paste(path);
+            observer.CallChangedEvent(path);
         }
 
         private void Cut_Button_Click(object sender, RoutedEventArgs e) => fileOperations.Cut(GetPath());

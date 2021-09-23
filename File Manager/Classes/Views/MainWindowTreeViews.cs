@@ -1,4 +1,5 @@
 ﻿using File_Manager.Classes.Operations;
+using File_Manager.Classes.Operations.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -164,25 +165,18 @@ namespace File_Manager.Classes.Views
             string icon_name;
             if (path.Last().ToString() == @"\") icon_name = "diskdrive";
             else if (File.GetAttributes(path).HasFlag(FileAttributes.Directory)) icon_name = "folder";
-            else if (IsFormat(path, "txt")) icon_name = "txt";
-            else if (IsFormat(path, "dll")) icon_name = "dll";
-            else if (IsFormat(path, "exe")) icon_name = "exe";
-            else if (IsFormat(path, "html")) icon_name = "html";
-            else if (IsMusicFormat(path)) icon_name = "music";
-            else if (IsImageFormat(path)) icon_name = "image";
+            else if (Format.IsFormat(path, "txt")) icon_name = "txt";
+            else if (Format.IsFormat(path, "dll")) icon_name = "dll";
+            else if (Format.IsFormat(path, "exe")) icon_name = "exe";
+            else if (Format.IsFormat(path, "html")) icon_name = "html";
+            else if (Format.IsMusicFormat(path)) icon_name = "music";
+            else if (Format.IsImageFormat(path)) icon_name = "image";
             else icon_name = "file";
 
             Uri uri = new Uri($"pack://application:,,,/Images/{icon_name}.png");
             BitmapImage source = new BitmapImage(uri);
             return source;
         }
-
-        public static bool IsMusicFormat(string path) => IsFormat(path, "mp3") || IsFormat(path, "wav") || IsFormat(path, "flac");
-
-        public static bool IsImageFormat(string path) => IsFormat(path, "png") || IsFormat(path, "jpg") || IsFormat(path, "JPG") || IsFormat(path, "jpeg")
-            || IsFormat(path, "bmp") || IsFormat(path, "tiff") || IsFormat(path, "gif");
-
-        private static bool IsFormat(string path, string format) => Regex.IsMatch(path, $"^(.*?)[.]{format}$");
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException("Cannot convert back");
     }
