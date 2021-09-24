@@ -21,7 +21,7 @@
                 <MenuItem Header="_Save" x:Name="Menu_Save__item" Click="Menu_Save__item_Click"/>
                 <MenuItem Header="_Save as" x:Name="Menu_SaveAs__item" Click="Menu_SaveAs__item_Click"/>
                 <Separator/>
-                <MenuItem Header="_Close" Click="MenuItemClose_Click"/>
+                <MenuItem Header="_Close" x:Name="Menu_Close__item" Click="MenuItemClose_Click"/>
             </MenuItem>
             <MenuItem Header="_Font">
                 <MenuItem Header="_12 px" Click="MenuItem_Font_Click"/>

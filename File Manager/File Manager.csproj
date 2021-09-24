@@ -76,9 +76,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\Logging\Levels.cs" />
+    <Compile Include="Classes\Logging\Logger.cs" />
+    <Compile Include="Classes\Logging\LoggerSingleton.cs" />
+    <Compile Include="Classes\Logging\LogItem.cs" />
     <Compile Include="Classes\Operations\DocumentMenu\IDocument.cs" />
     <Compile Include="Classes\Operations\DocumentMenu\IReadonlyDocument.cs" />
-    <Compile Include="Classes\Operations\Extensions\CheckPathExtension.cs" />
+    <Compile Include="Classes\Operations\Extensions\PathExtensions.cs" />
     <Compile Include="Classes\Operations\Extensions\DialogHelper.cs" />
     <Compile Include="Classes\Operations\Extensions\Format.cs" />
     <Compile Include="Classes\Operations\FileOperationsFacade.cs" />
@@ -87,7 +91,7 @@
     <Compile Include="Classes\Operations\OpenFile\OpeningFileFactory.cs" />
     <Compile Include="Classes\Operations\OpenFile\OpeningImage.cs" />
     <Compile Include="Classes\Operations\OpenFile\OpeningTextFile.cs" />
-    <Compile Include="Classes\Operations\Actions\PasteActions.cs" />
+    <Compile Include="Classes\Operations\Actions\DirectoryActions.cs" />
     <Compile Include="Classes\Views\Dialog\PasteDialogWindow.xaml.cs">
       <DependentUpon>PasteDialogWindow.xaml</DependentUpon>
     </Compile>

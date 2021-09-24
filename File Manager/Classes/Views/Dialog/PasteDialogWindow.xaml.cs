@@ -81,7 +81,7 @@ namespace File_Manager.Classes.Views.Dialog
                 Dispatcher.Invoke(() => MainTextField.Text = $"Copying '{copy_path}' to '{paste_path}'... ({file_on})");
             };
         }
-        public async Task<PasteActions> Paste()
+        public async Task<DirectoryActions> Paste()
         {
             if (copy_path.IsDirectory())
             {
@@ -96,7 +96,7 @@ namespace File_Manager.Classes.Views.Dialog
                 {
                     isReplace = true;
                     var action = await Task.Run(() => AskReplace());
-                    if (action == ReplaceActions.Skip || action == ReplaceActions.None) return PasteActions.Canceled;
+                    if (action == ReplaceActions.Skip || action == ReplaceActions.None) return DirectoryActions.Canceled;
                 }
 
                 if (isReplace) await Task.Run(() => File.Delete(paste_path));
@@ -106,7 +106,7 @@ namespace File_Manager.Classes.Views.Dialog
                 if (isEnded && is_cutted) File.Delete(copy_path);
             }
             Close();
-            return isEnded ? PasteActions.Ok : PasteActions.Error;
+            return isEnded ? DirectoryActions.Ok : DirectoryActions.Error;
         }
 
         private static long GetDirSize(DirectoryInfo d)

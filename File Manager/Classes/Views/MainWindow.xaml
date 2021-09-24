@@ -20,19 +20,16 @@
               Style="{DynamicResource MaterialDesignMenu}"
               FontSize="14px" Height="42px" VerticalAlignment="Top">
             <MenuItem Header="_Program">
-                
+                <MenuItem Header="_Open TextReader" x:Name="Open_TextReader__item" Click="Open_TextReader__item_Click"/>
+                <MenuItem Header="_Open ImageReader" x:Name="Open_ImageReader__item" Click="Open_ImageReader__item_Click"/>
             </MenuItem>
             <MenuItem Header="_File">
-                <MenuItem Header="_New"/>
-                <MenuItem Header="_Open"/>
-                <MenuItem Header="_Save"/>
-                <Separator/>
-                <MenuItem Header="_Exit"/>
+                <MenuItem Header="_New" x:Name="New_Document__item" Click="New_Document__item_Click"/>
+                <MenuItem Header="_Open" x:Name="Open_Document__item" Click="Open_Document__item_Click"/>
             </MenuItem>
             <MenuItem Header="_Operations">
                 <MenuItem Header="_Find path"/>
                 <MenuItem Header="_Find by name"/>
-                
             </MenuItem>
             <MenuItem Header="_Help">
                 

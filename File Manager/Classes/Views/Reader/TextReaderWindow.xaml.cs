@@ -1,22 +1,16 @@
 ﻿using File_Manager.Classes.Operations.DocumentMenu;
 using File_Manager.Classes.Operations.Extensions;
+using File_Manager.Classes.Operations.Observers;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace File_Manager.Classes.Views.Reader
 {
@@ -25,8 +19,8 @@ namespace File_Manager.Classes.Views.Reader
     /// </summary>
     public partial class TextReaderWindow : Window, IDocument
     {
-        private string PATH;
-        private string text;
+        private event Action OnChangingPath;
+        private string text, last_text, path;
         private int start_text_num = 0, text_row_size, TextLength;
         private string Text
         {
@@ -37,11 +31,27 @@ namespace File_Manager.Classes.Views.Reader
                 TextLength = text.Split('\n').Length;
             }
         }
-
+        private string Path
+        {
+            get => path;
+            set
+            {
+                path = value;
+                OnChangingPath.Invoke();
+            }
+        }
         public TextReaderWindow()
         {
             InitializeComponent();
-            Closing += Closing_; 
+            Closing += Closing_;
+            OnChangingPath += () =>
+            {
+                var path_null = string.IsNullOrEmpty(Path);
+                Title = path_null ? "TextReader" : $"TextReader ({Path.Split('\\').Last()})";
+                Menu_Save__item.IsEnabled = !path_null;
+                Menu_SaveAs__item.IsEnabled = !path_null;
+                Menu_Close__item.IsEnabled = !path_null;
+            };
             Show();
         }
 
@@ -115,7 +125,6 @@ namespace File_Manager.Classes.Views.Reader
         private void Document_Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => Slider_Percent_Bar.Text = $"{Math.Round(e.NewValue)} %";
 
         bool isChangedTextByProgram = false;
-        string last_text;
         int caret;
         private void Text_Field_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -129,9 +138,10 @@ namespace File_Manager.Classes.Views.Reader
                 Text = Text_Field.Text;
             }
 
+            IsSaved = false;
             caret = Text_Field.CaretIndex;
             CheckForEnableSlider();
-            ChangeVisibleText();            
+            ChangeVisibleText();         
         }
 
         private void ChangeVisibleText()
@@ -152,64 +162,80 @@ namespace File_Manager.Classes.Views.Reader
         }
 
         // DOCUMENT WORKING METHODS
+
+        private bool IsSaved = true;
         public void OpenDocument(string path)
         {
-            PATH = path;
-            Text = File.ReadAllText(PATH);
+            Path = path;
+            Text = File.ReadAllText(Path);
             Text_Field.IsReadOnly = false;
             ChangeRowSize();
             ChangeVisibleText();
             CheckForEnableSlider();
         }
-        
         public bool CloseDocument()
         {
-            if (!DialogHelper.DialogYesNo("Close document", "You may have unsaved changes. Are you sure to close this file?")) return false;
-            PATH = null;
+            if (!IsSaved)
+            {
+                bool? wannaClose = DialogHelper.DialogYesNoDiscard("Close document",
+                    "You have unsaved changes. Do you want to save file before closing?");
+                if (wannaClose is null) return false;
+                if (wannaClose == true) SaveDocument();
+            }
+            
+            Path = null;
             Text = "";
             last_text = "";
             Text_Field.IsReadOnly = true;
             ChangeVisibleText();
             return true;
         }
-
-        public void SaveDocument()
-        {
-            throw new NotImplementedException();
-        }
+        public void SaveDocument() => SaveDocumentAs(Path);
         public void SaveDocumentAs(string path)
         {
-            throw new NotImplementedException();
+            IsSaved = true;
+            File.WriteAllText(path, Text);
         }
 
         // MENU BUTTONS
-
         private void Menu_Create__item_Click(object sender, RoutedEventArgs e)
         {
+            var dialog = DialogHelper.GetSaveFileDialog("Create Item", Format.TextFormats, "Text File");
 
+            if (dialog.ShowDialog() == true)
+            {
+                if (!CloseDocument()) return;
+
+                var path = dialog.FileName;
+                File.Create(path).Close();
+                OpenDocument(path);
+
+                var observer = SystemObserverSingleton.GetInstance();
+                observer.CallPathChangedEvent(path);
+            }
         }
-
         private void Menu_Open__item_Click(object sender, RoutedEventArgs e)
         {
-            string filter_name = "Text File";
-            OpenFileDialog dialog = DialogHelper.GetOpenFileDialog(Format.TextFormats, filter_name, true);
+            OpenFileDialog dialog = DialogHelper.GetOpenFileDialog(Format.TextFormats, "Text File", true);
 
             if (dialog.ShowDialog() == true)
             {
                 OpenDocument(dialog.FileName);
             }
         }
-
-        private void Menu_Save__item_Click(object sender, RoutedEventArgs e)
+        private void Menu_Save__item_Click(object sender, RoutedEventArgs e) => SaveDocument();
+        private void Menu_SaveAs__item_Click(object sender, RoutedEventArgs e) 
         {
+            var dialog = DialogHelper.GetSaveFileDialog("Save As", Format.TextFormats, "Text File");
 
+            if (dialog.ShowDialog() == true)
+            {
+                var path = dialog.FileName;
+                SaveDocumentAs(path);
+                var observer = SystemObserverSingleton.GetInstance();
+                observer.CallPathChangedEvent(path);
+            }
         }
-
-        private void Menu_SaveAs__item_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void MenuItemClose_Click(object sender, RoutedEventArgs e) => CloseDocument();
     }
 }

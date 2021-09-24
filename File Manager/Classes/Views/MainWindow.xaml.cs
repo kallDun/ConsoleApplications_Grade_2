@@ -1,4 +1,6 @@
 ﻿using File_Manager.Classes.Operations;
+using File_Manager.Classes.Operations.Actions;
+using File_Manager.Classes.Operations.DocumentMenu;
 using File_Manager.Classes.Operations.Extensions;
 using File_Manager.Classes.Operations.Observers;
 using File_Manager.Classes.Views.Dialog;
@@ -29,7 +31,6 @@ namespace File_Manager.Classes.Views
     {
         private FileOperationsFacade fileOperations = new();
         private SystemObserver observer;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -37,36 +38,55 @@ namespace File_Manager.Classes.Views
             {
                 TextOperationsMenu.Text = (bool)ToggleOperationsMenu.IsChecked ? "Right" : "Left";
             };
-        }        
-
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             observer = SystemObserverSingleton.GetInstance();
             LoadTreeViews();
             observer.OnFolderChanged += (string path) => Dispatcher.Invoke(() => UpdateTreesPath(path));
         }
-
+        
+        // METHODS
+        private static void CreateFile()
+        {
+            var dialog = DialogHelper.GetSaveFileDialog("Create Document");
+            if (dialog.ShowDialog() is true)
+            {
+                var path = dialog.FileName;
+                FileOperationsFacade.Create(path);
+            }
+        }
+        
+        // MAIN 6 BUTTONS
         private void Copy_Button_Click(object sender, RoutedEventArgs e) => fileOperations.Copy(GetPath());
-
         private async void Paste_Button_Click(object sender, RoutedEventArgs e) 
         {
             var path = GetPath();
             var action = await fileOperations.Paste(path);
-            observer.CallChangedEvent(path);
+            if (action == DirectoryActions.Ok) observer.CallPathChangedEvent(path);
         }
-
         private void Cut_Button_Click(object sender, RoutedEventArgs e) => fileOperations.Cut(GetPath());
-
         private void Remove_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            var path = GetPath();
+            var action = FileOperationsFacade.Remove(path);
+            if (action == DirectoryActions.Ok) observer.CallPathChangedEvent(path.GoBackInPath());
         }
-
         private void Open_Button_Click(object sender, RoutedEventArgs e) => FileOperationsFacade.TryToOpen(GetPath());
+        private void Create_Button_Click(object sender, RoutedEventArgs e) => CreateFile();
 
-        private void Create_Button_Click(object sender, RoutedEventArgs e)
+        // MENU BUTTONS
+        private void Open_TextReader__item_Click(object sender, RoutedEventArgs e) => new TextReaderWindow();
+        private void Open_ImageReader__item_Click(object sender, RoutedEventArgs e) => new ImageReaderWindow();
+        private void New_Document__item_Click(object sender, RoutedEventArgs e) => CreateFile();
+        private void Open_Document__item_Click(object sender, RoutedEventArgs e)
         {
-
+            var dialog = DialogHelper.GetOpenFileDialog();
+            if (dialog.ShowDialog() is true)
+            {
+                var path = dialog.FileName;
+                FileOperationsFacade.TryToOpen(path);
+            }
         }
     }
 }

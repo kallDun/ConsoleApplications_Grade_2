@@ -1,13 +1,9 @@
 ﻿using File_Manager.Classes.Operations;
 using File_Manager.Classes.Operations.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;

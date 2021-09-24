@@ -15,7 +15,7 @@ namespace File_Manager.Classes.Operations.Observers
 
         private Dictionary<string, FileSystemWatcher> Watchers = new();
 
-        public void CallChangedEvent(string path) => OnFolderChanged.Invoke(path);
+        public void CallPathChangedEvent(string path) => OnFolderChanged.Invoke(path);
 
         public void AddFolder(string path)
         {

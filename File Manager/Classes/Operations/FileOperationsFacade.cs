@@ -2,6 +2,7 @@
 using File_Manager.Classes.Operations.Extensions;
 using File_Manager.Classes.Operations.OpenFile;
 using File_Manager.Classes.Views.Dialog;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,28 +22,27 @@ namespace File_Manager.Classes.Operations
             copy_path = path;
             is_cutted = true;
         }
-        
-        public async Task<PasteActions> Paste(string path)
+        public async Task<DirectoryActions> Paste(string path)
         {
             if (string.IsNullOrEmpty(copy_path))
             {
-                return PasteActions.InvalidPath;
+                return DirectoryActions.InvalidPath;
             }
             if (copy_path.IsDrive())
             {
-                return PasteActions.InvalidPath;
+                return DirectoryActions.InvalidPath;
             }
             if (string.IsNullOrEmpty(path))
             {
-                return PasteActions.InvalidPath;
+                return DirectoryActions.InvalidPath;
             }
             if (!path.IsDirectoryOrDrive())
             {
-                return PasteActions.InvalidPath;
+                return DirectoryActions.InvalidPath;
             }
             if (copy_path.Contains(path))
             {
-                return PasteActions.InvalidPath;
+                return DirectoryActions.InvalidPath;
             }
             
             var _name = copy_path.Split('\\').Last();
@@ -65,10 +65,12 @@ namespace File_Manager.Classes.Operations
             openingFileFactory.OpenFile(path);
         }
 
-        public static void Remove(string path)
+        public static DirectoryActions Remove(string path)
         {
-
+            return DirectoryActions.Canceled;
         }
+
+        public static void Create(string path) => File.Create(path);
 
     }
 }

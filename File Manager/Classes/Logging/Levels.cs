@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace File_Manager.Classes.Operations.Actions
+namespace File_Manager.Classes.Logging
 {
-    public enum PasteActions
+    enum Levels
     {
-        Ok, Error, Canceled, InvalidPath
+        Debug, Information, Warning, Error
     }
 }
