@@ -1,4 +1,5 @@
-﻿using System;
+﻿using File_Manager.Classes.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,12 @@ namespace File_Manager.Classes.Operations.Observers
 {
     class SystemObserver : IDisposable
     {
+        private Logger logger;
+        public SystemObserver()
+        {
+            logger = LoggerSingleton.GetInstance();
+        }
+
         public delegate void FolderChangedEventHandler(string path);
         public event FolderChangedEventHandler OnFolderChanged;
 
@@ -37,6 +44,7 @@ namespace File_Manager.Classes.Operations.Observers
             watcher.EnableRaisingEvents = true;
 
             Watchers.Add(path, watcher);
+            logger.LogDebug($"Add watcher to {path}. Count is {Watchers.Count}");
         }
     
         public void RemoveFolder(string path)
@@ -48,6 +56,7 @@ namespace File_Manager.Classes.Operations.Observers
             watcher.Dispose();
 
             Watchers.Remove(path);
+            logger.LogDebug($"Remove watcher from {path}. Count is {Watchers.Count}");
         }
 
         public void Dispose()

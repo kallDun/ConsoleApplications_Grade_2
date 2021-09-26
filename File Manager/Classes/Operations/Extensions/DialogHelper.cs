@@ -1,9 +1,5 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace File_Manager.Classes.Operations.Extensions
@@ -13,7 +9,7 @@ namespace File_Manager.Classes.Operations.Extensions
         public static OpenFileDialog GetOpenFileDialog(string[] formats, string filter_name, bool IsAll = false)
         {
             var filter_ = $"{filter_name}|{string.Join(";", formats.Select(x => "*." + x))}";
-            if (IsAll) filter_ += "All files (*.*)|*.*";
+            if (IsAll) filter_ += "|All files (*.*)|*.*";
             return GetOpenFileDialog(filter_);
         }
         public static OpenFileDialog GetOpenFileDialog()

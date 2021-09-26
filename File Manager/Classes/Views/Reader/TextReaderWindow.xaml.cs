@@ -198,6 +198,7 @@ namespace File_Manager.Classes.Views.Reader
         }
 
         // MENU BUTTONS
+
         private void Menu_Create__item_Click(object sender, RoutedEventArgs e)
         {
             var dialog = DialogHelper.GetSaveFileDialog("Create Item", Format.TextFormats, "Text File");

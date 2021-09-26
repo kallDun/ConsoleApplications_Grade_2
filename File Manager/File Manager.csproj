@@ -76,6 +76,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\Logging\Builder\JsonLogBuilder.cs" />
+    <Compile Include="Classes\Logging\Builder\LogBuilder.cs" />
+    <Compile Include="Classes\Logging\Builder\ReportDirector.cs" />
+    <Compile Include="Classes\Logging\Builder\TxtLogBuilder.cs" />
+    <Compile Include="Classes\Logging\Builder\XmlLogBuilder.cs" />
     <Compile Include="Classes\Logging\Levels.cs" />
     <Compile Include="Classes\Logging\Logger.cs" />
     <Compile Include="Classes\Logging\LoggerSingleton.cs" />

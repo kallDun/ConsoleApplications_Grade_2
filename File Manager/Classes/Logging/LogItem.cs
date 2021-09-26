@@ -11,13 +11,14 @@ namespace File_Manager.Classes.Logging
         public DateTime CreatedTime { get; private set; }
         public Levels Level { get; private set; }
         public string Message { get; private set; }
+        public Exception Exception { get; private set; }
 
-        public LogItem(Levels level, string message)
+        public LogItem(Levels level, string message, Exception exception)
         {
             CreatedTime = DateTime.Now;
             Level = level;
             Message = message;
+            Exception = exception;
         }
-
     }
 }

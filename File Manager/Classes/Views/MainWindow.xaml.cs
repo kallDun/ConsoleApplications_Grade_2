@@ -1,4 +1,6 @@
-﻿using File_Manager.Classes.Operations;
+﻿using File_Manager.Classes.Logging;
+using File_Manager.Classes.Logging.Builder;
+using File_Manager.Classes.Operations;
 using File_Manager.Classes.Operations.Actions;
 using File_Manager.Classes.Operations.DocumentMenu;
 using File_Manager.Classes.Operations.Extensions;
@@ -31,6 +33,7 @@ namespace File_Manager.Classes.Views
     {
         private FileOperationsFacade fileOperations = new();
         private SystemObserver observer;
+        private Logger logger;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,19 +44,22 @@ namespace File_Manager.Classes.Views
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            new ReportDirector().FormNewReport(new JsonLogBuilder());
             observer = SystemObserverSingleton.GetInstance();
+            logger = LoggerSingleton.GetInstance();
             LoadTreeViews();
             observer.OnFolderChanged += (string path) => Dispatcher.Invoke(() => UpdateTreesPath(path));
+            logger.LogInformation("Application started");
         }
         
         // METHODS
-        private static void CreateFile()
+        private void CreateFile()
         {
             var dialog = DialogHelper.GetSaveFileDialog("Create Document");
             if (dialog.ShowDialog() is true)
             {
                 var path = dialog.FileName;
-                FileOperationsFacade.Create(path);
+                fileOperations.Create(path);
             }
         }
         
@@ -69,10 +75,10 @@ namespace File_Manager.Classes.Views
         private void Remove_Button_Click(object sender, RoutedEventArgs e)
         {
             var path = GetPath();
-            var action = FileOperationsFacade.Remove(path);
+            var action = fileOperations.Delete(path);
             if (action == DirectoryActions.Ok) observer.CallPathChangedEvent(path.GoBackInPath());
         }
-        private void Open_Button_Click(object sender, RoutedEventArgs e) => FileOperationsFacade.TryToOpen(GetPath());
+        private void Open_Button_Click(object sender, RoutedEventArgs e) => fileOperations.Open(GetPath());
         private void Create_Button_Click(object sender, RoutedEventArgs e) => CreateFile();
 
         // MENU BUTTONS
@@ -85,8 +91,28 @@ namespace File_Manager.Classes.Views
             if (dialog.ShowDialog() is true)
             {
                 var path = dialog.FileName;
-                FileOperationsFacade.TryToOpen(path);
+                fileOperations.Open(path);
             }
+        }
+        private void RadioButton_LogsType_Click(object sender, RoutedEventArgs e)
+        {
+            var name = (sender as RadioButton).Content;
+            LogBuilder builder;
+            switch (name)
+            {
+                case "xml":
+                    builder = new XmlLogBuilder();
+                    break;
+                case "txt":
+                    builder = new TxtLogBuilder();
+                    break;
+                case "json":
+                default:
+                    builder = new JsonLogBuilder();
+                    break;
+            }
+            var director = new ReportDirector();
+            director.FormNewReport(builder);
         }
     }
 }

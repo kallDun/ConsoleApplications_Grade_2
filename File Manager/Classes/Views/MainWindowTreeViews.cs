@@ -67,6 +67,8 @@ namespace File_Manager.Classes.Views
                 item.FontWeight = FontWeights.Normal;
                 item.Items.Add(dummyNode);
                 item.Expanded += new RoutedEventHandler(folder_Expanded);
+                item.Expanded += (s, e) => logger.LogDebug($"Expanded folder {(s as TreeViewItem).Tag}");
+                item.Collapsed += (s, e) => logger.LogDebug($"Collapsed folder {(s as TreeViewItem).Tag}");
                 item.Expanded += (s, e) => observer.AddFolder((s as TreeViewItem).Tag.ToString());
                 item.Collapsed += (s, e) => observer.RemoveFolder((s as TreeViewItem).Tag.ToString());
                 foldersItem_2.Items.Add(item);
@@ -94,6 +96,8 @@ namespace File_Manager.Classes.Views
                 item.FontWeight = FontWeights.Normal;
                 item.Items.Add(dummyNode);
                 item.Expanded += new RoutedEventHandler(folder_Expanded);
+                item.Expanded += (s, e) => logger.LogDebug($"Expanded folder {(s as TreeViewItem).Tag}");
+                item.Collapsed += (s, e) => logger.LogDebug($"Collapsed folder {(s as TreeViewItem).Tag}");
                 item.Expanded += (s, e) => observer.AddFolder((s as TreeViewItem).Tag.ToString());
                 item.Collapsed += (s, e) => observer.RemoveFolder((s as TreeViewItem).Tag.ToString());
                 foldersItem_1.Items.Add(item);
@@ -127,9 +131,10 @@ namespace File_Manager.Classes.Views
                         subitem.FontWeight = FontWeights.Normal;
                         subitem.Items.Add(dummyNode);
                         subitem.Expanded += new RoutedEventHandler(folder_Expanded);
+                        subitem.Expanded += (s, e) => logger.LogDebug($"Expanded folder {(s as TreeViewItem).Tag}");
+                        subitem.Collapsed += (s, e) => logger.LogDebug($"Collapsed folder {(s as TreeViewItem).Tag}");
                         subitem.Expanded += (s, e) => observer.AddFolder((s as TreeViewItem).Tag.ToString());
                         subitem.Collapsed += (s, e) => observer.RemoveFolder((s as TreeViewItem).Tag.ToString());
-
                         item.Items.Add(subitem);
                     }
                     foreach (string s in Directory.GetFiles(item.Tag.ToString()))

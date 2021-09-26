@@ -19,9 +19,9 @@
         <Menu Grid.Row="0" Background="White"
               Style="{DynamicResource MaterialDesignMenu}"
               FontSize="14px" Height="42px" VerticalAlignment="Top">
-            <MenuItem Header="_Program">
-                <MenuItem Header="_Open TextReader" x:Name="Open_TextReader__item" Click="Open_TextReader__item_Click"/>
-                <MenuItem Header="_Open ImageReader" x:Name="Open_ImageReader__item" Click="Open_ImageReader__item_Click"/>
+            <MenuItem Header="_Window">
+                <MenuItem Header="_Text Reader" x:Name="Open_TextReader__item" Click="Open_TextReader__item_Click"/>
+                <MenuItem Header="_Image Reader" x:Name="Open_ImageReader__item" Click="Open_ImageReader__item_Click"/>
             </MenuItem>
             <MenuItem Header="_File">
                 <MenuItem Header="_New" x:Name="New_Document__item" Click="New_Document__item_Click"/>
@@ -31,9 +31,15 @@
                 <MenuItem Header="_Find path"/>
                 <MenuItem Header="_Find by name"/>
             </MenuItem>
-            <MenuItem Header="_Help">
-                
+            <MenuItem Header="_Debug">
+                <MenuItem Header="Logs type">                    
+                    <RadioButton Content="json" IsChecked="True" Click="RadioButton_LogsType_Click"/>
+                    <RadioButton Content="xml" Click="RadioButton_LogsType_Click"/>
+                    <RadioButton Content="txt" Click="RadioButton_LogsType_Click"/>
+                </MenuItem>
+                <MenuItem Header="Save Logs As"/>
             </MenuItem>
+            <MenuItem Header="_Help"/>
         </Menu>
         <Separator Background="Black" VerticalAlignment="Bottom"/>
         <Grid Grid.Row="1">
@@ -102,7 +108,7 @@
                              Style="{DynamicResource MaterialDesignDataGridComboBoxEditableTextBox}"
                              IsReadOnly="True" Margin="20 0 0 0" Grid.Row="1"/>
             </Grid>
-            <GridSplitter Height="Auto" Width="4" Margin="0, -2, -2, 0"
+            <GridSplitter Height="Auto" Width="4" Margin="0, -2, -2, 3"
                           Grid.Column="0"/>
         </Grid>
         <Separator Background="Black" VerticalAlignment="Bottom" Grid.Row="1"/>
@@ -126,7 +132,7 @@
                             Style="{DynamicResource MaterialDesignRaisedDarkButton}" Content="Cut"
                             x:Name="Cut_Button" Click="Cut_Button_Click"/>
                     <Button Width="120px" Height="35px" FontSize="17px"
-                            Style="{DynamicResource MaterialDesignOutlinedButton}" Content="Remove"
+                            Style="{DynamicResource MaterialDesignOutlinedButton}" Content="Delete"
                             x:Name="Remove_Button" Click="Remove_Button_Click"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="15, 0, 0, 0">

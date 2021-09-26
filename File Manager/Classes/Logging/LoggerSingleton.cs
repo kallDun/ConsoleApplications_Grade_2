@@ -9,7 +9,7 @@ namespace File_Manager.Classes.Logging
     class LoggerSingleton
     {
         static Logger logger;
-        public Logger GetInstance()
+        public static Logger GetInstance()
         {
             if (logger is null) logger = new Logger();
             return logger;
