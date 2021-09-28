@@ -118,7 +118,7 @@ namespace File_Manager.Classes.Views
         }
         private async void FindName__item_Click(object sender, RoutedEventArgs e)
         {
-            PromptDialogWindow promptDialog = new("Type file name");
+            PromptDialogWindow promptDialog = new("Type file name to find");
             promptDialog.ShowDialog();
             if (!promptDialog.IsOk) return;
 
@@ -135,7 +135,7 @@ namespace File_Manager.Classes.Views
             if (string.IsNullOrEmpty(file_name) ||
                 !file_name.Contains('.')) 
             {
-                MessageBox.Show("Invalid path!");
+                MessageBox.Show("Invalid found directory!");
                 return;
             }
 
@@ -153,6 +153,49 @@ namespace File_Manager.Classes.Views
                 return;
             }
             OpenOperationResultPathInTree(findOperation.founded_file);
+        }
+
+        // KEYS
+        private void mainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.F2:
+                    // RENAME
+                    var file = GetPath();
+                    if (string.IsNullOrEmpty(file) || !file.IsFile()) return;
+
+                    var arr = file.Split('\\');
+                    var first_part_path = string.Join("\\", arr.Take(arr.Length - 1));
+                    var name = arr.Last();
+
+                    PromptDialogWindow dialogWindow = new($"Rename '{name}' file");
+                    dialogWindow.ShowDialog();
+                    if (dialogWindow.IsOk)
+                    {
+                        var new_name = dialogWindow.ResponseText;
+                        if (new_name == name) return;
+                        File.Move(file, $"{first_part_path}\\{new_name}");
+                        UpdateTreesPath(first_part_path);
+                    }
+                    break;
+                case Key.F3:
+                    Copy_Button_Click(null, null);
+                    break;
+                case Key.F4:
+                    Paste_Button_Click(null, null);
+                    break;
+                case Key.F5:
+                    UpdateTreesPath(GetPath());
+                    break;
+                case Key.F7:
+                    FindName__item_Click(null, null);
+                    break;
+                case Key.F8:
+                    // INFO
+
+                    break;
+            }
         }
     }
 }

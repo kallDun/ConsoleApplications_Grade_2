@@ -5,18 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:File_Manager.Classes.Views.Dialog"
         mc:Ignorable="d"
-        Title="Prompt" Height="125" Width="200" ResizeMode="NoResize">
+        Title="Prompt" Height="140" Width="200" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Enter something" x:Name="TitleField" Grid.Row="0"/>
-        <TextBox x:Name="ResponseTextBox" Grid.Row="1"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Content="OK" x:Name="OkButton" Click="OkButton_Click"/>
-            <Button Content="Cancel" x:Name="CancelButton" Click="CancelButton_Click"/>
-        </StackPanel>
+        <TextBlock Text="Enter something" x:Name="TitleField" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="14" FontWeight="DemiBold"/>
+        <TextBox x:Name="ResponseTextBox" Grid.Row="1" Margin="0, 0, 0, 0" HorizontalAlignment="Center" 
+                 VerticalAlignment="Center" Width="190" Style="{DynamicResource MaterialDesignTextBox}" TextAlignment="Center"
+                 FontSize="11.5"/>
+        <Grid Grid.Row="2" Margin="0, 0, 0, 4">
+            <Button Content="OK" x:Name="OkButton" Click="OkButton_Click" Width="80" HorizontalAlignment="Left" Margin="5, 0, 0, 0"
+                    Style="{DynamicResource MaterialDesignFlatButton}"/>
+            <Button Content="Cancel" x:Name="CancelButton" Click="CancelButton_Click" Width="80" HorizontalAlignment="Right" 
+                    Margin="0, 0, 5, 0" Style="{DynamicResource MaterialDesignFlatButton}"/>
+        </Grid>
     </Grid>
 </Window>

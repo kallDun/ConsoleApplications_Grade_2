@@ -64,6 +64,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Classes\Views\Dialog\InfoDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Classes\Views\Dialog\PasteDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -101,6 +105,9 @@
     <Compile Include="Classes\Operations\OpenFile\OpeningImage.cs" />
     <Compile Include="Classes\Operations\OpenFile\OpeningTextFile.cs" />
     <Compile Include="Classes\Operations\Actions\DirectoryActions.cs" />
+    <Compile Include="Classes\Views\Dialog\InfoDialogWindow.xaml.cs">
+      <DependentUpon>InfoDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Views\Dialog\PasteDialogWindow.xaml.cs">
       <DependentUpon>PasteDialogWindow.xaml</DependentUpon>
     </Compile>

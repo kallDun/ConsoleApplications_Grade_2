@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Images/found.png"
-        Title="Find Operation" Height="210" Width="380" ResizeMode="NoResize">
+        Title="Find Operation" Height="210" Width="400" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="36px"/>
@@ -34,12 +34,12 @@
                 <TextBlock Text="5" VerticalAlignment="Center" FontSize="22.5" FontWeight="Light"
                            Margin="5, 0, 0, 0" x:Name="Folder_Count_TextBox"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10, 0, 0, 0">
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="15, 0, 0, 0">
                 <Image Source="pack://application:,,,/Images/file.png" Width="30px"/>
                 <TextBlock Text="5" VerticalAlignment="Center" FontSize="22.5" FontWeight="Light"
                            Margin="5, 0, 0, 0" x:Name="File_Count_TextBox"/>
             </StackPanel>
-            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="20, 0, 0, 0">
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="25, 0, 0, 0">
                 <Image Source="pack://application:,,,/Images/time.png" Width="25px"/>
                 <TextBlock Text="00:05" VerticalAlignment="Center" FontSize="18" FontWeight="Light"
                            Margin="5, 0, 0, 0" x:Name="TimeExecution_TextBox"/>
