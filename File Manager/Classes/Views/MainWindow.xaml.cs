@@ -6,6 +6,7 @@ using File_Manager.Classes.Operations.DocumentMenu;
 using File_Manager.Classes.Operations.Extensions;
 using File_Manager.Classes.Operations.Observers;
 using File_Manager.Classes.Views.Dialog;
+using File_Manager.Classes.Views.Operation;
 using File_Manager.Classes.Views.Reader;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static File_Manager.Classes.Views.Operation.FindOperationWindow;
 
 namespace File_Manager.Classes.Views
 {
@@ -113,6 +115,44 @@ namespace File_Manager.Classes.Views
             }
             var director = new ReportDirector();
             director.FormNewReport(builder);
+        }
+        private async void FindName__item_Click(object sender, RoutedEventArgs e)
+        {
+            PromptDialogWindow promptDialog = new("Type file name");
+            promptDialog.ShowDialog();
+            if (!promptDialog.IsOk) return;
+
+            string file_name = promptDialog.ResponseText;
+            var where_find_folder = GetPath();
+
+            if (string.IsNullOrEmpty(where_find_folder) ||
+                !where_find_folder.IsDirectoryOrDrive())
+            {
+                MessageBox.Show("Invalid file name!");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(file_name) ||
+                !file_name.Contains('.')) 
+            {
+                MessageBox.Show("Invalid path!");
+                return;
+            }
+
+            FileFound fileFound = new((string file) => 
+            { 
+                var name = file.Substring(file.LastIndexOf("\\") + 1);
+                return name == file_name; 
+            });
+            FindOperationWindow findOperation = new(fileFound, $"Finding file '{file_name}'");
+            await findOperation.Start(where_find_folder);
+
+            if (!findOperation.isDone)
+            {
+                MessageBox.Show($"Could not find the file '{file_name}' in '{where_find_folder}'");
+                return;
+            }
+            OpenOperationResultPathInTree(findOperation.founded_file);
         }
     }
 }

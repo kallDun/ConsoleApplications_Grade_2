@@ -28,8 +28,7 @@
                 <MenuItem Header="_Open" x:Name="Open_Document__item" Click="Open_Document__item_Click"/>
             </MenuItem>
             <MenuItem Header="_Operations">
-                <MenuItem Header="_Find path"/>
-                <MenuItem Header="_Find by name"/>
+                <MenuItem Header="_Find by file name" x:Name="FindName__item" Click="FindName__item_Click"/>
             </MenuItem>
             <MenuItem Header="_Debug">
                 <MenuItem Header="Logs type">                    

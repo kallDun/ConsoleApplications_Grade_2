@@ -68,6 +68,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Classes\Views\Dialog\PromptDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Classes\Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -101,6 +105,9 @@
       <DependentUpon>PasteDialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Operations\Actions\ReplaceActions.cs" />
+    <Compile Include="Classes\Views\Dialog\PromptDialogWindow.xaml.cs">
+      <DependentUpon>PromptDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

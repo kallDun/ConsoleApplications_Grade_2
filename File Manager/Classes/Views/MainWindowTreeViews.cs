@@ -1,6 +1,7 @@
 ﻿using File_Manager.Classes.Operations;
 using File_Manager.Classes.Operations.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -16,6 +17,44 @@ namespace File_Manager.Classes.Views
         private object dummyNode = null;
 
         private string GetPath() => foldersItem_1_arrow.Visibility == Visibility.Visible ? foldersItem_1_text.Text : foldersItem_2_text.Text;
+        private void OpenOperationResultPathInTree(string path)
+        {
+            bool isRightTree = (bool)ToggleOperationsMenu.IsChecked; // true - right, false - left
+            if (isRightTree)
+            {
+                GenerateRightTree();
+            }
+            else
+                GenerateLeftTree();
+
+            var items = (isRightTree ? foldersItem_2 : foldersItem_1).Items.Cast<TreeViewItem>();
+            var arr = path.Split('\\');
+            var path_ = new string[1] { arr[0] + '\\' }.Concat(arr.Skip(1)).ToArray();
+            OpenFolder(items, path_, 0);
+        }
+
+        private void OpenFolder(IEnumerable<TreeViewItem> items, string[] path, int index)
+        {
+            TreeViewItem founded = null;
+            var r = items.Select(x => x.Header);
+            foreach (var item in items)
+            {
+                if (item.Header.ToString() == path[index])
+                {
+                    founded = item;
+                    break;
+                }
+            }
+            if (founded is null) throw new Exception("Invalid path!");
+            if (index == path.Length - 1)
+            {
+                founded.IsSelected = true;
+                return;
+            }
+            else founded.IsExpanded = true;
+
+            OpenFolder(founded.Items.Cast<TreeViewItem>(), path, ++index);
+        }
 
         private void UpdateTreesPath(string path, bool isPrevious = false)
         {
