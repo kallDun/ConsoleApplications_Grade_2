@@ -93,6 +93,13 @@ namespace File_Manager.Classes.Operations
                 return DirectoryActions.Error;
             }
         }
+
+        public void RenameFile(string new_name, string old_name, string body)
+        {
+            if (new_name == old_name) return;
+            File.Move($"{body}\\{old_name}", $"{body}\\{new_name}");
+        }
+
         public DirectoryActions Delete(string path)
         {
             if (path.IsDrive()) return DirectoryActions.InvalidPath;

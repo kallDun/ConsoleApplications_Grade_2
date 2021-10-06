@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejudge_91_M
+namespace Ejudge_91_N
 {
     class Program
     {
@@ -27,9 +27,9 @@ namespace Ejudge_91_M
                     case "EXTRACT":
                         if (set.Count > 0)
                         {
-                            var max = set.Max;
-                            set.Remove(max);
-                            Console.WriteLine(max.value);
+                            var min = set.Min;
+                            set.Remove(min);
+                            Console.WriteLine(min.value);
                         }
                         else
                         {
@@ -62,5 +62,4 @@ namespace Ejudge_91_M
 
         public override int GetHashCode() => value * 17 + id;
     }
-
 }

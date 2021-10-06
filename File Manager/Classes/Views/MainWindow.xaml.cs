@@ -64,7 +64,25 @@ namespace File_Manager.Classes.Views
                 fileOperations.Create(path);
             }
         }
-        
+        private void RenameFile()
+        {
+            var file = GetPath();
+            if (string.IsNullOrEmpty(file) || !file.IsFile()) return;
+
+            var arr = file.Split('\\');
+            var body = string.Join("\\", arr.Take(arr.Length - 1));
+            var old_name = arr.Last();
+
+            PromptDialogWindow dialogWindow = new($"Rename '{old_name}' file");
+            dialogWindow.ShowDialog();
+            if (dialogWindow.IsOk)
+            {
+                var new_name = dialogWindow.ResponseText;
+                fileOperations.RenameFile(new_name, old_name, body);
+                UpdateTreesPath(body);
+            }
+        }
+
         // MAIN 6 BUTTONS
         private void Copy_Button_Click(object sender, RoutedEventArgs e) => fileOperations.Copy(GetPath());
         private async void Paste_Button_Click(object sender, RoutedEventArgs e) 
@@ -162,22 +180,7 @@ namespace File_Manager.Classes.Views
             {
                 case Key.F2:
                     // RENAME
-                    var file = GetPath();
-                    if (string.IsNullOrEmpty(file) || !file.IsFile()) return;
-
-                    var arr = file.Split('\\');
-                    var first_part_path = string.Join("\\", arr.Take(arr.Length - 1));
-                    var name = arr.Last();
-
-                    PromptDialogWindow dialogWindow = new($"Rename '{name}' file");
-                    dialogWindow.ShowDialog();
-                    if (dialogWindow.IsOk)
-                    {
-                        var new_name = dialogWindow.ResponseText;
-                        if (new_name == name) return;
-                        File.Move(file, $"{first_part_path}\\{new_name}");
-                        UpdateTreesPath(first_part_path);
-                    }
+                    RenameFile();
                     break;
                 case Key.F3:
                     Copy_Button_Click(null, null);

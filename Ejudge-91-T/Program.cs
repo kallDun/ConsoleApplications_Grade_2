@@ -32,7 +32,7 @@ namespace Ejudge_91_T
                                 Console.WriteLine($"{key} is already in cell {result.value}");
                                 break;
                             case Replaced:
-                                Console.WriteLine($"{key} was in cell {result.old_value} but now has been moved to {result.value}");
+                                Console.WriteLine($"{key} was in cell {result.old_value} but now has been moved to cell {result.value}");
                                 break;
                             case Overflowed:
                                 Console.WriteLine($"hash table overflow");
@@ -114,13 +114,13 @@ namespace Ejudge_91_T
         BoolWrapper<KeyValuePair<int, V>> Search(T key);
     }
 
-    class HashSet<T, V> : ISet<T, V> where T : IComparable<T> where V : IComparable<V>
+    class HashSet<T, V> : ISet<T, V> where T : IComparable<T>
     {
         private const int cells_count = 2017;
 
         private SortedSet<int> elements = new SortedSet<int>();
         private CellWrapper<Pair<T, V>>[] cells = new CellWrapper<Pair<T, V>>[cells_count];
-        public int Count { get => elements.Count; }
+        public int Count { get { return elements.Count; } }
         
         public Dictionary<int, Pair<T, V>> Print()
         {
@@ -136,34 +136,42 @@ namespace Ejudge_91_T
         {
             if (elements.Count == cells_count) return new AddOperationWrapper<int> { key = Overflowed };
 
-            var can_add = FindCell(key, out int cell, out List<int> deleted);
-            
+            int cell;
+            List<int> deleted;
+            var can_add = FindCell(key, out cell, out deleted);
+
             if (can_add == false)
             {
-                if (cells[cell].Value.Value.CompareTo(value) == 0)
-                {
+                Delete(cell);
+                int new_cell_;
+                FindAnyCell(key, out new_cell_);
+                Add(key, value, new_cell_);
+
+                if (cell == new_cell_)
                     return new AddOperationWrapper<int> { key = Already, value = cell };
-                }
                 else
-                {
-                    Delete(cell);
-                    var wrapper = Add(key, value);
-                    return new AddOperationWrapper<int> { key = Replaced, value = wrapper.value, old_value = cell };
-                }                
+                    return new AddOperationWrapper<int> { key = Replaced, value = new_cell_, old_value = cell };
             }
 
             if (can_add == null) cell = deleted.First();
-
-            cells[cell] = new CellWrapper<Pair<T, V>> { Prop = Normal, Value = new Pair<T, V>(key, value) };
-            elements.Add(cell);
+            Add(key, value, cell);
             return new AddOperationWrapper<int> { key = Successful, value = cell };
         }
-        
+
+        private void Add(T key, V value, int cell)
+        {
+            cells[cell] = new CellWrapper<Pair<T, V>> { Prop = Normal, Value = new Pair<T, V>(key, value) };
+            elements.Add(cell);
+        }
+
         public BoolWrapper<int> Delete(T key)
         {
-            var contains = FindCell(key, out int cell, out List<int> deleted) == false;
+            int cell;
+            List<int> deleted;
+            var contains = FindCell(key, out cell, out deleted) == false;
             if (!contains) return new BoolWrapper<int> { key = false };
-            
+
+            Delete(cell);
             return new BoolWrapper<int> { key = true, value = cell };
         }
         private void Delete(int cell)
@@ -173,9 +181,11 @@ namespace Ejudge_91_T
             cells[cell].Value = null;
         }
         
-        public BoolWrapper<KeyValuePair<int, V>> Search(T key) 
+        public BoolWrapper<KeyValuePair<int, V>> Search(T key)
         {
-            var find_res = FindCell(key, out int cell, out List<int> deleted);
+            int cell;
+            List<int> deleted;
+            var find_res = FindCell(key, out cell, out deleted);
             var wrapper = new BoolWrapper<KeyValuePair<int, V>> { key = (find_res == false) };
             if (wrapper.key)
             {
@@ -183,6 +193,27 @@ namespace Ejudge_91_T
                 wrapper.value = value;
             }
             return wrapper;
+        }
+
+        private bool FindAnyCell(T key, out int cell)
+        {
+            var main = MainHashFunc(key);
+            cell = main;
+
+            if (cells[cell].Prop == Normal)
+            {
+                if (cells[cell].Value.Key.CompareTo(key) == 0) return false;
+                var secondary = SecondaryHashFunc(key);
+                cell = GetNextCell(main, secondary);
+
+                while (cells[cell].Prop != Empty)
+                {
+                    if (cells[cell].Value.Key.CompareTo(key) == 0) return false;
+                    cell = GetNextCell(main, cell);
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -201,7 +232,7 @@ namespace Ejudge_91_T
             if (cells[cell].Prop != Empty)
             {
                 if (cells[cell].Prop == Deleted) deleted.Add(cell);
-                if (cells[cell].Value.Key.CompareTo(key) == 0) return false;
+                else if (cells[cell].Value.Key.CompareTo(key) == 0) return false;
 
                 var secondary = SecondaryHashFunc(key);
                 cell = GetNextCell(main, secondary);
@@ -209,8 +240,10 @@ namespace Ejudge_91_T
                 while (cells[cell].Prop != Empty)
                 {
                     if (cell == main) return null;
+
                     if (cells[cell].Prop == Deleted) deleted.Add(cell);
-                    else if (cells[cell].Value.Key.CompareTo(key) == 0) return false;
+                    else if (cells[cell].Value.Key.CompareTo(key) == 0) return false;                    
+                    
                     cell = GetNextCell(main, cell);
                 }
             }
