@@ -45,16 +45,13 @@ namespace Lab_3__Part_1.Classes
         public void ReturnResultInFiles()
         {
             var NoFileText = string.Join("\n", NoFile_List.Select(x => x.PATH));
-            File.Create($"{OutputDirectoryPATH}\\{NoFilePATH}").Close();
-            File.AppendAllText($"{OutputDirectoryPATH}\\{NoFilePATH}", NoFileText);
+            File.WriteAllText($"{OutputDirectoryPATH}\\{NoFilePATH}", NoFileText);
 
             var BadDataText = string.Join("\n", BadData_List.Select(x => x.PATH));
-            File.Create($"{OutputDirectoryPATH}\\{BadDataPATH}").Close();
-            File.AppendAllText($"{OutputDirectoryPATH}\\{BadDataPATH}", BadDataText);
+            File.WriteAllText($"{OutputDirectoryPATH}\\{BadDataPATH}", BadDataText);
 
             var OverflowText = string.Join("\n", Overflow_List.Select(x => x.PATH));
-            File.Create($"{OutputDirectoryPATH}\\{OverflowPATH}").Close();
-            File.AppendAllText($"{OutputDirectoryPATH}\\{OverflowPATH}", OverflowText);
+            File.WriteAllText($"{OutputDirectoryPATH}\\{OverflowPATH}", OverflowText);
         }
 
     }

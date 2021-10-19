@@ -72,6 +72,7 @@ namespace Ejudge_91_T
         }
     }
 
+
     struct BoolWrapper<T>
     {
         public bool key;
@@ -118,57 +119,70 @@ namespace Ejudge_91_T
     {
         private const int cells_count = 2017;
 
-        private SortedSet<int> elements = new SortedSet<int>();
+        public int Count { get; private set; } = 0;
         private CellWrapper<Pair<T, V>>[] cells = new CellWrapper<Pair<T, V>>[cells_count];
-        public int Count { get { return elements.Count; } }
-        
+
         public Dictionary<int, Pair<T, V>> Print()
         {
             var dict = new Dictionary<int, Pair<T, V>>();
-            foreach (var item in elements)
+            for (int cell = 0; cell < cells_count; cell++)
             {
-                dict.Add(item, cells[item].Value);
+                if (cells[cell].Prop == Normal)
+                {
+                    dict.Add(cell, cells[cell].Value);
+                }
             }
             return dict;
         }
         
         public AddOperationWrapper<int> Add(T key, V value)
         {
-            if (elements.Count == cells_count) return new AddOperationWrapper<int> { key = Overflowed };
+            if (Count == cells_count) return new AddOperationWrapper<int> { key = Overflowed };
 
             int cell;
             List<int> deleted;
-            var can_add = FindCell(key, out cell, out deleted);
+            var exist = !FindCell(key, out cell, out deleted);
 
-            if (can_add == false)
+            if (exist)
             {
-                Delete(cell);
-                int new_cell_;
-                FindAnyCell(key, out new_cell_);
-                Add(key, value, new_cell_);
-
-                if (cell == new_cell_)
+                if (deleted.Count == 0)
+                {
+                    cells[cell].Value.Value = value;
                     return new AddOperationWrapper<int> { key = Already, value = cell };
+                }                    
                 else
-                    return new AddOperationWrapper<int> { key = Replaced, value = new_cell_, old_value = cell };
+                {
+                    Delete(cell);
+                    Add(key, value, deleted[0]);
+                    return new AddOperationWrapper<int> { key = Replaced, value = deleted[0], old_value = cell };
+                }
             }
-
-            if (can_add == null) cell = deleted.First();
-            Add(key, value, cell);
-            return new AddOperationWrapper<int> { key = Successful, value = cell };
+            else
+            {
+                if (deleted.Count == 0)
+                {
+                    Add(key, value, cell);
+                    return new AddOperationWrapper<int> { key = Successful, value = cell };
+                }
+                else
+                {
+                    Add(key, value, deleted[0]);
+                    return new AddOperationWrapper<int> { key = Successful, value = deleted[0] };
+                }
+            }            
         }
-
         private void Add(T key, V value, int cell)
         {
             cells[cell] = new CellWrapper<Pair<T, V>> { Prop = Normal, Value = new Pair<T, V>(key, value) };
-            elements.Add(cell);
+            Count++;
         }
 
         public BoolWrapper<int> Delete(T key)
         {
             int cell;
             List<int> deleted;
-            var contains = FindCell(key, out cell, out deleted) == false;
+            var contains = !FindCell(key, out cell, out deleted);
+
             if (!contains) return new BoolWrapper<int> { key = false };
 
             Delete(cell);
@@ -176,7 +190,7 @@ namespace Ejudge_91_T
         }
         private void Delete(int cell)
         {
-            elements.Remove(cell);
+            Count--;
             cells[cell].Prop = Deleted;
             cells[cell].Value = null;
         }
@@ -185,45 +199,24 @@ namespace Ejudge_91_T
         {
             int cell;
             List<int> deleted;
-            var find_res = FindCell(key, out cell, out deleted);
-            var wrapper = new BoolWrapper<KeyValuePair<int, V>> { key = (find_res == false) };
-            if (wrapper.key)
+            var contains = !FindCell(key, out cell, out deleted);
+
+            var wrapper = new BoolWrapper<KeyValuePair<int, V>> { key = contains };
+            if (contains)
             {
-                var value = new KeyValuePair<int, V>(cell, cells[cell].Value.Value);
-                wrapper.value = value;
+                wrapper.value = new KeyValuePair<int, V>(cell, cells[cell].Value.Value); ;
             }
             return wrapper;
         }
 
-        private bool FindAnyCell(T key, out int cell)
-        {
-            var main = MainHashFunc(key);
-            cell = main;
-
-            if (cells[cell].Prop == Normal)
-            {
-                if (cells[cell].Value.Key.CompareTo(key) == 0) return false;
-                var secondary = SecondaryHashFunc(key);
-                cell = GetNextCell(main, secondary);
-
-                while (cells[cell].Prop != Empty)
-                {
-                    if (cells[cell].Value.Key.CompareTo(key) == 0) return false;
-                    cell = GetNextCell(main, cell);
-                }
-            }
-
-            return true;
-        }
-
         /// <summary>
-        /// Return false when hash table already contains key
-        /// return null when we went through the loop
+        /// return false if key contains and true is empty cell succesfully added
         /// </summary>
         /// <param name="key"></param>
         /// <param name="cell"></param>
+        /// <param name="deleted"></param>
         /// <returns></returns>
-        private bool? FindCell(T key, out int cell, out List<int> deleted)
+        private bool FindCell(T key, out int cell, out List<int> deleted)
         {
             deleted = new List<int>();
             var main = MainHashFunc(key);
@@ -239,12 +232,10 @@ namespace Ejudge_91_T
 
                 while (cells[cell].Prop != Empty)
                 {
-                    if (cell == main) return null;
-
                     if (cells[cell].Prop == Deleted) deleted.Add(cell);
-                    else if (cells[cell].Value.Key.CompareTo(key) == 0) return false;                    
-                    
-                    cell = GetNextCell(main, cell);
+                    else if (cells[cell].Value.Key.CompareTo(key) == 0) return false;
+
+                    cell = GetNextCell(cell, secondary);
                 }
             }
 
