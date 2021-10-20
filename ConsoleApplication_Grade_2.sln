@@ -65,6 +65,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_3__Part_1", "Lab_3__Par
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_3__Part_2", "Lab_3__Part_2\Lab_3__Part_2.csproj", "{B676FC0F-1D42-4685-93A5-9B25267757B3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CinemaBooking", "CinemaBooking", "{742CF2F1-2D59-4C20-996E-8F3858D2A1B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema Booking System", "Cinema Booking System\Cinema Booking System.csproj", "{7731FD57-4058-4748-A002-270D5A15AD02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +171,10 @@ Global
 		{B676FC0F-1D42-4685-93A5-9B25267757B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B676FC0F-1D42-4685-93A5-9B25267757B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B676FC0F-1D42-4685-93A5-9B25267757B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7731FD57-4058-4748-A002-270D5A15AD02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7731FD57-4058-4748-A002-270D5A15AD02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7731FD57-4058-4748-A002-270D5A15AD02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7731FD57-4058-4748-A002-270D5A15AD02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -195,6 +203,7 @@ Global
 		{0FACDCFD-053F-4EB2-83E8-53566169A9C8} = {23A8341B-13F2-4D64-942F-0D2F4D289524}
 		{B3EA9B33-839C-4BA3-B9E6-0268D404A466} = {7AC2CCC4-7D33-4B81-80E6-BB856169D9EC}
 		{B676FC0F-1D42-4685-93A5-9B25267757B3} = {7AC2CCC4-7D33-4B81-80E6-BB856169D9EC}
+		{7731FD57-4058-4748-A002-270D5A15AD02} = {742CF2F1-2D59-4C20-996E-8F3858D2A1B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33D460CD-8598-4DE8-BEFA-A60312C5E7E4}
