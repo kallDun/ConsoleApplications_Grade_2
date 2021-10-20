@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Cinema_Booking_System.Classes
 {
@@ -8,7 +9,7 @@ namespace Cinema_Booking_System.Classes
     {
         public event Action OnChanged;
 
-        public string MovieName { get; set; }
+        public string Name { get; set; }
         public DateTime Time { get; set; }
 
         private List<Place> places;
@@ -18,10 +19,21 @@ namespace Cinema_Booking_System.Classes
         public int ReservedSeats { get; private set; }
         public double TotalValue { get; private set; }
 
-        public Hall(List<Place> places)
+        public Place SelectedPlace { get; private set; }
+        public void SetCurrentPlace(Place place)
+        {
+            if (places.Contains(place)) SelectedPlace = place;
+        }
+
+        public Point ScreenPosition { get; private set; }
+        public int ScreenSizeInPlaces { get; private set; }
+
+        public Hall(List<Place> places, Point screenPosition, int screenSizeInPlaces)
         {
             this.places = places;
-            places.ForEach(place => place.OnChanged += OnChanged.Invoke);
+            ScreenPosition = screenPosition;
+            ScreenSizeInPlaces = screenSizeInPlaces;
+            places.ForEach(place => place.OnChanged += () => OnChanged?.Invoke());
             OnChanged += ChangeInfo;
         }
 

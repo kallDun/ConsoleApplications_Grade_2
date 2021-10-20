@@ -8,7 +8,11 @@ namespace Cinema_Booking_System.Classes
 {
     class CinemaSystem
     {
-        public List<Hall> halls { get; private set; } = new List<Hall>();
+        private List<Hall> halls = new List<Hall>();
+        public Hall SelectedHall { get; private set; }
+        public List<string> HallNames => halls.Select(x => x.Name).ToList();
+
+        public void SetCurrentHall(string name) => SelectedHall = halls.FirstOrDefault(x => x.Name == name);
         public void AddHall(Hall hall) => halls.Add(hall);
         public void RemoveHall(Hall hall) => halls.Remove(hall);
     }

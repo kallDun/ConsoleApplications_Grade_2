@@ -3,13 +3,66 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cinema_Booking_System"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{DynamicResource MaterialDesignPaper}"
+        mc:Ignorable="d" Title="Cinema Booking App"
+        Loaded="Window_Loaded"
+        Height="450" Width="800" MinHeight="500" MinWidth="850" ResizeMode="CanMinimize">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
+
+        </Grid>
+
+        <Rectangle Width="2" HorizontalAlignment="Right" Stroke="Black" Fill="Black"/>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="nav_buttons" Orientation="Horizontal">
+                <Button Content="Hall Viewer" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" 
+                        Margin="5, 0" x:Name="nav_button_hallViewer" Click="nav_button_hallViewer_Click"/>
+                <Button Content="Reservation List" Style="{DynamicResource MaterialDesignFlatAccentButton}" 
+                        Margin="5, 0" x:Name="nav_button_reservationList" Click="nav_button_reservationList_Click"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1" x:Name="HallViewer">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" x:Name="ViewerField"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 0, 0, 15"
+                            x:Name="viewer_control_stackpanel">
+                    <TextBox Width="200" Height="22" Style="{DynamicResource MaterialDesignTextBoxBase}" Foreground="GhostWhite"
+                             VerticalAlignment="Bottom" materialDesign:HintAssist.Hint="Write your name here" x:Name="viewer_control_name_textbox"/>
+                    <Button Style="{DynamicResource MaterialDesignOutlinedButton}" Content="Reserve" Margin="10, 0" Width="120"
+                            x:Name="viewer_control_reserve_but" Click="viewer_control_reserve_but_Click"/>
+                    <Button Style="{DynamicResource MaterialDesignOutlinedButton}" Content="Cancel" Margin="10, 0" Width="120"
+                            x:Name="viewer_control_cancel_but" Click="viewer_control_cancel_but_Click"/>
+                    <TextBox Text="Cost: $$$" Style="{DynamicResource MaterialDesignDataGridTextColumnEditingStyle}"
+                             x:Name="viewer_control_cost_textbox" IsReadOnly="True" Height="22" Width="70" TextAlignment="Center"
+                             VerticalAlignment="Bottom" Margin="1" Foreground="Yellow"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1" x:Name="ReservationList">
+                
+            </Grid>
+        </Grid>
     </Grid>
-    <Window.Resources>
-        <ResourceDictionary Source="Resources/MainWindow.xaml"/>
-    </Window.Resources>
 </Window>

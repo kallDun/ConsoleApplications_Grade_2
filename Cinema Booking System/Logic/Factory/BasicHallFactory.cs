@@ -10,26 +10,22 @@ namespace Cinema_Booking_System.Classes.Factory
             var places = new List<Place>();
             int number = 1;
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 7; i++)
             {
                 for (int j = 2; j < 10; j++)
                 {
-                    places.Add(new Place(new Point(i, j), number++, basic_cost));
+                    places.Add(new Place(new Point(j, i), number++, basic_cost));
                 }
             }
-            for (int i = 9; i < 12; i++)
+            for (int i = 7; i < 10; i++)
             {
-                for (int j = 0; j < 2; j++)
+                for (int j = 0; j < 12; j++)
                 {
-                    places.Add(new Place(new Point(i, j), number++, premium_cost));
-                }
-                for (int j = 10; j < 12; j++)
-                {
-                    places.Add(new Place(new Point(i, j), number++, premium_cost));
+                    places.Add(new Place(new Point(j, i), number++, premium_cost));
                 }
             }
 
-            return new Hall(places);
+            return new Hall(places, new Point(2, 0), 8);
         }
     }
 }
