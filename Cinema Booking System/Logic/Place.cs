@@ -43,5 +43,12 @@ namespace Cinema_Booking_System.Classes
             return true;
         }
 
+        public bool SetPlaceUnavailable()
+        {
+            if (status == PlaceStatus.Reserved) return false;
+            status = PlaceStatus.Unavailable;
+            return true;
+        }
+
     }
 }

@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="Logic\CinemaSystem.cs" />
     <Compile Include="Logic\Factory\BasicHallFactory.cs" />
+    <Compile Include="Logic\Factory\PremiumHallFactory.cs" />
     <Compile Include="Logic\Factory\HallFactory.cs" />
     <Compile Include="Logic\Hall.cs" />
     <Compile Include="Logic\Person.cs" />

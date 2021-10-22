@@ -10,7 +10,7 @@ namespace Cinema_Booking_System.Classes
     {
         private List<Hall> halls = new List<Hall>();
         public Hall SelectedHall { get; private set; }
-        public List<string> HallNames => halls.Select(x => x.Name).ToList();
+        public List<Hall> Halls => halls;
 
         public void SetCurrentHall(string name) => SelectedHall = halls.FirstOrDefault(x => x.Name == name);
         public void AddHall(Hall hall) => halls.Add(hall);

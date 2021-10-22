@@ -35,13 +35,14 @@ namespace Cinema_Booking_System.Classes
             ScreenSizeInPlaces = screenSizeInPlaces;
             places.ForEach(place => place.OnChanged += () => OnChanged?.Invoke());
             OnChanged += ChangeInfo;
+            ChangeInfo();
         }
 
         private void ChangeInfo()
         {
             VacantSeats = Places.Where(x => x.Status == PlaceStatus.Vacant).Count();
             ReservedSeats = Places.Where(x => x.Status == PlaceStatus.Reserved).Count();
-            TotalValue = Places.Select(x => x.Cost).Sum();
+            TotalValue = Places.Where(x => x.Status == PlaceStatus.Reserved).Select(x => x.Cost).Sum();
         }
 
     }

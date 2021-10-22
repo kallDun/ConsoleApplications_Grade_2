@@ -1,5 +1,6 @@
 ﻿using Cinema_Booking_System.Classes;
 using Cinema_Booking_System.Classes.Factory;
+using Cinema_Booking_System.Logic.Factory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,18 +29,49 @@ namespace Cinema_Booking_System
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             cinemaSystem = new CinemaSystem();
-            HallFactory hallFactory = new BasicHallFactory();
-            var hall = hallFactory.CreateHall(5.5, 6.75);
-            hall.Name = "Basic hall";
-            hall.Time = new DateTime(2021, 11, 01, 17, 0, 0);
-            cinemaSystem.AddHall(hall);
-            cinemaSystem.SetCurrentHall("Basic hall");
+            HallFactory basicHallFactory = new BasicHallFactory(), 
+                premiumHallFactory = new PremiumHallFactory();
+            var basic_hall = basicHallFactory.CreateHall(5.5, 6.75);
+            basic_hall.Name = "BasicHall";
+            basic_hall.Time = new DateTime(2021, 11, 01, 17, 0, 0);
+            cinemaSystem.AddHall(basic_hall);
+
+            var premium_hall = premiumHallFactory.CreateHall(8, 8);
+            premium_hall.Name = "PremiumHall";
+            premium_hall.Time = new DateTime(2021, 11, 02, 21, 30, 0);
+            cinemaSystem.AddHall(premium_hall);
+
+            cinemaSystem.SetCurrentHall("BasicHall");
+            HallListBox.ItemsSource = cinemaSystem.Halls.Select(x => new ListBoxItem { Content = $"{x.Name} - {x.Time}", Tag = x.Name });
+            HallListBox.SelectedItem = HallListBox.Items.Cast<ListBoxItem>().First(x => x.Tag.ToString() == "BasicHall");
+            foreach (var item in HallListBox.Items.Cast<ListBoxItem>()) item.Selected += ListBoxItem_Selected;
+
             ShowHallViewer();
+            init__data_field();
+        }
+
+        private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            cinemaSystem.SetCurrentHall((sender as ListBoxItem).Tag.ToString());
+            UpdateView();
+        }
+
+        private void UpdateView()
+        {
+            if (HallViewerDisplay)
+            {
+                ShowHallViewer();
+            }
+            else
+            {
+                ShowReservationList();
+            }
+            init__data_field();
         }
 
         // hall viewer
 
-        private double left_offset = 135, top_offset = 25, place_size = 20, margin = 5, screen_height = 35;
+        private double left_offset = 135, top_offset = 25, place_size = 20, margin = 5, screen_height = 35; // all in px
         private void ShowHallViewer()
         {
             ViewerField.Children.Clear();
@@ -75,8 +107,7 @@ namespace Cinema_Booking_System
                 button.Click += (s, e) =>
                 {
                     var place_ = place;
-                    viewer_control_reserve_but.IsEnabled = place_.Status == PlaceStatus.Vacant;
-                    viewer_control_cancel_but.IsEnabled = place_.Status == PlaceStatus.Reserved;
+                    SetButtonEnabledByPlace(place_);
                     viewer_control_cost_textbox.Text = $"Cost: {place_.Cost}$";
 
                     if (cinemaSystem.SelectedHall.SelectedPlace != null) SetButtonColorByProp(cinemaSystem.SelectedHall.SelectedPlace, false);
@@ -90,10 +121,17 @@ namespace Cinema_Booking_System
 
             if (cinemaSystem.SelectedHall.SelectedPlace != null)
             {
+                SetButtonEnabledByPlace(cinemaSystem.SelectedHall.SelectedPlace);
+                viewer_control_cost_textbox.Text = $"Cost: {cinemaSystem.SelectedHall.SelectedPlace.Cost}$";
                 SetButtonColorByProp(cinemaSystem.SelectedHall.SelectedPlace, true);
                 viewer_control_stackpanel.Visibility = Visibility.Visible;
             }
             else viewer_control_stackpanel.Visibility = Visibility.Hidden;
+        }
+        private void SetButtonEnabledByPlace(Place place_)
+        {
+            viewer_control_reserve_but.IsEnabled = place_.Status == PlaceStatus.Vacant;
+            viewer_control_cancel_but.IsEnabled = place_.Status == PlaceStatus.Reserved;
         }
         private void SetButtonColorByProp(Place place, Button button, bool IsSelected)
         {
@@ -137,7 +175,7 @@ namespace Cinema_Booking_System
             if (person is null) return;
             if (cinemaSystem.SelectedHall.SelectedPlace?.TryToReservePlace(person) == true)
             {
-                ShowHallViewer();
+                SetButtonEnabledByPlace(cinemaSystem.SelectedHall.SelectedPlace);
             }
         }
         private void viewer_control_cancel_but_Click(object sender, RoutedEventArgs e)
@@ -146,17 +184,21 @@ namespace Cinema_Booking_System
             if (person is null) return;
             if (cinemaSystem.SelectedHall.SelectedPlace?.TryToDenyReserve(person) == true)
             {
-                ShowHallViewer();
+                SetButtonEnabledByPlace(cinemaSystem.SelectedHall.SelectedPlace);
             }
         }
 
         // nav buttons
+
+        private bool HallViewerDisplay = true;
         private void nav_button_reservationList_Click(object sender, RoutedEventArgs e)
         {
             nav_button_reservationList.Style = FindResource("MaterialDesignFlatAccentBgButton") as Style;
             nav_button_hallViewer.Style = FindResource("MaterialDesignFlatAccentButton") as Style;
             HallViewer.Visibility = Visibility.Hidden;
             ReservationList.Visibility = Visibility.Visible;
+            HallViewerDisplay = false;
+            ShowReservationList();
         }
         private void nav_button_hallViewer_Click(object sender, RoutedEventArgs e)
         {
@@ -164,9 +206,29 @@ namespace Cinema_Booking_System
             nav_button_reservationList.Style = FindResource("MaterialDesignFlatAccentButton") as Style;
             HallViewer.Visibility = Visibility.Visible;
             ReservationList.Visibility = Visibility.Hidden;
+            HallViewerDisplay = true;
             ShowHallViewer();
         }
 
+        // data
+        private void init__data_field()
+        {
+            ChangeDataField();
+            cinemaSystem.SelectedHall.OnChanged += ChangeDataField;
+        }
+        private void ChangeDataField()
+        {
+            data__seats_textbox.Text = cinemaSystem.SelectedHall?.Seats.ToString();
+            data__vacant_seats_textbox.Text = cinemaSystem.SelectedHall?.VacantSeats.ToString();
+            data__reserved_seats_textbox.Text = cinemaSystem.SelectedHall?.ReservedSeats.ToString();
+            data__total_value_textbox.Text = $"{cinemaSystem.SelectedHall?.TotalValue}$";
+        }
+
+        // reservation list
+        private void ShowReservationList()
+        {
+
+        }
 
     }
 }
