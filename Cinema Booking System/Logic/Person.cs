@@ -20,5 +20,7 @@ namespace Cinema_Booking_System.Classes
             if (Name == other.Name && Surname == other.Surname) return 0;
             return -1;
         }
+
+        public override string ToString() => $"{Name} {Surname}";
     }
 }

@@ -88,8 +88,8 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Row="1" x:Name="ReservationList">
-                
+            <Grid Grid.Row="1" x:Name="ReservationList" Visibility="Hidden">
+                <DataGrid x:Name="ReservationDataGrid"/>
             </Grid>
         </Grid>
     </Grid>

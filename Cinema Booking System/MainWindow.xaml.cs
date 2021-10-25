@@ -227,7 +227,9 @@ namespace Cinema_Booking_System
         // reservation list
         private void ShowReservationList()
         {
-
+            ReservationDataGrid.ItemsSource = cinemaSystem.SelectedHall.Places
+                .Where(x => x.Status == PlaceStatus.Reserved)
+                .Select(x => new { Place = x.Number, Name = x.Person, Cost = $"{x.Cost}$" });
         }
 
     }
