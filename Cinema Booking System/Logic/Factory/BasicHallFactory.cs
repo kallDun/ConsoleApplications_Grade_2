@@ -6,6 +6,8 @@ namespace Cinema_Booking_System.Classes.Factory
 {
     class BasicHallFactory : HallFactory
     {
+        Random random = new Random();
+
         public override Hall CreateHall(double basic_cost, double premium_cost)
         {
             var places = new List<Place>();
