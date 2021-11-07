@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab_4.Classes
 {
-    class ComplexNum : INumber<ComplexNum>
+    public class ComplexNum : INumber<ComplexNum>
     {
         private double re, im;
         public ComplexNum(double re, double im)

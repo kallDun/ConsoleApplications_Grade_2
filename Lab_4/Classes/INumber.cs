@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab_4.Classes
 {
-    interface INumber<T> where T : INumber<T>
+    public interface INumber<T> where T : INumber<T>
     {
         T Add(T number);
         T Subtract(T number);

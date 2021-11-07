@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Lab_4.Classes
 {
-    class FracNum : INumber<FracNum>, IComparable<FracNum>
+    public class FracNum : INumber<FracNum>, IComparable<FracNum>
     {
         private BigInteger nom, denom;
         public FracNum(BigInteger nom, BigInteger denom)
@@ -16,6 +16,8 @@ namespace Lab_4.Classes
             this.nom = nom;
             this.denom = denom;
         }
+
+        public double DoubleValue => Math.Exp(BigInteger.Log(nom) - BigInteger.Log(denom));
 
         public FracNum Add(FracNum number) => new FracNum(
             nom * number.denom + denom * number.nom,
@@ -44,6 +46,5 @@ namespace Lab_4.Classes
         public static FracNum operator -(FracNum first, FracNum second) => first.Subtract(second);
         public static FracNum operator *(FracNum first, FracNum second) => first.Multiply(second);
         public static FracNum operator /(FracNum first, FracNum second) => first.Divide(second);
-
     }
 }
