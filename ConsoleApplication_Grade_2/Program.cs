@@ -11,7 +11,6 @@ namespace ConsoleApplication_Grade_2
         static void Main(string[] args)
         {
 
-
         }
     }
 }
