@@ -13,22 +13,22 @@ namespace MinTriangulationThreads
             Algorythm algorythm = new Algorythm();
             Stopwatch stopwatch = new Stopwatch();
 
-            var verticles = new Generator().GenerateRandomPolygon(18);
+            Console.WriteLine("Polygon count:");
+            var verticles = new Generator().GenerateRandomPolygon(int.Parse(Console.ReadLine()));
 
             stopwatch.Start();
             var weight = algorythm.mTCDP(verticles, verticles.Length);
             stopwatch.Stop();
-            Console.WriteLine($"quickest result weight is {weight}\ntime is {stopwatch.ElapsedMilliseconds}\n");
+            Console.WriteLine($"one-thread result weight is {weight}\ntime is {stopwatch.ElapsedMilliseconds}\n");
 
+            Console.WriteLine("Threads count:");
+            var threads = int.Parse(Console.ReadLine());
             stopwatch.Restart();
-            weight = await algorythm.mTC(verticles, 0, verticles.Length - 1);
-            stopwatch.Stop();
-            Console.WriteLine($"one-thread result weight is {weight}\ntime is {stopwatch.ElapsedMilliseconds}");
-
-            stopwatch.Restart();
-            weight = await algorythm.mTC_multithread(verticles, 0, verticles.Length - 1);
+            weight = await algorythm.mTCDP_MultiThread(verticles, verticles.Length, threads);
             stopwatch.Stop();
             Console.WriteLine($"multi-thread result weight is {weight}\ntime is {stopwatch.ElapsedMilliseconds}");
+
+            Console.ReadKey();
         }
     }
 
@@ -96,6 +96,43 @@ namespace MinTriangulationThreads
                         }
                     }
                 }
+            }
+            return table[0, n - 1];
+        }
+
+        public async Task<double> mTCDP_MultiThread(Point[] points, int n, int threads)
+        {
+            if (n < 3) return 0;
+            double[,] table = new double[n, n];
+
+            for (int gap = 0; gap < n; gap++)
+            {
+                List<Task> tasks = new List<Task>();
+                for (int thread = 0; thread < threads; thread++)
+                {
+                    var gp = n - gap / threads;
+                    var start = gap + gp * thread;
+                    var end = gap + gp * (thread + 1);
+                    if (thread == threads - 1) end = n;
+                    tasks.Add(Task.Run(async () => await Task.Run(() =>
+                    {
+                        for (int i = 0, j = gap; j < n; i++, j++)
+                        {
+                            if (j < i + 2) table[i, j] = 0.0;
+                            else
+                            {
+                                table[i, j] = double.MaxValue;
+
+                                for (int k = i + 1; k < j; k++)
+                                {
+                                    double val = table[i, k] + table[k, j] + GetCost(points, i, j, k);
+                                    if (table[i, j] > val) table[i, j] = val;
+                                }
+                            }
+                        }
+                    })));
+                }
+                await Task.WhenAll(tasks);
             }
             return table[0, n - 1];
         }
