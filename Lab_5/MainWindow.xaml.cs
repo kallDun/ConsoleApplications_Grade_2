@@ -1,4 +1,5 @@
 ﻿using Lab_5.Classes;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +13,7 @@ namespace Lab_5
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Figure figure;
+        private List<Figure> figures = new();
 
         public MainWindow() 
         { 
@@ -36,13 +37,13 @@ namespace Lab_5
                 await Task.Delay(20);
             }
         }
-        private void RenderFrame(DrawingContext dc) => figure?.Draw(dc);
+        private void RenderFrame(DrawingContext dc) => figures.ForEach(x => x?.Draw(dc));
 
         private void Button_Start_Click(object sender, RoutedEventArgs e)
         {
             var init_position = new Point(80, 150);
 
-            figure = (sender as Button).Tag switch
+            Figure figure = (sender as Button).Tag switch
             {
                 "Circle" => new Circle(init_position),
                 "Square" => new Square(init_position),
@@ -52,6 +53,8 @@ namespace Lab_5
 
             figure.Color = Brushes.Black;
             figure.MoveRight();
+
+            figures.Add(figure);
         }
     }
 }
