@@ -1,0 +1,151 @@
+﻿<Window x:Class="Lab_2_1_Calculator.MainWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab_2_1_Calculator"
+        mc:Ignorable="d"
+        Title="Calculator" Height="480" Width="300" MinHeight="425" MinWidth="250"
+        Background="{DynamicResource MaterialDesignLightBackground}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="Calc_Base_Text">
+            <Setter Property="FontFamily" Value="Calibri Light"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Calc_ButtonText_Template"
+               BasedOn="{StaticResource Calc_Base_Text}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="1 0 0 -4"/>
+            <Setter Property="Foreground" Value="DarkSlateGray"/>
+        </Style>
+        <Style TargetType="Button" x:Key="Calc_Button_Template"
+               BasedOn="{StaticResource MaterialDesignOutlinedDarkButton}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="DarkGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Height" Value="Auto"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Calc_MainTextBlock_Template"
+               BasedOn="{StaticResource Calc_Base_Text}">
+            <Setter Property="Foreground" Value="DarkSlateGray"/>
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Calc_AdditionTextBlock_Template"
+               BasedOn="{StaticResource Calc_MainTextBlock_Template}">
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="Foreground" Value="DimGray"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition x:Name="AdditionColumnPanel" Width="0"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="1" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="CE" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="C" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="←" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="1" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="2" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="3" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="4" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="5" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="6" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="7" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="8" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="9" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="5" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="00" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="5" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="0" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="5" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="." Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="÷" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="×" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="-" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="+" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="5" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="=" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="π" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="e" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="√" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="^" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Button Grid.Row="5" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
+            <TextBlock Text="ln" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        </Button>
+        <Grid Grid.ColumnSpan="5">
+            <Button Style="{DynamicResource Calc_Button_Template}" 
+                    Width="46" Height="46" Margin="6"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Click="burger_show_panel_btn_Click">
+                <TextBlock Text="☰" FontSize="18" Style="{DynamicResource Calc_ButtonText_Template}"
+                           x:Name="burger_show_panel_btn_textblock"/>
+            </Button>
+            <TextBlock Height="60" VerticalAlignment="Bottom" Margin="0 0 18 42"
+                     Style="{DynamicResource Calc_AdditionTextBlock_Template}"
+                     Text="552 +"/>
+            <TextBlock Height="60" VerticalAlignment="Bottom" Margin="0 0 5 12.5"
+                     Style="{DynamicResource Calc_MainTextBlock_Template}"
+                     Text="332"/>
+        </Grid>
+    </Grid>
+</Window>

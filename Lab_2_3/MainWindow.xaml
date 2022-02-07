@@ -1,0 +1,61 @@
+﻿<Window x:Class="Lab_2_3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab_2_3"
+        mc:Ignorable="d"
+        Title="Horse Racing" Height="720" Width="1280">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <DataGrid Background="White" x:Name="Info_Grid" ItemsSource="{Binding Horses}">
+
+            </DataGrid>
+        </Grid>
+        <Border Grid.Column="1" BorderThickness="3 0 0 0" BorderBrush="DimGray">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+
+
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 15">
+                        <Button Width="150" Height="40" Foreground="White" BorderBrush="#FFFF6000" Background="White">
+                            <TextBlock Text="Start" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
+                        </Button>
+                        <ComboBox Width="50" Height="40" BorderBrush="White" Foreground="White" Margin="10 0 0 0">
+                            <ComboBox.Background>
+                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                    <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                    <GradientStop Color="White" Offset="1"/>
+                                </LinearGradientBrush>
+                            </ComboBox.Background>
+                            <ComboBoxItem>
+                                <TextBlock Text="4" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock Text="5" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock Text="6" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>                    
+                </Grid>
+                <Border Grid.Row="1" BorderThickness="0 3 0 0" BorderBrush="DimGray">
+                    <Grid>
+
+                    </Grid>
+                </Border>
+                <GridSplitter Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="3" Width="100" ResizeDirection="Rows"/>
+            </Grid>
+        </Border>
+        <GridSplitter Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="left" Height="100" Width="3" ResizeDirection="Columns"/>
+    </Grid>
+</Window>
