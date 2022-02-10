@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Logic\Calculator.cs" />
     <Compile Include="Logic\ClientInterface.cs" />
+    <Compile Include="Logic\Commands\LogCommand.cs" />
     <Compile Include="Logic\Commands\PlusCommand.cs" />
     <Compile Include="Logic\Commands\DivideCommand.cs" />
     <Compile Include="Logic\Commands\MultiplyCommand.cs" />

@@ -9,5 +9,7 @@
         void Divide(double num);
         void Root(double num);
         void Power(double num);
+        void Log(double num);
+        void ReversePower(double num);
     }
 }

@@ -75,6 +75,9 @@ namespace Lab_2_1_Calculator
                 case "Power":
                     client.Power(number);
                     break;
+                case "Log":
+                    client.Log(number);
+                    break;
                 case "Equals":
                     client.Equals(number);
                     break;

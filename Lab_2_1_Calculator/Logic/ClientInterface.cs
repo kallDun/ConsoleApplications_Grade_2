@@ -1,4 +1,5 @@
 ﻿using Lab_2_1_Calculator.Logic.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace Lab_2_1_Calculator.Logic
@@ -23,6 +24,7 @@ namespace Lab_2_1_Calculator.Logic
                     "DivideCommand" => "/",
                     "RootCommand" => "√",
                     "PowerCommand" => "^",
+                    "LogCommand" => "log",
                     _ => "err"
                 };
                 return cmd_txt;
@@ -34,6 +36,7 @@ namespace Lab_2_1_Calculator.Logic
         public void Divide(double number) => ExecuteCommandAndSetNew(number, new DivideCommand(calculator));
         public void Power(double number) => ExecuteCommandAndSetNew(number, new PowerCommand(calculator));
         public void Root(double number) => ExecuteCommandAndSetNew(number, new RootCommand(calculator));
+        public void Log(double number) => ExecuteCommandAndSetNew(number, new LogCommand(calculator));
         public void Equals(double number) => ExecuteCommandAndSetNew(number, null);
         public void ClearAll()
         {

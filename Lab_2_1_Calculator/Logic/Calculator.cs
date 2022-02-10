@@ -11,5 +11,7 @@ namespace Lab_2_1_Calculator.Logic
         public void Power(double num) => Number = Math.Pow(Number, num);
         public void Root(double num) => Number = Math.Pow(Number, 1.0 / num);
         public void Subtract(double num) => Number -= num;
+        public void Log(double num) => Number = Math.Log(Number, num);
+        public void ReversePower(double num) => Number = Math.Pow(num, Number);
     }
 }

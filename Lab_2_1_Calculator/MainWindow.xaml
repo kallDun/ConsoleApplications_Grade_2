@@ -153,8 +153,9 @@
                 Click="Button_Operation_Click" Tag="Power">
             <TextBlock Text="^" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="5" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
-            <TextBlock Text="ln" Style="{DynamicResource Calc_ButtonText_Template}"/>
+        <Button Grid.Row="5" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Operation_Click" Tag="Log">
+            <TextBlock Text="lg" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
         <Grid Grid.ColumnSpan="5">
             <Button Style="{DynamicResource Calc_Button_Template}" 
