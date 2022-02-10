@@ -57,64 +57,84 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="1" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="1" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}"
+                Click="CE_Button_Click">
             <TextBlock Text="CE" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="1" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="1" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}"
+                Click="C_Button_Click">
             <TextBlock Text="C" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="1" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="1" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}"
+                Click="Backspace_Button_Click">
             <TextBlock Text="←" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="4" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="4" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="1" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="4" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="4" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="2" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="4" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="4" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="3" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="3" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="3" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="4" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="3" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="3" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="5" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="3" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="3" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="6" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="2" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="2" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="7" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="2" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="2" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="8" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="2" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="2" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="9" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="5" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="5" Grid.Column="0" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="00" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="5" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="5" Grid.Column="1" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="0" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="5" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="5" Grid.Column="2" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Number_Click">
             <TextBlock Text="." Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="1" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="1" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Operation_Click" Tag="Divide">
             <TextBlock Text="÷" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="2" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="2" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Operation_Click" Tag="Multiply">
             <TextBlock Text="×" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="3" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="3" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Operation_Click" Tag="Subtract">
             <TextBlock Text="-" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="4" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="4" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Operation_Click" Tag="Plus">
             <TextBlock Text="+" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="5" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="5" Grid.Column="3" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Operation_Click" Tag="Equals">
             <TextBlock Text="=" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
         <Button Grid.Row="1" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
@@ -142,10 +162,10 @@
             </Button>
             <TextBlock Height="60" VerticalAlignment="Bottom" Margin="0 0 18 42"
                      Style="{DynamicResource Calc_AdditionTextBlock_Template}"
-                     Text="552 +"/>
+                     Text="" x:Name="Operation_TextBlock"/>
             <TextBlock Height="60" VerticalAlignment="Bottom" Margin="0 0 5 12.5"
                      Style="{DynamicResource Calc_MainTextBlock_Template}"
-                     Text="332"/>
+                     Text="0" x:Name="Number_TextBlock"/>
         </Grid>
     </Grid>
 </Window>
