@@ -137,16 +137,20 @@
                 Click="Button_Operation_Click" Tag="Equals">
             <TextBlock Text="=" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="1" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="1" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}"
+                Click="Constant_Button_Click" Tag="Pi">
             <TextBlock Text="π" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="2" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="2" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}"
+                Click="Constant_Button_Click" Tag="Exp">
             <TextBlock Text="e" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="3" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="3" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Operation_Click" Tag="Root">
             <TextBlock Text="√" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
-        <Button Grid.Row="4" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">
+        <Button Grid.Row="4" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}"
+                Click="Button_Operation_Click" Tag="Power">
             <TextBlock Text="^" Style="{DynamicResource Calc_ButtonText_Template}"/>
         </Button>
         <Button Grid.Row="5" Grid.Column="4" Style="{DynamicResource Calc_Button_Template}">

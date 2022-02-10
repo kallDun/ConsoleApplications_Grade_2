@@ -8,7 +8,6 @@ namespace Lab_2_1_Calculator.Logic
         Stack<ICommand> commands = new();
         ICommand last_command;
         ICalculator calculator = new Calculator();
-
         public double OperationNumber => last_command.Number;
         public double CalculatorNumber => calculator.Number;
         public string Operation
@@ -22,44 +21,27 @@ namespace Lab_2_1_Calculator.Logic
                     "SubtractCommand" => "-",
                     "MultiplyCommand" => "*",
                     "DivideCommand" => "/",
+                    "RootCommand" => "√",
+                    "PowerCommand" => "^",
                     _ => "err"
                 };
                 return cmd_txt;
             }
         }
-
-        public void Plus(double number)
-        {
-            ExecuteCommand(number);
-            SetCommand(new PlusCommand(calculator));
-        }
-        public void Subtract(double number)
-        {
-            ExecuteCommand(number);
-            SetCommand(new SubtractCommand(calculator));
-        }
-        public void Multiply(double number)
-        {
-            ExecuteCommand(number);
-            SetCommand(new MultiplyCommand(calculator));
-        }
-        public void Divide(double number)
-        {
-            ExecuteCommand(number);
-            SetCommand(new DivideCommand(calculator));
-        }
-        public void Equals(double number)
-        {
-            ExecuteCommand(number);
-            SetCommand(null);
-        }
+        public void Plus(double number) => ExecuteCommandAndSetNew(number, new PlusCommand(calculator));
+        public void Subtract(double number) => ExecuteCommandAndSetNew(number, new SubtractCommand(calculator));
+        public void Multiply(double number) => ExecuteCommandAndSetNew(number, new MultiplyCommand(calculator));
+        public void Divide(double number) => ExecuteCommandAndSetNew(number, new DivideCommand(calculator));
+        public void Power(double number) => ExecuteCommandAndSetNew(number, new PowerCommand(calculator));
+        public void Root(double number) => ExecuteCommandAndSetNew(number, new RootCommand(calculator));
+        public void Equals(double number) => ExecuteCommandAndSetNew(number, null);
         public void ClearAll()
         {
             commands = new();
             last_command = null;
             calculator = new Calculator();
         }
-        private void ExecuteCommand(double number)
+        private void ExecuteCommandAndSetNew(double number, ICommand command)
         {
             if (last_command is not null)
             {
@@ -71,9 +53,6 @@ namespace Lab_2_1_Calculator.Logic
             {
                 calculator.Number = number;
             }
-        }
-        private void SetCommand(ICommand command)
-        {
             last_command = command;
         }
         public void UndoLastCommand()
@@ -88,10 +67,12 @@ namespace Lab_2_1_Calculator.Logic
                 {
                     calculator.Number = 0;
                 }
-                return;
             }
-            last_command = commands.Pop();
-            last_command.Undo();
+            else 
+            {
+                last_command = commands.Pop();
+                last_command.Undo();
+            }
         }
     }
 }

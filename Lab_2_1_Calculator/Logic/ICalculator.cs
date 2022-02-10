@@ -7,5 +7,7 @@
         void Subtract(double num);
         void Multiply(double num);
         void Divide(double num);
+        void Root(double num);
+        void Power(double num);
     }
 }

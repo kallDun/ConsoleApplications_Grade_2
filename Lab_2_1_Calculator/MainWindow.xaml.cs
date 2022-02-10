@@ -1,4 +1,5 @@
 ﻿using Lab_2_1_Calculator.Logic;
+using System;
 using System.Globalization;
 using System.Threading;
 using System.Windows;
@@ -13,13 +14,11 @@ namespace Lab_2_1_Calculator
     {
         bool isAdditionPanelShow = false;
         ClientInterface client = new();
-
         public MainWindow()
         {
             InitializeComponent();
             Thread.CurrentThread.CurrentCulture = new CultureInfo("gr-fr");
         }
-
         private void burger_show_panel_btn_Click(object sender, RoutedEventArgs e)
         {
             isAdditionPanelShow = !isAdditionPanelShow;
@@ -38,7 +37,6 @@ namespace Lab_2_1_Calculator
                 MinWidth = 250;
             }
         }
-
         private void Button_Number_Click(object sender, RoutedEventArgs e)
         {
             var character = ((sender as Button).Content as TextBlock).Text;
@@ -71,6 +69,12 @@ namespace Lab_2_1_Calculator
                 case "Divide":
                     client.Divide(number);
                     break;
+                case "Root":
+                    client.Root(number);
+                    break;
+                case "Power":
+                    client.Power(number);
+                    break;
                 case "Equals":
                     client.Equals(number);
                     break;
@@ -79,7 +83,6 @@ namespace Lab_2_1_Calculator
             }
             ShowOperationText();
         }
-
         private void ShowOperationText()
         {
             if (client.Operation is not "")
@@ -93,7 +96,6 @@ namespace Lab_2_1_Calculator
                 Operation_TextBlock.Text = "";
             }
         }
-
         private void Backspace_Button_Click(object sender, RoutedEventArgs e)
         {
             if (Number_TextBlock.Text is not "0")
@@ -102,7 +104,6 @@ namespace Lab_2_1_Calculator
                 if (Number_TextBlock.Text is "") Number_TextBlock.Text = "0";
             }
         }
-
         private void CE_Button_Click(object sender, RoutedEventArgs e)
         {
             client.UndoLastCommand();
@@ -116,6 +117,18 @@ namespace Lab_2_1_Calculator
                 Operation_TextBlock.Text = "";
             }
             Number_TextBlock.Text = "0";
+        }
+        private void Constant_Button_Click(object sender, RoutedEventArgs e)
+        {
+            switch ((sender as Button).Tag)
+            {
+                case "Pi":
+                    Number_TextBlock.Text = string.Format("{0:0.##########}", Math.PI);
+                    break;
+                case "Exp":
+                    Number_TextBlock.Text = string.Format("{0:0.##########}", Math.E);
+                    break;
+            }
         }
     }
 }

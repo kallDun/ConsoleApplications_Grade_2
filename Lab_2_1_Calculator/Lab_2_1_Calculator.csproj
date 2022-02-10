@@ -77,6 +77,8 @@
     <Compile Include="Logic\Commands\PlusCommand.cs" />
     <Compile Include="Logic\Commands\DivideCommand.cs" />
     <Compile Include="Logic\Commands\MultiplyCommand.cs" />
+    <Compile Include="Logic\Commands\PowerCommand.cs" />
+    <Compile Include="Logic\Commands\RootCommand.cs" />
     <Compile Include="Logic\Commands\SubtractCommand.cs" />
     <Compile Include="Logic\ICalculator.cs" />
     <Compile Include="Logic\ICommand.cs" />
