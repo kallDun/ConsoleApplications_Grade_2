@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <TextBox Margin="10" x:Name="InputData"/>
         <Button Grid.Row="1" Width="150" Margin="0 10"
-                x:Name="CalculateButton">
+                x:Name="CalculateButton" Click="CalculateButton_Click">
             <TextBlock Text="Calculate" FontSize="18" FontFamily="Calibri Light"/>
         </Button>
         <DataGrid x:Name="OutputData" Grid.Row="2"/>

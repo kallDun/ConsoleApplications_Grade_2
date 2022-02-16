@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CalcMethodLab1.Logic
+﻿namespace CalcMethodLab1.Logic
 {
     interface IEquationMethod
     {

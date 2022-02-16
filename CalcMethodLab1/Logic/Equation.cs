@@ -11,7 +11,7 @@ namespace CalcMethodLab1.Logic
         {
             Min = min;
             Max = max;
-            this.Func = func;
+            Func = func;
         }
     }
 }

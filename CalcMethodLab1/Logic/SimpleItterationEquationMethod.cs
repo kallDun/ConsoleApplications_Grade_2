@@ -2,18 +2,18 @@
 
 namespace CalcMethodLab1.Logic
 {
-    class SimpleItterationMethod : IEquationMethod
+    class SimpleItterationEquationMethod : IEquationMethod
     {
-        const double eps = 1e-6;
-        const int itters = 1500;
-        public double FindX(Equation equation)
+        const double eps = 1e-5;
+        const int itters = 2000;
+        public double FindX(Equation eq)
         {
-            double x = (equation.Max - equation.Min) / 2 + equation.Min, x_last = 0;
+            double x = (eq.Max - eq.Min) / 2 + eq.Min, x_last = 0;
             bool err = true;
             for (int i = 0; i < itters; i++)
             {
                 x_last = x;
-                x = equation.Func(x_last);
+                x = eq.GetItterationViewX(x_last);
                 if (Math.Abs(x - x_last) < eps)
                 {
                     err = false;
