@@ -1,0 +1,23 @@
+﻿<Window x:Class="CalcMethodLab1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalcMethodLab1"
+        mc:Ignorable="d"
+        Title="lab1" 
+        Height="250" Width="350" MinHeight="250" MinWidth="350">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="55px"/>
+            <RowDefinition Height="1.25*"/>
+        </Grid.RowDefinitions>
+        <TextBox Margin="10" x:Name="InputData"/>
+        <Button Grid.Row="1" Width="150" Margin="0 10"
+                x:Name="CalculateButton">
+            <TextBlock Text="Calculate" FontSize="18" FontFamily="Calibri Light"/>
+        </Button>
+        <DataGrid x:Name="OutputData" Grid.Row="2"/>
+    </Grid>
+</Window>
