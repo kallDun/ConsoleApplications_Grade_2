@@ -65,9 +65,9 @@
     </Compile>
     <Compile Include="Logic\Equation.cs" />
     <Compile Include="Logic\EquationCalculator.cs" />
-    <Compile Include="Logic\EquationExtension.cs" />
     <Compile Include="Logic\IEquationMethod.cs" />
     <Compile Include="Logic\SimpleItterationEquationMethod.cs" />
+    <Compile Include="Logic\ValidationDoubleRule.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

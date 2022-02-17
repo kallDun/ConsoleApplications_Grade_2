@@ -6,18 +6,39 @@
         xmlns:local="clr-namespace:CalcMethodLab1"
         mc:Ignorable="d"
         Title="lab1" 
-        Height="250" Width="350" MinHeight="250" MinWidth="350">
+        Height="350" Width="350" MinHeight="350" MinWidth="350">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="128px"/>
+            <RowDefinition Height="35px"/>
             <RowDefinition/>
-            <RowDefinition Height="55px"/>
-            <RowDefinition Height="1.25*"/>
         </Grid.RowDefinitions>
-        <TextBox Margin="10" x:Name="InputData"/>
-        <Button Grid.Row="1" Width="150" Margin="0 10"
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="130"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="InputData" Grid.Column="0"/>
+            <StackPanel Grid.Column="1" Margin="20 0 0 0">
+                <TextBlock Text="X-Min:"/>
+                <TextBox x:Name="InputMin" Height="20" VerticalAlignment="Top" Text="-2"/>
+                <TextBlock Text="X-Max:"/>
+                <TextBox x:Name="InputMax" Height="20" VerticalAlignment="Top" Text="2"/>
+                <TextBlock Text="Epsilon:"/>
+                <TextBox x:Name="InputEpsilon" Height="20" VerticalAlignment="Top" Text="1e-6"/>
+            </StackPanel>
+        </Grid>
+        <Button Grid.Row="1" Width="200"
                 x:Name="CalculateButton" Click="CalculateButton_Click">
-            <TextBlock Text="Calculate" FontSize="18" FontFamily="Calibri Light"/>
+            <TextBlock Text="Find Roots" FontSize="18" FontFamily="Calibri Light"/>
         </Button>
-        <DataGrid x:Name="OutputData" Grid.Row="2"/>
+        <Grid Grid.Row="2" Margin="0 10 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="OutputData_1" Grid.Column="0" FontSize="13"/>
+            <DataGrid x:Name="OutputData_2" Grid.Column="1" FontSize="13"/>
+        </Grid>
     </Grid>
 </Window>
