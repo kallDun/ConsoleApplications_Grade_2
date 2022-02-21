@@ -18,11 +18,12 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="130"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="InputData" Grid.Column="0"/>
+            <TextBox x:Name="InputData" Grid.Column="0" FontSize="18"
+                     Text="sin(x^3)/5"/>
             <StackPanel Grid.Column="1" Margin="20 0 0 0">
-                <TextBlock Text="X-Min:"/>
+                <TextBlock Text="Min X:"/>
                 <TextBox x:Name="InputMin" Height="20" VerticalAlignment="Top" Text="-2"/>
-                <TextBlock Text="X-Max:"/>
+                <TextBlock Text="Max X:"/>
                 <TextBox x:Name="InputMax" Height="20" VerticalAlignment="Top" Text="2"/>
                 <TextBlock Text="Epsilon:"/>
                 <TextBox x:Name="InputEpsilon" Height="20" VerticalAlignment="Top" Text="1e-6"/>

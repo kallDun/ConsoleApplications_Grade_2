@@ -14,11 +14,13 @@ namespace CalcMethodLab1.Logic
 
         public double FindX(Equation eq)
         {
+            var func = eq.GetItterationViewFunc(itters);
             double x = (eq.Max + eq.Min) / 2;
             for (int i = 0; i < itters; i++)
             {
+                if (x > eq.Max || x < eq.Min) x = (eq.Max + eq.Min) / 2;
                 double x_last = x;
-                x = eq.GetItterationViewX(x);
+                x = func(x);
                 if (Math.Abs(x - x_last) < eps) break;
             }
             return x;
