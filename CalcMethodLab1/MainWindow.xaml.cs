@@ -29,7 +29,7 @@ namespace CalcMethodLab1
             }
             catch (Exception exception)
             {
-                MessageBox.Show($"An error occured. Message: {exception.Message}");
+                _ = MessageBox.Show($"An error occured. Message: {exception.Message}");
             }
         }
     }
