@@ -21,12 +21,13 @@ namespace RussianDDOSWindow
 
         private async void Start_Button_Click(object sender, RoutedEventArgs e)
         {
+            Stop_Button.IsEnabled = false;
             try
             {
-                var count = int.Parse(DDOS_Count_TextBox.Text);
+                var count = int.Parse(DDOS_Count_TextBox.Text) + processes.Count;
                 MainProgressBar.Maximum = count;
 
-                for (int i = 0, j = 0; i < count; i++, j++)
+                for (int i = processes.Count, j = 0; i < count; i++, j++)
                 {
                     if (j >= list.Length) j = 0;
                     var process = await StartProcess(list[j]);
@@ -38,6 +39,7 @@ namespace RussianDDOSWindow
             {
                 MessageBox.Show($"Some error occured: {err}");
             }
+            Stop_Button.IsEnabled = true;
         }
 
         private async Task<Process> StartProcess(string domain)
@@ -57,12 +59,14 @@ namespace RussianDDOSWindow
 
         private async void Stop_Button_Click(object sender, RoutedEventArgs e)
         {
+            Start_Button.IsEnabled = false;
             for (int i = processes.Count - 1; i >= 0; i--)
             {
                 await Task.Run(() => processes[i].CloseMainWindow());
                 MainProgressBar.Value = i;
                 processes.Remove(processes[i]);
             }
+            Start_Button.IsEnabled = true;
         }
         private void Window_Closed(object sender, EventArgs e) => Stop_Button_Click(null, null);
     }
