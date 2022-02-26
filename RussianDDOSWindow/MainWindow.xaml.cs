@@ -24,7 +24,7 @@ namespace RussianDDOSWindow
             SitesColumn.Width = new GridLength(0, GridUnitType.Star);
             Sites_DataGrid.ItemsSource = sites;
 
-            using (var reader = new StreamReader(GetResourceStream("domains.txt")))
+            using (var reader = new StreamReader(GetResourceStream("domains2.txt")))
             {
                 var content = reader.ReadToEnd().Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(x => new SiteDataContext(x));
                 foreach (var item in content)
