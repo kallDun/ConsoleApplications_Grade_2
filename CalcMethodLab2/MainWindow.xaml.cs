@@ -18,7 +18,7 @@ namespace CalcMethodLab2
             InitializeComponent();
             matrix_size = int.Parse(TextBox_MatrixSize.Text);
             InitializeMatrix();
-            calculationMethod = new SeidelMatrixCalcMethod();
+            calculationMethod = new SeidelMatrixCalcMethod(epsilon: 1e-6);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -109,10 +109,10 @@ namespace CalcMethodLab2
                     IsReadOnly = true,
                     Width = 140,
                     HorizontalAlignment = HorizontalAlignment.Right,
-                    Text = ". . . . . . . . . . .",
+                    Text = ". . .",
                     FontSize = 25,
                     BorderThickness = new Thickness(0),
-                    TextAlignment = TextAlignment.Right
+                    TextAlignment = TextAlignment.Left
                 };
                 var textblock = new TextBlock
                 {
