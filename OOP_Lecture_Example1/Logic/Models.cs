@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace OOP_Lecture_Example1.Logic
@@ -18,7 +19,7 @@ namespace OOP_Lecture_Example1.Logic
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public DateTime Birthday { get; private set; }
-        public override string ToString() => $"Supervisor {Name} {Surname} birthday:{Birthday.Date}"; // wtf with date to string output
+        public override string ToString() => $"Supervisor {Name} {Surname} birthday:{string.Format("{0:dd/MM/yyyy}", Birthday)}"; // wtf with date to string output
     }
     class Section
     {
@@ -37,7 +38,7 @@ namespace OOP_Lecture_Example1.Logic
         public int Payment { get; private set; }
         public int LessonsPerMonth { get; private set; }
         public int StudentsCount { get; private set; }
-        public override string ToString() => $"Section {Name} '{Type}' with {Supervisor}, payment {Payment}$, lessons/mon {LessonsPerMonth}, students: {StudentsCount}";
+        public override string ToString() => $"Section {Name} '{Type}' with {Supervisor},\npayment {Payment}$, lessons/mon {LessonsPerMonth}, students: {StudentsCount}";
     }
     class ChildrenCreativityHouse
     {
