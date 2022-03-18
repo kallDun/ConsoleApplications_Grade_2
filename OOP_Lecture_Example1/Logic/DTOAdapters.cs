@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using OOP_Lecture_ClassDll;
+using OOP_Lecture_Example1;
 
 namespace OOP_Lecture_Example1.Logic
 {

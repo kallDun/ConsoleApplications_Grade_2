@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOP_Lecture_ClassDll;
+using System;
 
 namespace OOP_Lecture_Example1.Logic
 {

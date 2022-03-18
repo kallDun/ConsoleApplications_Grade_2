@@ -1,14 +1,13 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace OOP_Lecture_Example1.Logic
+namespace OOP_Lecture_ClassDll
 {
-    enum SectionType
+    public enum SectionType
     {
         Drawing, Dancing, Modeling, SoftToy
     }
-    class Supervisor
+    public class Supervisor
     {
         public Supervisor(string name, string surname, DateTime birthday)
         {
@@ -19,9 +18,9 @@ namespace OOP_Lecture_Example1.Logic
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public DateTime Birthday { get; private set; }
-        public override string ToString() => $"Supervisor {Name} {Surname} birthday:{string.Format("{0:dd/MM/yyyy}", Birthday)}"; // wtf with date to string output
+        public override string ToString() => $"Supervisor {Name} {Surname} birthday:{string.Format("{0:dd/MM/yyyy}", Birthday)}";
     }
-    class Section
+    public class Section
     {
         public Section(string name, Supervisor supervisor, SectionType type, int payment, int lessonsPerMonth, int studentsCount)
         {
@@ -40,7 +39,7 @@ namespace OOP_Lecture_Example1.Logic
         public int StudentsCount { get; private set; }
         public override string ToString() => $"Section {Name} '{Type}' with {Supervisor},\npayment {Payment}$, lessons/mon {LessonsPerMonth}, students: {StudentsCount}";
     }
-    class ChildrenCreativityHouse
+    public class ChildrenCreativityHouse
     {
         public ChildrenCreativityHouse(string address)
         {
