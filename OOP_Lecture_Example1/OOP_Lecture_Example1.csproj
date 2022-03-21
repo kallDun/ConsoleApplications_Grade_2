@@ -38,9 +38,6 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OOP_Lecture_ClassDll">
-      <HintPath>..\..\..\..\Desktop\OOP_Lecture_ClassDll.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -70,8 +67,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Logic\Client.cs" />
-    <Compile Include="Logic\DTOs.cs" />
-    <Compile Include="Logic\DTOAdapters.cs" />
     <Compile Include="Logic\Serializator.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -105,6 +100,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\OOP_Lecture_ClassDll\OOP_Lecture_ClassDll.csproj">
+      <Project>{3A95141C-00D3-4105-8F8A-AA64FDA76B0A}</Project>
+      <Name>OOP_Lecture_ClassDll</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

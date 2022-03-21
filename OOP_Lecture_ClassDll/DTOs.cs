@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace OOP_Lecture_Example1.Logic
 {
-    class SupervisorDTO
+    public class SupervisorDTO
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -16,7 +16,7 @@ namespace OOP_Lecture_Example1.Logic
         [JsonProperty("birthday")]
         public DateTime Birthday { get; set; }
     }
-    class SectionDTO
+    public class SectionDTO
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -36,7 +36,7 @@ namespace OOP_Lecture_Example1.Logic
         [JsonProperty("students_count")]
         public int StudentsCount { get; set; }
     }
-    class ChildrenCreativityHouseDTO
+    public class ChildrenCreativityHouseDTO
     {
         [JsonProperty("address")]
         public string Address { get; set; }

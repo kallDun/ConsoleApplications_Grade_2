@@ -1,15 +1,14 @@
 ﻿using System.Linq;
 using OOP_Lecture_ClassDll;
-using OOP_Lecture_Example1;
 
 namespace OOP_Lecture_Example1.Logic
 {
-    interface IAdapter<T1, T2>
+    public interface IAdapter<T1, T2>
     {
         T1 ConvertToModel(T2 dto);
         T2 ConvertToDTO(T1 model);
     }
-    class SupervisorAdapter : IAdapter<Supervisor, SupervisorDTO>
+    public class SupervisorAdapter : IAdapter<Supervisor, SupervisorDTO>
     {
         public SupervisorDTO ConvertToDTO(Supervisor model) => new SupervisorDTO
         {
@@ -19,7 +18,7 @@ namespace OOP_Lecture_Example1.Logic
         };
         public Supervisor ConvertToModel(SupervisorDTO dto) => new Supervisor(dto.Name, dto.Surname, dto.Birthday);
     }
-    class SectionAdapter : IAdapter<Section, SectionDTO>
+    public class SectionAdapter : IAdapter<Section, SectionDTO>
     {
         private SupervisorAdapter adapter = new SupervisorAdapter();
 
@@ -35,7 +34,7 @@ namespace OOP_Lecture_Example1.Logic
         public Section ConvertToModel(SectionDTO dto) 
             => new Section(dto.Name, adapter.ConvertToModel(dto.Supervisor), dto.Type, dto.Payment, dto.LessonsPerMonth, dto.StudentsCount);
     }
-    class ChildrenCreativityHouseAdapter : IAdapter<ChildrenCreativityHouse, ChildrenCreativityHouseDTO>
+    public class ChildrenCreativityHouseAdapter : IAdapter<ChildrenCreativityHouse, ChildrenCreativityHouseDTO>
     {
         private SectionAdapter adapter = new SectionAdapter();
 
@@ -53,7 +52,6 @@ namespace OOP_Lecture_Example1.Logic
                 house.AddSection(adapter.ConvertToModel(item));
             }
             return house;
-        }
-            
+        } 
     }
 }

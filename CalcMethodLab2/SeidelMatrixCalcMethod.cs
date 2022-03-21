@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace CalcMethodLab2
 {
@@ -13,53 +12,40 @@ namespace CalcMethodLab2
 
         public double[] FindRoots(double[][] matrix)
         {
-            double[][] A = matrix.Select(x => x.Take(matrix.Length).ToArray()).ToArray();
-            double[] B = matrix.Select(x => x[matrix.Length]).ToArray();
-            return Itterations(A, B);
+            return Itterations(matrix, matrix.Length);
         }
 
-        private double[] Itterations(double[][] A, double[] B)
+        private double[] Itterations(double[][] A, int size)
         {
-            var count = A.Length;
-            var X = new double[count];
-
-            if (true)
+            var prev = new double[size];
+            int itter = 0;
+            while (itter < 1000)
             {
-                for (var i = 0; i < count; i++)
+                var curr = new double[size];
+
+                for (int i = 0; i < size; i++)
                 {
-                    X[i] = B[i];
-                }
-                int itter = 0;
-                double s = 0;
-                do
-                {
-                    itter++;
-                    for (var i = 0; i < count; i++)
+                    curr[i] = A[i][size];
+
+                    for (int j = 0; j < size; j++)
                     {
-                        var g = B[i];
-                        for (var j = 0; j < count; j++)
-                        {
-                            g += A[i][j] * X[j];
-                        }
-                        s += (X[i] - g) * (X[i] - g);
-                        X[i] = g;
+                        if (j < i) curr[i] -= A[i][j] * curr[j];
+                        if (j > i) curr[i] -= A[i][j] * prev[j];
                     }
-                } while (Math.Sqrt(s) >= epsilon * (1 - GetThirdNorm(A)) / GetThirdNorm(A));
-            }
-            return X;
-        }
-        private double GetThirdNorm(double[][] matrix)
-        {
-            double sum = 0;
-            for (var i = 0; i < matrix.Length; i++)
-            {
-                for (var j = 0; j < matrix.Length; j++)
-                {
-                    sum += matrix[i][j] * matrix[i][j];
+                    curr[i] /= A[i][i];
                 }
+
+                double err = 0;
+                for (int i = 0; i < size; i++)
+                {
+                    err += Math.Abs(curr[i] - prev[i]);
+                }
+                if (err < epsilon) break;
+                prev = curr;
+                itter++;
             }
-            sum = Math.Sqrt(sum);
-            return sum;
+
+            return prev;
         }
     }
 }
