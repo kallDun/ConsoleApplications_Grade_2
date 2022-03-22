@@ -10,7 +10,7 @@ namespace OOP_Lecture_Example1.Logic
         private ChildrenCreativityHouse creativityHouse;
         private readonly string PATH = $"{Environment.CurrentDirectory}\\serialized.json";
 
-        public ChildrenCreativityHouse GetCCHouse()
+        public ChildrenCreativityHouse GenerateAndGetCCHouse()
         {
             creativityHouse = new ChildrenCreativityHouseGenerator().GenerateClass();
             return creativityHouse;

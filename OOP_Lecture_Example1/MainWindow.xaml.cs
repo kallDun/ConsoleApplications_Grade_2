@@ -28,7 +28,7 @@ namespace OOP_Lecture_Example1
             {
                 RectangleFill_1.Visibility = Visibility.Visible;
                 MainButton_TextBlock.Text = "Show model after serialization";
-                BeforeSerializationTextBox.Text = client.GetCCHouse().ToString();
+                BeforeSerializationTextBox.Text = client.GenerateAndGetCCHouse().ToString();
             }
             else if (state is 2)
             {
