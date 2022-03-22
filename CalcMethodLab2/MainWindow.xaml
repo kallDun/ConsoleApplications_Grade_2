@@ -17,12 +17,17 @@
         </Grid.RowDefinitions>
         <Grid x:Name="MatrixGrid"/>
         <Grid x:Name="OutputGrid" Grid.Column="1"/>
-        <Grid Grid.Row="1" Width="200" Margin="8" >
+        <Grid Grid.Row="1" Width="250" Margin="8" >
             <TextBox Width="36" HorizontalAlignment="Left" Text="3" TextAlignment="Center" FontSize="22" x:Name="TextBox_MatrixSize"
                      BorderBrush="DimGray" BorderThickness="1.25" Foreground="DimGray" TextChanged="TextBox_TextChanged"/>
-            <Button Width="150" HorizontalAlignment="Right" Click="CalculateButton_Click"
+            <Button Width="150" HorizontalAlignment="Center" Click="CalculateButton_Click"
                     Background="Transparent" BorderThickness="1.25" BorderBrush="DimGray">
                 <TextBlock Text="Calculate" FontSize="22" Foreground="DimGray"/>
+            </Button>
+            <Button Width="36" HorizontalAlignment="Right"
+                    Background="Transparent" BorderThickness="1.25" BorderBrush="DimGray"
+                    x:Name="SettingsButton" Click="SettingsButton_Click">
+                <Image Source="pack://application:,,,/Images/Settings.png"/>
             </Button>
         </Grid>
         <Rectangle HorizontalAlignment="Right" Height="Auto" Width="1.5" Fill="DimGray" Grid.RowSpan="2"/>

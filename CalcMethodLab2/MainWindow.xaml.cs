@@ -11,6 +11,8 @@ namespace CalcMethodLab2
         private int matrix_size;
         private GetDoubleValue[][] matrix;
         private SetDoubleValue[] setter_matrix;
+        private double[] roots;
+        private bool has_results;
         private readonly IMatrixCalculationMethod calculationMethod;
 
         public MainWindow()
@@ -38,6 +40,7 @@ namespace CalcMethodLab2
         }
         private void InitializeMatrix()
         {
+            has_results = false;
             MatrixGrid.Children.Clear();
             OutputGrid.Children.Clear();
             MatrixGrid = new Grid();
@@ -148,6 +151,21 @@ namespace CalcMethodLab2
             {
                 setter_matrix[i](results[i]);
             }
+            has_results = true;
+            roots = results;
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!has_results) return;
+            var deltas = matrix.Select((item_i, i) => item_i
+                .Select((item_i_j, j) => 
+                {
+                    if (j == matrix_size) return -item_i_j();
+                    else return item_i_j() * roots[j];
+                }).Sum());
+            var text = string.Join("\n", deltas.Select((item, index) => string.Format("Δx{0:0} = {1:0.##########}", index + 1, item)));
+            MessageBox.Show(text);
         }
     }
 }
