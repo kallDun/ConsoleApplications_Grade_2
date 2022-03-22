@@ -21,6 +21,5 @@ namespace OOP_Lecture_Example1.Logic
             var json_text = File.ReadAllText(path);
             return JsonConvert.DeserializeObject<T>(json_text);
         }
-
     }
 }

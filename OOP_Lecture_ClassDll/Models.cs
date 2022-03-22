@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OOP_Lecture_ClassDll
+namespace OOP_Lecture_ClassDll.Models
 {
     public enum SectionType
     {

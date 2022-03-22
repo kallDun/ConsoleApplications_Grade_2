@@ -1,7 +1,8 @@
 ﻿using System.Linq;
-using OOP_Lecture_ClassDll;
+using OOP_Lecture_ClassDll.DTOs;
+using OOP_Lecture_ClassDll.Models;
 
-namespace OOP_Lecture_Example1.Logic
+namespace OOP_Lecture_ClassDll.Adapters
 {
     public interface IAdapter<T1, T2>
     {

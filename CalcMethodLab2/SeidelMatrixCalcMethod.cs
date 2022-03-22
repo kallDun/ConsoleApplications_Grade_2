@@ -10,10 +10,7 @@ namespace CalcMethodLab2
             this.epsilon = epsilon;
         }
 
-        public double[] FindRoots(double[][] matrix)
-        {
-            return Itterations(matrix, matrix.Length);
-        }
+        public double[] FindRoots(double[][] matrix) => Itterations(matrix, matrix.Length);
 
         private double[] Itterations(double[][] A, int size)
         {

@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
 using OOP_Lecture_ClassDll;
+using OOP_Lecture_ClassDll.Models;
 using System;
 using System.Collections.Generic;
 
-namespace OOP_Lecture_Example1.Logic
+namespace OOP_Lecture_ClassDll.DTOs
 {
     public class SupervisorDTO
     {
