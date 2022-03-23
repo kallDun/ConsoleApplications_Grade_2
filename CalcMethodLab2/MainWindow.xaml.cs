@@ -20,7 +20,7 @@ namespace CalcMethodLab2
             InitializeComponent();
             matrix_size = int.Parse(TextBox_MatrixSize.Text);
             InitializeMatrix();
-            calculationMethod = new SeidelMatrixCalcMethod(epsilon: 1e-6);
+            calculationMethod = new SeidelMatrixCalcMethod(epsilon: 1e-2);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
