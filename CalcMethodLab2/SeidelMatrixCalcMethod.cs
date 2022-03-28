@@ -2,11 +2,13 @@
 using MathNet.Numerics.LinearAlgebra.Double;
 using System;
 using System.Linq;
+using System.Windows;
 
 namespace CalcMethodLab2
 {
     class SeidelMatrixCalcMethod : IMatrixCalculationMethod
     {
+        private const int MAX_ITTERS = 1000;
         readonly double epsilon;
         public SeidelMatrixCalcMethod(double epsilon)
         {
@@ -17,10 +19,14 @@ namespace CalcMethodLab2
 
         private double[] Itterations(double[][] A, int size)
         {
+            goto FindRootsWithoutNorm;
+            FindRootsWithNorm:
             A = GetMatrixNorm(A, size);
+            FindRootsWithoutNorm:
+
             var prev = new double[size];
             int itter = 0;
-            while (itter < 1000)
+            while (itter < MAX_ITTERS)
             {
                 var curr = new double[size];
 
@@ -45,6 +51,7 @@ namespace CalcMethodLab2
 
                 prev = curr;
                 itter++;
+                if (itter is MAX_ITTERS) goto FindRootsWithNorm;
             }
 
             return prev;
@@ -55,10 +62,10 @@ namespace CalcMethodLab2
             var A = matrix.Select(x => x.Take(n).ToArray()).ToArray();
             var B = matrix.Select(x => x.Skip(n).ToArray()).ToArray();
             var T = GetTransponentMatrix(A, n);
-            var mult_A = MultiplyMatrix(A, T);
+            var mult_A = MultiplyMatrix(T, A);
             var mult_B = MultiplyMatrix(T, B);
-            var res = mult_A.Select((item, index) 
-                => item.ToList().Concat(mult_B[index]).ToArray()).ToArray();
+            var res = mult_A.Select((item, index) => item.ToList().Concat(mult_B[index]).ToArray()).ToArray();
+            MessageBox.Show(string.Join("\n", res.Select(x => string.Join("\t", x))));
             return res;
         }
 
