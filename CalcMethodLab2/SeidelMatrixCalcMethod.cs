@@ -19,10 +19,12 @@ namespace CalcMethodLab2
 
         private double[] Itterations(double[][] A, int size)
         {
+            bool with_norm = false;
             goto FindRootsWithoutNorm;
-            FindRootsWithNorm:
+        FindRootsWithNorm:
             A = GetMatrixNorm(A, size);
-            FindRootsWithoutNorm:
+            with_norm = true;
+        FindRootsWithoutNorm:
 
             var prev = new double[size];
             int itter = 0;
@@ -51,7 +53,7 @@ namespace CalcMethodLab2
 
                 prev = curr;
                 itter++;
-                if (itter is MAX_ITTERS) goto FindRootsWithNorm;
+                if (itter is MAX_ITTERS && !with_norm) goto FindRootsWithNorm;
             }
 
             return prev;
@@ -65,7 +67,7 @@ namespace CalcMethodLab2
             var mult_A = MultiplyMatrix(T, A);
             var mult_B = MultiplyMatrix(T, B);
             var res = mult_A.Select((item, index) => item.ToList().Concat(mult_B[index]).ToArray()).ToArray();
-            MessageBox.Show(string.Join("\n", res.Select(x => string.Join("\t", x))));
+            //MessageBox.Show(string.Join("\n", res.Select(x => string.Join("\t", x)))); debug log
             return res;
         }
 
