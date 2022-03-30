@@ -28,6 +28,7 @@ namespace CalcMethodLab2
 
             var prev = new double[size];
             int itter = 0;
+            double[] errors = new double[3];
             while (itter < MAX_ITTERS)
             {
                 var curr = new double[size];
@@ -50,10 +51,22 @@ namespace CalcMethodLab2
                     err += Math.Abs(curr[i] - prev[i]);
                 }
                 if (err < epsilon) break;
+                if (itter < 3)
+                {
+                    errors[itter] = err;
+                    if (itter == 2 && errors[0] < errors[1] && errors[1] < errors[2])
+                    {
+                        if (with_norm)
+                        {
+                            MessageBox.Show("Matrix is not convergent!");
+                            break;
+                        }
+                        else goto FindRootsWithNorm;
+                    }
+                }
 
                 prev = curr;
                 itter++;
-                if (itter is MAX_ITTERS && !with_norm) goto FindRootsWithNorm;
             }
 
             return prev;
