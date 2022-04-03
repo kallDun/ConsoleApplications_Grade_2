@@ -46,11 +46,12 @@
                                 <TextBlock Text="6" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
                             </ComboBoxItem>
                         </ComboBox>
-                    </StackPanel>                    
+                    </StackPanel>
+                    <Canvas x:Name="PathDataField"/>
                 </Grid>
                 <Border Grid.Row="1" BorderThickness="0 3 0 0" BorderBrush="DimGray">
                     <Grid>
-
+                        
                     </Grid>
                 </Border>
                 <GridSplitter Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="3" Width="100" ResizeDirection="Rows"/>

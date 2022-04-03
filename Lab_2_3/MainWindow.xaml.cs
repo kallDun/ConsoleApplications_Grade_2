@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -32,6 +33,29 @@ namespace Lab_2_3
         public MainWindow()
         {
             InitializeComponent();
+            var geometry = Geometry.Parse("M 100,200 C 100,25 400,350 400,175 H 280");
+            var path = new Path
+            {
+                Stroke = Brushes.Black,
+                StrokeThickness = 10,
+                Data = geometry
+            };
+            //PathDataField.Children.Add(path);
+
+            PathGeometry anim = new PathGeometry();
+            anim.AddGeometry(geometry);
+
+            Storyboard sb = new Storyboard();
+            DoubleAnimationUsingPath ani_2 = new DoubleAnimationUsingPath();
+            ani_2.Duration = new Duration(new TimeSpan(0, 0, 2));
+
+            PathGeometry pg = new PathGeometry();
+            pg.AddGeometry(geometry);
+            ani_2.PathGeometry = pg;
+
+
+
+
         }
     }
 
