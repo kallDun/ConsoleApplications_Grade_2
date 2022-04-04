@@ -121,6 +121,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOP_Lecture_Example1", "OOP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOP_Lecture_ClassDll", "OOP_Lecture_ClassDll\OOP_Lecture_ClassDll.csproj", "{3A95141C-00D3-4105-8F8A-AA64FDA76B0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_2_3_Delegates", "Lab_2_3_Delegates\Lab_2_3_Delegates.csproj", "{C821C9CD-4373-4346-897E-ED33953C4505}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -291,6 +293,10 @@ Global
 		{3A95141C-00D3-4105-8F8A-AA64FDA76B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A95141C-00D3-4105-8F8A-AA64FDA76B0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A95141C-00D3-4105-8F8A-AA64FDA76B0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C821C9CD-4373-4346-897E-ED33953C4505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C821C9CD-4373-4346-897E-ED33953C4505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C821C9CD-4373-4346-897E-ED33953C4505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C821C9CD-4373-4346-897E-ED33953C4505}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -336,6 +342,7 @@ Global
 		{4335AB46-4619-4DC4-9D1D-6F5211A15722} = {E2D1FB57-A357-4BA4-99C9-7448A43D0A7F}
 		{2F93283D-D639-49EC-B778-813021930465} = {0C490386-D50F-488C-9C5F-070E79252306}
 		{3A95141C-00D3-4105-8F8A-AA64FDA76B0A} = {0C490386-D50F-488C-9C5F-070E79252306}
+		{C821C9CD-4373-4346-897E-ED33953C4505} = {56528EA3-69DA-4DFB-AD12-4ABBDE302F27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33D460CD-8598-4DE8-BEFA-A60312C5E7E4}
