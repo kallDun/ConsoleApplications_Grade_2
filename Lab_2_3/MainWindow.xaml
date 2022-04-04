@@ -47,7 +47,7 @@
                             </ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
-                    <Canvas x:Name="PathDataField"/>
+                    <Grid x:Name="RenderField"/>
                 </Grid>
                 <Border Grid.Row="1" BorderThickness="0 3 0 0" BorderBrush="DimGray">
                     <Grid>

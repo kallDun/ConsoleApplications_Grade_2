@@ -63,6 +63,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Logic\Models\BackgroundObject.cs" />
+    <Compile Include="Logic\Models\Horse.cs" />
+    <Compile Include="Logic\Render\IRenderable.cs" />
+    <Compile Include="Logic\Render\RenderUtility.cs" />
+    <Compile Include="Logic\Services\HorsesService.cs" />
+    <Compile Include="Logic\Services\RenderService.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -93,6 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Logic\Utilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

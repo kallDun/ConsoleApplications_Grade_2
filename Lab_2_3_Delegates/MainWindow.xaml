@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_2_3_Delegates"
-        mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None"
+        mc:Ignorable="d" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="450" Width="400">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="TextBlockStyle">
@@ -17,16 +17,16 @@
             <Setter Property="BorderBrush" Value="Violet"/>
         </Style>
         <Style TargetType="CheckBox" x:Key="CheckBoxStyle">
-            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0 35"/>
+            <Setter Property="Margin" Value="0 10"/>
         </Style>
     </Window.Resources>
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -38,17 +38,17 @@
             <TextBlock Text="Main Button" Style="{StaticResource TextBlockStyle}"/>
         </Button>
         <Button x:Name="TransparentButton" Style="{StaticResource ButtonStyle}" Width="28"
-                Grid.RowSpan="2" Margin="0 14">
+                Grid.RowSpan="2" Margin="0 15">
             <TextBlock Text="TRANS PARENT" Style="{StaticResource TextBlockStyle}"
                        TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
         <Button x:Name="PrintButton" Style="{StaticResource ButtonStyle}" Width="28"
-                Grid.RowSpan="2" Margin="0 14" Grid.Column="1" VerticalAlignment="Top" Height="200">
+                Grid.RowSpan="2" Margin="0 15" Grid.Column="1" VerticalAlignment="Top" Height="200">
             <TextBlock Text="PR I NT" Style="{StaticResource TextBlockStyle}"
                        TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
         <Button x:Name="BackgroundButton" Style="{StaticResource ButtonStyle}" Width="28"
-                Grid.RowSpan="2" Margin="0 14" Grid.Column="2">
+                Grid.RowSpan="2" Margin="0 15" Grid.Column="2">
             <TextBlock Text="BACKGROUND" Style="{StaticResource TextBlockStyle}"
                        TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>

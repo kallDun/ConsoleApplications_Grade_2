@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab_2_3.Logic.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,14 +34,14 @@ namespace Lab_2_3
         public MainWindow()
         {
             InitializeComponent();
-            var geometry = Geometry.Parse("M 100,200 C 100,25 400,350 400,175 H 280");
+            /*var geometry = Geometry.Parse("M 100,200 C 100,25 400,350 400,175 H 280");
             var path = new Path
             {
                 Stroke = Brushes.Black,
                 StrokeThickness = 10,
                 Data = geometry
             };
-            //PathDataField.Children.Add(path);
+            PathDataField.Children.Add(path);
 
             PathGeometry anim = new PathGeometry();
             anim.AddGeometry(geometry);
@@ -51,20 +52,9 @@ namespace Lab_2_3
 
             PathGeometry pg = new PathGeometry();
             pg.AddGeometry(geometry);
-            ani_2.PathGeometry = pg;
-
-
-
-
+            ani_2.PathGeometry = pg;*/
         }
-    }
 
-    public class Horse
-    {
-        public string Name { get; set; }
-        public Color Color { get; set; }
-        public int Position { get; set; }
-        public TimeSpan Time { get; set; }
-        public double Coeff { get; set; }
+
     }
 }

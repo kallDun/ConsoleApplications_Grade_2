@@ -36,7 +36,7 @@ namespace Lab_2_3_Delegates
         {
             foreach (var button in MainGrid.Children.Cast<object>().Where(x => x is Button).Select(x => x as Button))
             {
-                button.Background = isBackground ? Brushes.Black : Brushes.Transparent;
+                button.Background = isBackground ? Brushes.Transparent : Brushes.Black;
             }
             isBackground = !isBackground;
         }
