@@ -1,19 +1,28 @@
 ﻿using Lab_2_3.Logic.Models;
+using System.Collections.Generic;
 
 namespace Lab_2_3.Logic.Services
-{
+{    
     class RenderService
     {
-        public RenderService(HorsesService horsesService, BackgroundObject background, BackgroundObject foreground)
+        public delegate int GetPosition();
+        public RenderService(HorsesService horsesService, List<BackgroundObject> backgrounds, List<BackgroundObject> foregrounds)
         {
             this.horsesService = horsesService;
-            this.background = background;
-            this.foreground = foreground;
+            this.backgrounds = backgrounds;
+            this.foregrounds = foregrounds;
         }
-
-        public int CameraPosition { get; private set; }
         public HorsesService horsesService { get; }
-        public BackgroundObject background { get; }
-        public BackgroundObject foreground { get; }
+        public List<BackgroundObject> backgrounds { get; }
+        public List<BackgroundObject> foregrounds { get; }
+        public GetPosition GetCameraPosition { get; private set; }
+        public Horse ObservableHorse { get; private set; }
+        public Horse GetObservableHorse() => ObservableHorse;
+        public void ChangeObserver(Horse horse)
+        {
+            if (horse is null) return;
+            ObservableHorse = horse;
+            GetCameraPosition = () => horse.Position - 425;
+        }
     }
 }

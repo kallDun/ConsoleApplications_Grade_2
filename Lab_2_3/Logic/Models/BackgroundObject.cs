@@ -12,7 +12,7 @@ namespace Lab_2_3.Logic.Models
     {
         public void Render(DrawingContext dc, int cameraPos)
         {
-            throw new NotImplementedException();
+            //dc.DrawRectangle(Brushes.Yellow, null, new System.Windows.Rect(0, 0, 1000, 1000));
         }
     }
 }

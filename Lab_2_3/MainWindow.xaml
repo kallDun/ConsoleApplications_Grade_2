@@ -12,9 +12,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <DataGrid Background="White" x:Name="Info_Grid" ItemsSource="{Binding Horses}">
-
-            </DataGrid>
+            <DataGrid Background="White" x:Name="Info_Grid"
+                      ItemsSource="{Binding Path=., Mode=OneWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         <Border Grid.Column="1" BorderThickness="3 0 0 0" BorderBrush="DimGray">
             <Grid>
@@ -24,12 +23,11 @@
                 </Grid.RowDefinitions>
 
 
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" x:Name="FieldGrid">
+                    <Image x:Name="RenderField"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 15">
-                        <Button Width="150" Height="40" Foreground="White" BorderBrush="#FFFF6000" Background="White">
-                            <TextBlock Text="Start" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
-                        </Button>
-                        <ComboBox Width="50" Height="40" BorderBrush="White" Foreground="White" Margin="10 0 0 0">
+                        <ComboBox Width="50" Height="40" BorderBrush="White" Foreground="White"
+                                  SelectedIndex="1" x:Name="HorsesCountComboBox" SelectionChanged="HorsesCountComboBox_SelectionChanged">
                             <ComboBox.Background>
                                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                     <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -46,8 +44,18 @@
                                 <TextBlock Text="6" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
                             </ComboBoxItem>
                         </ComboBox>
+                        <Button Width="150" Height="40" Foreground="Transparent" BorderBrush="#FFFF6000" Background="Transparent" 
+                                Click="StartButton_Click" Margin="10 0 0 0">
+                            <TextBlock Text="Start" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
+                        </Button>
+                        <Button Margin="10 0 0 0" Width="40" Height="40" x:Name="ChangeObservableButton" Click="ChangeObservableButton_Click"
+                                Foreground="Transparent" BorderBrush="#FFFF6000" Background="Transparent"/>
                     </StackPanel>
-                    <Grid x:Name="RenderField"/>
+                    <ProgressBar Height="20" Width="260" VerticalAlignment="Top" Margin="0 15" Maximum="100.0" x:Name="SelectedHorse_ProgressBar"
+                                 Background="Transparent" BorderBrush="#FFFF6000" Foreground="#FFFF6000"/>
+                    <TextBlock Height="20" VerticalAlignment="Top" Margin="0 15" HorizontalAlignment="Center" TextAlignment="Center"
+                               Foreground="Black" x:Name="SelectedHorse_Percent_TextBlock" Text="0.0%"
+                               FontSize="17" FontFamily="SimSun"/>
                 </Grid>
                 <Border Grid.Row="1" BorderThickness="0 3 0 0" BorderBrush="DimGray">
                     <Grid>
