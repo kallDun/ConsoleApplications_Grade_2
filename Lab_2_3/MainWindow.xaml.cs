@@ -26,7 +26,7 @@ namespace Lab_2_3
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int TraceEnds = 100000;
+        private const int TraceLength = 50000;
         HorsesService _HorsesService;
         RenderService _RenderService;
         MainRender Render;
@@ -41,26 +41,28 @@ namespace Lab_2_3
         {
             _HorsesService = new HorsesService();
             GenerateHorsesList(HorsesCountComboBox);
-            var (backgrounds, foregrounds) = new BackgroundGenerator().Generate();
-            _RenderService = new RenderService(_HorsesService, backgrounds, foregrounds);
+            var (backgrounds, foregrounds) = new BackgroundGenerator().Generate(TraceLength);
+            _RenderService = new RenderService(_HorsesService, backgrounds, foregrounds,
+                () => ((int)FieldGrid.ActualWidth, (int)FieldGrid.ActualHeight));
             ChangeObserver(0);
-            Render = new MainRender(RenderField, () => ((int)FieldGrid.ActualWidth, (int)FieldGrid.ActualHeight), _RenderService);
+            Render = new MainRender(RenderField, _RenderService);
             Render.RenderEvent += () =>
             {
                 var horse = _RenderService.ObservableHorse;
-                var percent = horse.Position * 100.0 / TraceEnds;
+                var percent = horse.Position * 100.0 / TraceLength;
                 SelectedHorse_ProgressBar.Value = percent;
                 SelectedHorse_Percent_TextBlock.Text = string.Format("{0:0.##}%", percent);                
             };
             Render.Start();
-            Info_Grid.ItemsSource = _HorsesService.Horses;
-            TurnOnAutoSorting();
+            Info_Grid.ItemsSource = _HorsesService.Horses;            
         }
+        bool AutoSortingTurnedOn;
         private async void TurnOnAutoSorting()
         {
-            while (true)
+            AutoSortingTurnedOn = true;
+            while (AutoSortingTurnedOn)
             {
-                Info_Grid.Items.SortDescriptions.Add(new SortDescription("Position", ListSortDirection.Ascending));
+                Info_Grid.Items.SortDescriptions.Add(new SortDescription("Position", ListSortDirection.Descending));
                 await Task.Delay(500);
             }
         }
@@ -69,9 +71,12 @@ namespace Lab_2_3
             var count = int.Parse(((comboBox.SelectedItem as ComboBoxItem).Content as TextBlock).Text);
             _HorsesService?.GenerateList(count);
         }
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            _HorsesService.StartRace(TraceEnds);
+            TurnOnAutoSorting();
+            await _HorsesService.StartRaceAsync(TraceLength);
+            AutoSortingTurnedOn = false;
+            Info_Grid.Items.SortDescriptions.Add(new SortDescription("Time", ListSortDirection.Ascending));
         }
         private void HorsesCountComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => GenerateHorsesList(sender as ComboBox);
         private void ChangeObservableButton_Click(object sender, RoutedEventArgs e)

@@ -12,14 +12,14 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <DataGrid Background="White" x:Name="Info_Grid"
+            <DataGrid Background="White" x:Name="Info_Grid" CanUserSortColumns="False"
                       ItemsSource="{Binding Path=., Mode=OneWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         <Border Grid.Column="1" BorderThickness="3 0 0 0" BorderBrush="DimGray">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="170"/>
                 </Grid.RowDefinitions>
 
 

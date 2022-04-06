@@ -10,22 +10,18 @@ namespace Lab_2_3.Logic.Render
 {
     class MainRender
     {
-        public delegate (int, int) GetRenderSize();
-        GetRenderSize renderSizeDelegate;
-
         public event Action RenderEvent;
 
         Image image;
         RenderService renderService;
-        public double PixelsPerDip => 96;
-        public int FramesPerSecond => 50;
+        public static double PixelsPerDip => 96;
+        public static int FramesPerSecond => 50;
         bool render_started;
 
-        public MainRender(Image image, GetRenderSize renderSizeDelegate, RenderService renderService)
+        public MainRender(Image image, RenderService renderService)
         {
             this.image = image;
             this.renderService = renderService;
-            this.renderSizeDelegate = renderSizeDelegate;
         }
 
         public async void Start()
@@ -42,9 +38,9 @@ namespace Lab_2_3.Logic.Render
         public void RenderFrame() => image.Source = GetRender();
         private BitmapSource GetRender()
         {
-            var size = renderSizeDelegate();
+            var render_size = renderService.GetRenderSize();
             var bitmap = new RenderTargetBitmap(
-                size.Item1, size.Item2,
+                render_size.Item1, render_size.Item2,
                 PixelsPerDip, PixelsPerDip, PixelFormats.Pbgra32);
 
             var drawingvisual = new DrawingVisual();
@@ -64,7 +60,7 @@ namespace Lab_2_3.Logic.Render
             {
                 item.Render(dc, camera_position);
             }
-            foreach (var horse in renderService.horsesService.Horses.Reverse())
+            foreach (var horse in renderService.horsesService.Horses)
             {
                 horse.Render(dc, camera_position);
             }

@@ -1,7 +1,10 @@
 ﻿using Lab_2_3.Logic.Models;
 using Lab_2_3.Logic.Utilities;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Lab_2_3.Logic.Services
 {
@@ -25,13 +28,17 @@ namespace Lab_2_3.Logic.Services
                 for (int i = 0; i < subtract; i++) Horses.Remove(Horses.Last());
             }
         }
-        public void StartRace(int traceEnds)
+        public async Task StartRaceAsync(int traceEnds)
         {
+            Stopwatch timer = new Stopwatch();
+            List<Task> tasks = new List<Task>();
+            timer.Start();
             foreach (var horse in Horses)
             {
-                horse.Position = 0;
-                horse.StartRace(traceEnds);
+                tasks.Add(horse.StartRace(traceEnds, timer));
             }
+            await Task.WhenAll(tasks);
+            timer.Stop();
         }
     }
 }
