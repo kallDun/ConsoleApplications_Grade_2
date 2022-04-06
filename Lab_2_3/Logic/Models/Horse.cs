@@ -27,9 +27,11 @@ namespace Lab_2_3.Logic.Models
         [DisplayName("FormattedTime")]
         public string FormattedTime => string.Format(@"{0:mm\:ss\:ffffff}", Time);
 
-        [DisplayName("Coeff")]
+        [DisplayName("Coefficient")]
         public double Coeff { get; private set; }
-
+        
+        [DisplayName("Money")]
+        public double Money { get; private set; }
         public Horse(string name, Color color, double coeff, int track, List<ImageSource> animations)
         {
             Name = name;
@@ -37,6 +39,19 @@ namespace Lab_2_3.Logic.Models
             Coeff = coeff;
             Track = track;
             Animations = animations;
+        }
+
+        public void SetMoney(double value)
+        {
+            if (value < 0) return;
+            Money = value;
+            OnPropertyChanged(nameof(Money));
+        }
+        public void AddCoeff(double value_to_add)
+        {
+            if (Coeff + value_to_add < 0.7) return;
+            Coeff += value_to_add;
+            OnPropertyChanged(nameof(Coeff));
         }
 
         public async Task StartRace(int traceEnds, Stopwatch timer)
@@ -82,7 +97,7 @@ namespace Lab_2_3.Logic.Models
 
             if (isStarted)
             {
-                frame = (frame + 0.7 * (1.0 * speed / average_speed)) % Animations.Count;
+                frame = (frame + 0.7 * (speed / average_speed)) % Animations.Count;
                 Position += (int)Math.Round(speed);
                 if (speed_difference != 0) speed += speed_difference / 5;
                 Time = new TimeSpan(timer.ElapsedTicks);
@@ -93,7 +108,7 @@ namespace Lab_2_3.Logic.Models
                     StopRace();
                 }
                 OnPropertyChanged(nameof(Position));
-            }            
+            }
         }
     }
 }

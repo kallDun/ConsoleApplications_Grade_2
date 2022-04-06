@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_2_3"
         mc:Ignorable="d"
-        Title="Horse Racing" Height="720" Width="1280">
+        Title="Horse Racing" Width="1280" Height="720">
     <Window.Resources>
         <local:NameToBrushConverter x:Key="NameToBrushConverter"/>
         <Style TargetType="TextBlock" x:Key="TextBlockDataGridStyle">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontFamily" Value="SimSun"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="DataGridColumnHeader" x:Key="ColumnHeaderDataGridStyle">
             <Setter Property="FontSize" Value="18"/>
@@ -22,8 +24,52 @@
             <ColumnDefinition Width="250"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            
+        <Grid Grid.Column="0" x:Name="BettingsGrid">
+            <StackPanel>
+                <TextBlock Text="Bettings" Style="{StaticResource TextBlockDataGridStyle}" FontSize="30" Margin="0 15"
+                       Foreground="#FFFF6000"/>
+                <Separator Background="#FFFF6000" Margin="0 5" VerticalAlignment="Top"/>
+                <StackPanel Margin="0 15" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <TextBlock Style="{StaticResource TextBlockDataGridStyle}" Text="Balance:" FontSize="26" Foreground="DimGray"/>
+                    <TextBlock Style="{StaticResource TextBlockDataGridStyle}" Margin="10 0 0 0" 
+                           Text="250$" FontSize="26" FontWeight="Heavy" x:Name="Balance_TextBlock"/>
+                </StackPanel>
+                <Separator Background="#FFFF6000" Margin="0 5" VerticalAlignment="Top"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 15 0 0">
+                    <Button Width="30" Height="30" Background="Transparent" BorderBrush="#FFFF6000"
+                            x:Name="BetOnMoney_ButtonLeft" Click="BetOnMoney_ButtonLeft_Click">
+                        <TextBlock Text="&lt;" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
+                    </Button>
+                    <TextBlock Text="20$" FontSize="22" Style="{StaticResource TextBlockDataGridStyle}"
+                               VerticalAlignment="Center" Margin="15 0" Foreground="#FFFF6000"
+                               x:Name="BetOnMoney_TextBlock"/>
+                    <Button Width="30" Height="30" Background="Transparent" BorderBrush="#FFFF6000"
+                            x:Name="BetOnMoney_ButtonRight" Click="BetOnMoney_ButtonRight_Click">
+                        <TextBlock Text=">" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
+                    </Button>
+                </StackPanel>
+                <TextBlock Text="bet on the horse" HorizontalAlignment="Center" Style="{StaticResource TextBlockDataGridStyle}"
+                           Margin="20 20" TextWrapping="Wrap" FontSize="20" Foreground="DimGray"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Width="30" Height="30" Background="Transparent" BorderBrush="#FFFF6000"
+                            x:Name="SelectedHorseName_ButtonLeft" Click="SelectedHorseName_ButtonLeft_Click">
+                        <TextBlock Text="&lt;" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
+                    </Button>
+                    <TextBlock Text="Bruno" FontSize="22" Style="{StaticResource TextBlockDataGridStyle}"
+                               VerticalAlignment="Center" Margin="15 0" Foreground="#FFFF6000"
+                               x:Name="SelectedHorseName_TextBlock"/>
+                    <Button Width="30" Height="30" Background="Transparent" BorderBrush="#FFFF6000"
+                            x:Name="SelectedHorseName_ButtonRight" Click="SelectedHorseName_ButtonRight_Click">
+                        <TextBlock Text=">" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
+                    </Button>
+                </StackPanel>
+                <Separator Background="#FFFF6000" Margin="0 20" VerticalAlignment="Top"/>
+                <Button Width="120" Height="30" Background="Transparent" BorderBrush="DimGray" BorderThickness="2"
+                        x:Name="BetButton" Click="BetButton_Click">
+                    <TextBlock Text="BET" FontSize="24" FontFamily="SimSun" Foreground="Black" VerticalAlignment="Center"
+                               FontWeight="Bold"/>
+                </Button>
+            </StackPanel>
         </Grid>
         <Border Grid.Column="1" BorderThickness="3 0 0 0" BorderBrush="DimGray">
             <Grid>
@@ -88,7 +134,10 @@
                             <DataGridTextColumn Binding="{Binding FormattedTime, Mode=OneWay}" Header="Time"
                                         ElementStyle="{StaticResource TextBlockDataGridStyle}"
                                         HeaderStyle="{StaticResource ColumnHeaderDataGridStyle}"/>
-                            <DataGridTextColumn Binding="{Binding Coeff, Mode=OneWay}" Header="Coeff"
+                            <DataGridTextColumn Binding="{Binding Coeff, Mode=OneWay}" Header="Coefficient"
+                                        ElementStyle="{StaticResource TextBlockDataGridStyle}"
+                                        HeaderStyle="{StaticResource ColumnHeaderDataGridStyle}"/>
+                            <DataGridTextColumn Binding="{Binding Money, Mode=OneWay}" Header="Money"
                                         ElementStyle="{StaticResource TextBlockDataGridStyle}"
                                         HeaderStyle="{StaticResource ColumnHeaderDataGridStyle}"/>
                         </DataGrid.Columns>

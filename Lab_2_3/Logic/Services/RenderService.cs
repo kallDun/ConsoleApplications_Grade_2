@@ -18,12 +18,11 @@ namespace Lab_2_3.Logic.Services
         public GetSize GetRenderSize { get; private set; }
         public GetPosition GetCameraPosition { get; private set; }
         public Horse ObservableHorse { get; private set; }
-        public Horse GetObservableHorse() => ObservableHorse;
         public void ChangeObserver(Horse horse)
         {
             if (horse is null) return;
             ObservableHorse = horse;
-            GetCameraPosition = () => horse.Position + 60 - GetRenderSize().Item1 / 2;
+            GetCameraPosition = () => horse.Position + 75 - GetRenderSize().Item1 / 2;
         }
     }
 }

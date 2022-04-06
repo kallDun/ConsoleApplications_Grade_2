@@ -27,9 +27,10 @@ namespace Lab_2_3
     public partial class MainWindow : Window
     {
         private const int TraceLength = 50000;
-        HorsesService _HorsesService;
-        RenderService _RenderService;
-        MainRender Render;
+        private bool IsRaceStarted, IsRaceStopped;
+        private HorsesService _HorsesService;
+        private RenderService _RenderService;
+        private MainRender Render;
 
         public MainWindow()
         {
@@ -40,9 +41,9 @@ namespace Lab_2_3
         private void Init__()
         {
             _HorsesService = new HorsesService();
-            GenerateHorsesList(HorsesCountComboBox);
             _RenderService = new RenderService(_HorsesService, new BackgroundGenerator().Generate(TraceLength),
                 () => ((int)FieldGrid.ActualWidth, (int)FieldGrid.ActualHeight));
+            GenerateHorsesList(HorsesCountComboBox);
             ChangeObserver(0);
             Render = new MainRender(RenderField, _RenderService);
             Render.RenderEvent += () =>
@@ -55,7 +56,6 @@ namespace Lab_2_3
             Render.Start();
             Info_Grid.ItemsSource = _HorsesService.Horses;            
         }
-        bool IsRaceStarted;
         private async void TurnOnAutoSorting()
         {
             while (IsRaceStarted)
@@ -66,46 +66,53 @@ namespace Lab_2_3
         }
         private void GenerateHorsesList(ComboBox comboBox)
         {
+            if (_HorsesService is null || _RenderService is null) return;
             var count = int.Parse(((comboBox.SelectedItem as ComboBoxItem).Content as TextBlock).Text);
             _HorsesService?.GenerateList(count);
+            if (!_HorsesService.Horses.Contains(_RenderService.ObservableHorse)) ChangeObserver(0);
+            UpdateSelectedToBetHorse();
         }
+        private void ChangeObserver(int index)
+        {
+            _RenderService.ChangeObserver(_HorsesService.Horses[index]);
+            ChangeObservableButton.Background = new SolidColorBrush(_RenderService.ObservableHorse.Color);
+        }
+        public void TurnOnOffEnabledWhenStarted(bool Enabled)
+        {
+            HorsesCountComboBox.IsEnabled = Enabled;
+            BettingsGrid.IsEnabled = Enabled;
+        }
+
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
             if (IsRaceStarted)
             {
+                IsRaceStopped = true;
                 _HorsesService.StopRace();
             }
             else
             {
                 TurnOnOffEnabledWhenStarted(false);
+                IsRaceStopped = false;
                 IsRaceStarted = true;
                 StartButton_TextBlock.Text = "Stop";
                 TurnOnAutoSorting();
 
                 await _HorsesService.StartRaceAsync(TraceLength);
+
                 TurnOnOffEnabledWhenStarted(true);
                 IsRaceStarted = false;
                 StartButton_TextBlock.Text = "Start";
-
                 Info_Grid.Items.SortDescriptions.Add(new SortDescription("Time", ListSortDirection.Ascending));
+                if (!IsRaceStopped) CalculateBalanceAfterRace();
             }
         }
-        public void TurnOnOffEnabledWhenStarted(bool Enabled)
-        {
-            HorsesCountComboBox.IsEnabled = Enabled;
-        }
-
         private void HorsesCountComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => GenerateHorsesList(sender as ComboBox);
         private void ChangeObservableButton_Click(object sender, RoutedEventArgs e)
         {
             var index = _HorsesService.Horses.IndexOf(_RenderService.ObservableHorse);
             index = (index + 1) % _HorsesService.Horses.Count;
             ChangeObserver(index);
-        }
-        private void ChangeObserver(int index)
-        {
-            _RenderService.ChangeObserver(_HorsesService.Horses[index]);
-            ChangeObservableButton.Background = new SolidColorBrush(_RenderService.ObservableHorse.Color);
         }
     }    
 }

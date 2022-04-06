@@ -19,7 +19,7 @@ namespace Lab_2_3.Logic.Utilities
             
             var anim = imageUtility.GetHorseAnimation(color);
 
-            return new Horse($"{index + 1}-{name}", color, 1.25, index % 8, anim);
+            return new Horse($"{index + 1}.{name}", color, 1.25, index % 8, anim);
         }
         private static readonly string[] Names =
         {
