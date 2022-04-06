@@ -7,16 +7,14 @@ namespace Lab_2_3.Logic.Services
     {
         public delegate int GetPosition();
         public delegate (int, int) GetSize();
-        public RenderService(HorsesService horsesService, List<BackgroundObject> backgrounds, List<BackgroundObject> foregrounds, GetSize renderSizeDelegate)
+        public RenderService(HorsesService horsesService, List<BackgroundObject> backgrounds, GetSize renderSizeDelegate)
         {
             this.horsesService = horsesService;
             this.backgrounds = backgrounds;
-            this.foregrounds = foregrounds;
             GetRenderSize = renderSizeDelegate;
         }
         public HorsesService horsesService { get; }
         public List<BackgroundObject> backgrounds { get; }
-        public List<BackgroundObject> foregrounds { get; }
         public GetSize GetRenderSize { get; private set; }
         public GetPosition GetCameraPosition { get; private set; }
         public Horse ObservableHorse { get; private set; }

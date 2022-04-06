@@ -40,5 +40,12 @@ namespace Lab_2_3.Logic.Services
             await Task.WhenAll(tasks);
             timer.Stop();
         }
+        public void StopRace()
+        {
+            foreach (var horse in Horses)
+            {
+                horse.StopRace();
+            }
+        }
     }
 }

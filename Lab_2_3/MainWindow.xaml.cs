@@ -41,8 +41,7 @@ namespace Lab_2_3
         {
             _HorsesService = new HorsesService();
             GenerateHorsesList(HorsesCountComboBox);
-            var (backgrounds, foregrounds) = new BackgroundGenerator().Generate(TraceLength);
-            _RenderService = new RenderService(_HorsesService, backgrounds, foregrounds,
+            _RenderService = new RenderService(_HorsesService, new BackgroundGenerator().Generate(TraceLength),
                 () => ((int)FieldGrid.ActualWidth, (int)FieldGrid.ActualHeight));
             ChangeObserver(0);
             Render = new MainRender(RenderField, _RenderService);
@@ -56,11 +55,10 @@ namespace Lab_2_3
             Render.Start();
             Info_Grid.ItemsSource = _HorsesService.Horses;            
         }
-        bool AutoSortingTurnedOn;
+        bool IsRaceStarted;
         private async void TurnOnAutoSorting()
         {
-            AutoSortingTurnedOn = true;
-            while (AutoSortingTurnedOn)
+            while (IsRaceStarted)
             {
                 Info_Grid.Items.SortDescriptions.Add(new SortDescription("Position", ListSortDirection.Descending));
                 await Task.Delay(500);
@@ -73,11 +71,30 @@ namespace Lab_2_3
         }
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            TurnOnAutoSorting();
-            await _HorsesService.StartRaceAsync(TraceLength);
-            AutoSortingTurnedOn = false;
-            Info_Grid.Items.SortDescriptions.Add(new SortDescription("Time", ListSortDirection.Ascending));
+            if (IsRaceStarted)
+            {
+                _HorsesService.StopRace();
+            }
+            else
+            {
+                TurnOnOffEnabledWhenStarted(false);
+                IsRaceStarted = true;
+                StartButton_TextBlock.Text = "Stop";
+                TurnOnAutoSorting();
+
+                await _HorsesService.StartRaceAsync(TraceLength);
+                TurnOnOffEnabledWhenStarted(true);
+                IsRaceStarted = false;
+                StartButton_TextBlock.Text = "Start";
+
+                Info_Grid.Items.SortDescriptions.Add(new SortDescription("Time", ListSortDirection.Ascending));
+            }
         }
+        public void TurnOnOffEnabledWhenStarted(bool Enabled)
+        {
+            HorsesCountComboBox.IsEnabled = Enabled;
+        }
+
         private void HorsesCountComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => GenerateHorsesList(sender as ComboBox);
         private void ChangeObservableButton_Click(object sender, RoutedEventArgs e)
         {
@@ -90,5 +107,5 @@ namespace Lab_2_3
             _RenderService.ChangeObserver(_HorsesService.Horses[index]);
             ChangeObservableButton.Background = new SolidColorBrush(_RenderService.ObservableHorse.Color);
         }
-    }
+    }    
 }

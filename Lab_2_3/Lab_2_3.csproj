@@ -78,6 +78,7 @@
     <Compile Include="Logic\Utilities\BackgroundGenerator.cs" />
     <Compile Include="Logic\Utilities\ImageUtility.cs" />
     <Compile Include="Logic\Utilities\HorseUtility.cs" />
+    <Compile Include="Logic\Utilities\NameToBrushConverter.cs" />
     <Compile Include="Logic\Utilities\PropertyChangedNotifier.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -13,7 +13,7 @@ namespace Lab_2_3.Logic.Utilities
             const int count = 12;
             var bitmap_image_list = ReadImageList("Images/Horses", "WithOutBorder_", ".png", count);
             var mask_image_list = ReadImageList("Images/HorsesMask", "mask_", ".png", count);
-
+            //return bitmap_image_list.Select(x => x as ImageSource).ToList(); // <-- program will be fast as fuck
             return bitmap_image_list.Select((item, index) => GetImageWithColor(item, mask_image_list[index], color)).ToList();
         }
         private List<BitmapImage> ReadImageList(string path, string name, string format, int count)

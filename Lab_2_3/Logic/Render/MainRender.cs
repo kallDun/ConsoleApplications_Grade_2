@@ -1,6 +1,5 @@
 ﻿using Lab_2_3.Logic.Services;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -63,10 +62,6 @@ namespace Lab_2_3.Logic.Render
             foreach (var horse in renderService.horsesService.Horses)
             {
                 horse.Render(dc, camera_position);
-            }
-            foreach (var item in renderService.foregrounds)
-            {
-                item.Render(dc, camera_position);
             }
         }
     }

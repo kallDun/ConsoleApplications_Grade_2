@@ -6,23 +6,31 @@
         xmlns:local="clr-namespace:Lab_2_3"
         mc:Ignorable="d"
         Title="Horse Racing" Height="720" Width="1280">
+    <Window.Resources>
+        <local:NameToBrushConverter x:Key="NameToBrushConverter"/>
+        <Style TargetType="TextBlock" x:Key="TextBlockDataGridStyle">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="SimSun"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader" x:Key="ColumnHeaderDataGridStyle">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="SimSun"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <DataGrid Background="White" x:Name="Info_Grid" CanUserSortColumns="False"
-                      ItemsSource="{Binding Path=., Mode=OneWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+            
         </Grid>
         <Border Grid.Column="1" BorderThickness="3 0 0 0" BorderBrush="DimGray">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="170"/>
+                    <RowDefinition MaxHeight="960"/>
+                    <RowDefinition Height="210"/>
                 </Grid.RowDefinitions>
-
-
                 <Grid Grid.Row="0" x:Name="FieldGrid">
                     <Image x:Name="RenderField"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 15">
@@ -45,8 +53,9 @@
                             </ComboBoxItem>
                         </ComboBox>
                         <Button Width="150" Height="40" Foreground="Transparent" BorderBrush="#FFFF6000" Background="Transparent" 
-                                Click="StartButton_Click" Margin="10 0 0 0">
-                            <TextBlock Text="Start" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"/>
+                                x:Name="StartButton" Click="StartButton_Click" Margin="10 0 0 0">
+                            <TextBlock Text="Start" FontSize="24" FontFamily="SimSun" Foreground="#FFFF6000"
+                                       x:Name="StartButton_TextBlock"/>
                         </Button>
                         <Button Margin="10 0 0 0" Width="40" Height="40" x:Name="ChangeObservableButton" Click="ChangeObservableButton_Click"
                                 Foreground="Transparent" BorderBrush="#FFFF6000" Background="Transparent"/>
@@ -58,9 +67,32 @@
                                FontSize="17" FontFamily="SimSun"/>
                 </Grid>
                 <Border Grid.Row="1" BorderThickness="0 3 0 0" BorderBrush="DimGray">
-                    <Grid>
-                        
-                    </Grid>
+                    <DataGrid Background="White" x:Name="Info_Grid" CanUserSortColumns="False" AutoGenerateColumns="False"
+                      ItemsSource="{Binding Path=., Mode=OneWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                      RowHeight="35">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding None, Mode=OneWay}" Header="Color"
+                                        HeaderStyle="{StaticResource ColumnHeaderDataGridStyle}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Background" Value="{Binding Color, Converter={StaticResource NameToBrushConverter}}"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Name, Mode=OneWay}" Header="Name"
+                                        ElementStyle="{StaticResource TextBlockDataGridStyle}"
+                                        HeaderStyle="{StaticResource ColumnHeaderDataGridStyle}"/>
+                            <DataGridTextColumn Binding="{Binding Position, Mode=OneWay}" Header="Position"
+                                        ElementStyle="{StaticResource TextBlockDataGridStyle}"
+                                        HeaderStyle="{StaticResource ColumnHeaderDataGridStyle}"/>
+                            <DataGridTextColumn Binding="{Binding FormattedTime, Mode=OneWay}" Header="Time"
+                                        ElementStyle="{StaticResource TextBlockDataGridStyle}"
+                                        HeaderStyle="{StaticResource ColumnHeaderDataGridStyle}"/>
+                            <DataGridTextColumn Binding="{Binding Coeff, Mode=OneWay}" Header="Coeff"
+                                        ElementStyle="{StaticResource TextBlockDataGridStyle}"
+                                        HeaderStyle="{StaticResource ColumnHeaderDataGridStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Border>
                 <GridSplitter Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="3" Width="100" ResizeDirection="Rows"/>
             </Grid>

@@ -2,6 +2,7 @@
 using Lab_2_3.Logic.Utilities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,10 +12,22 @@ namespace Lab_2_3.Logic.Models
 {
     public class Horse : PropertyChangedNotifier, IRenderable
     {
+        [DisplayName("Name")]
         public string Name { get; private set; }
+
+        [DisplayName("Color")]
         public Color Color { get; private set; }
+
+        [DisplayName("Position")]
         public int Position { get; private set; }
+
+        [DisplayName("Time")]
         public TimeSpan Time { get; private set; }
+
+        [DisplayName("FormattedTime")]
+        public string FormattedTime => string.Format(@"{0:mm\:ss\:ffffff}", Time);
+
+        [DisplayName("Coeff")]
         public double Coeff { get; private set; }
 
         public Horse(string name, Color color, double coeff, int track, List<ImageSource> animations)
