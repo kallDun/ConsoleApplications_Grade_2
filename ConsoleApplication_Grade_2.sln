@@ -125,6 +125,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_2_3_Delegates", "Lab_2_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcMethodLab3", "CalcMethodLab3\CalcMethodLab3.csproj", "{0F0235FA-9E76-490F-8617-249498315DD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_2_3_Delegates_2", "Lab_2_3_Delegates_2\Lab_2_3_Delegates_2.csproj", "{E6F1F845-5F38-4FA6-8CF0-A32BF695706F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -303,6 +305,10 @@ Global
 		{0F0235FA-9E76-490F-8617-249498315DD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F0235FA-9E76-490F-8617-249498315DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F0235FA-9E76-490F-8617-249498315DD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6F1F845-5F38-4FA6-8CF0-A32BF695706F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F1F845-5F38-4FA6-8CF0-A32BF695706F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6F1F845-5F38-4FA6-8CF0-A32BF695706F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6F1F845-5F38-4FA6-8CF0-A32BF695706F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -350,6 +356,7 @@ Global
 		{3A95141C-00D3-4105-8F8A-AA64FDA76B0A} = {0C490386-D50F-488C-9C5F-070E79252306}
 		{C821C9CD-4373-4346-897E-ED33953C4505} = {56528EA3-69DA-4DFB-AD12-4ABBDE302F27}
 		{0F0235FA-9E76-490F-8617-249498315DD7} = {E2D1FB57-A357-4BA4-99C9-7448A43D0A7F}
+		{E6F1F845-5F38-4FA6-8CF0-A32BF695706F} = {56528EA3-69DA-4DFB-AD12-4ABBDE302F27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33D460CD-8598-4DE8-BEFA-A60312C5E7E4}
