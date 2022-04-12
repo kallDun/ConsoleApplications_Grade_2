@@ -68,6 +68,8 @@
     </Compile>
     <Compile Include="Logic\Equation.cs" />
     <Compile Include="Logic\EquationGroup.cs" />
+    <Compile Include="Logic\NewtonCalcMethod.cs" />
+    <Compile Include="Logic\NonLinearSystemService.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -1,27 +1,20 @@
 ﻿using System;
-using System.Linq;
 
-namespace CalcMethodLab1.Logic
+namespace CalcMethodLab3.Logic
 {
     class Equation
     {
-        public double Min, Max;
-        public Func<double, double, double> Func;
+        public Func<double, double, double> Func { get; private set; }
+        public Func<double, double, double> FuncDerivative { get; private set; }
+        public Func<double, double> FuncItterative { get; private set; }
 
-        public Equation(double min, double max, Func<double, double, double> func)
+        public Equation(Func<double, double, double> func, Func<double, double, double> funcDerivative, Func<double, double> funcItterative)
         {
             Min = min;
             Max = max;
             Func = func;
+            FuncDerivative = funcDerivative;
+            FuncItterative = funcItterative;
         }
-        public Func<double, double, double> GetItterationViewFunc(int count = 50)
-        {
-            double m = 1 / Enumerable.Range(0, count + 1)
-                .Select(i => Min + ((Max - Min) / count * i))
-                .Select((x, y) => GetDerivativeX(x, y)).Max();
-            return (x, y) => x - (m * Func(x, y));
-        }
-        public double GetDerivativeX(double x, double y, double delta = 0.01) 
-            => (Func(x + delta, y + delta) - Func(delta, delta)) / delta;
     }
 }

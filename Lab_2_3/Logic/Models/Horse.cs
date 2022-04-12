@@ -67,11 +67,13 @@ namespace Lab_2_3.Logic.Models
             while (isStarted)
             {
                 await Task.Delay(200);
+                speed_difference_changing = true;
                 var (min, max) = (average_speed / 9 * -1, average_speed / 6.5);
                 var acceleration = rnd.NextDouble() * (max - min) + min;
                 if (speed < average_speed * 2 / 3) acceleration += average_speed / 17;
                 if (speed > average_speed * 3 / 2) acceleration -= average_speed / 17;
                 speed_difference = acceleration;
+                speed_difference_changing = false;
             }
         }
         public void StopRace()
@@ -89,6 +91,7 @@ namespace Lab_2_3.Logic.Models
         private const double average_speed = 30;
         private double speed;
         private double speed_difference;
+        private bool speed_difference_changing;
         private double frame;
 
         public void Render(DrawingContext dc, int cameraPos)
@@ -99,8 +102,12 @@ namespace Lab_2_3.Logic.Models
             {
                 frame = (frame + 0.7 * (speed / average_speed)) % Animations.Count;
                 Position += (int)Math.Round(speed);
-                if (speed_difference != 0) speed += speed_difference / 5;
                 Time = new TimeSpan(timer.ElapsedTicks);
+
+                if (!speed_difference_changing)
+                {
+                    if (speed_difference != 0) speed += speed_difference / 5;
+                }                
                 if (Position >= traceEnds)
                 {
                     Position = traceEnds;
