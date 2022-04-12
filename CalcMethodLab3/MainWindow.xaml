@@ -5,8 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalcMethodLab3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="16"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="NonLinear System Solver" Height="420" Width="460" MinHeight="420" MinWidth="460">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="210px"/>
+            <RowDefinition Height="40px"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="130"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Height="180">
+                <TextBox x:Name="InputDataF" FontSize="18" AcceptsReturn="True" TextWrapping="Wrap" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Height="180"/>
+            </StackPanel>
+            <Grid Grid.Column="1" Margin="20 0 0 0" Height="180">
+                <StackPanel VerticalAlignment="Top">
+                    <TextBlock Text="Init X:"/>
+                    <TextBox x:Name="InputX" Height="30" Text=""/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Init Y:"/>
+                    <TextBox x:Name="InputY" Height="30" Text=""/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Bottom">
+                    <TextBlock Text="Epsilon:"/>
+                    <TextBox x:Name="InputEpsilon" Height="30" Text="1e-3"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Button Grid.Row="1" Width="200" Style="{StaticResource MaterialDesignPaperButton}"
+                x:Name="CalculateButton" Click="CalculateButton_Click">
+            <TextBlock Text="Solve" FontSize="18"/>
+        </Button>
+        <Grid Grid.Row="2" Margin="0 10 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Width="150" VerticalAlignment="Center">
+                <TextBlock Text="Root X:"/>
+                <TextBox x:Name="OutputX" Height="25" VerticalAlignment="Top" Text="" IsReadOnly="True"/>
+                <Separator Margin="0 5" Background="Transparent"/>
+                <TextBlock Text="Root Y:"/>
+                <TextBox x:Name="OutputY" Height="25" VerticalAlignment="Top" Text="" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Width="150" VerticalAlignment="Center" Grid.Column="1">
+                <TextBlock Text="Time:"/>
+                <TextBox x:Name="OutputTime" Height="25" VerticalAlignment="Top" Text="" IsReadOnly="True"/>
+                <Separator Margin="0 5" Background="Transparent"/>
+                <TextBlock Text="Itterations:"/>
+                <TextBox x:Name="OutputItters" Height="25" VerticalAlignment="Top" Text="" IsReadOnly="True"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

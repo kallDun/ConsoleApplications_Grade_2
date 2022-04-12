@@ -1,19 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using org.mariuszgromada.math.mxparser;
-using System.Windows.Shapes;
-using CalcMethodLab1.Logic;
+using CalcMethodLab3.Logic;
 
 namespace CalcMethodLab3
 {
@@ -25,26 +12,34 @@ namespace CalcMethodLab3
         public MainWindow()
         {
             InitializeComponent();
-            /*var func1 = new Function("sin(x)+sqrt(2*y^3)=4");
-            var func2 = new Function("tg(x)-y^2=-4");
-            Argument x = new Argument("x");
-            Argument y = new Argument("y");*/
-            // 2x - 2 - 1
+            InputDataF.Text = "sin(x)+sqrt(2*y^3)-4" + "\n" + "tg(x)-y^2+4";
+            (InputX.Text, InputY.Text) = ("-6", "2");
 
-            var func_string = "x^2 - 2x - y + 0.5";
-            
+            /*InputDataF.Text = "x^2 - 2x - y + 0.5" + "\n" + "x^2 + 4*y^2 - 4";
+            InputDataItter.Text = "sqrt(2*x + y - 0.5)" + "\n" + "0.25*sqrt(4 - x^2)";
+            (InputX.Text, InputY.Text) = ("2", "0.25");*/
+        }
 
-            Function f = new Function($"f(x, y) = {func_string}");
-            Argument x = new Argument("x = 2");
-
-            Argument y = new Argument("y = 3");
-            org.mariuszgromada.math.mxparser.Expression e = new org.mariuszgromada.math.mxparser.Expression("solve(f(x, y), x, -5, 5)", f, y);
-            MessageBox.Show(e.calculate().ToString());
-
-
-            /*org.mariuszgromada.math.mxparser.Expression e =
-                new org.mariuszgromada.math.mxparser.Expression("der(f(x, y), x)", f, x, y);*/
-
+        private void CalculateButton_Click(object sender, RoutedEventArgs args)
+        {            
+            try
+            {
+                var eps = double.Parse(InputEpsilon.Text);
+                var systemSolverService = new NonLinearSystemSolverService(eps);
+                var eqs_f = InputDataF.Text.Split(new string[] { "\n" }, StringSplitOptions.None);
+                var group = new EquationGroup(eqs_f[0], eqs_f[1]);
+                var x = double.Parse(InputX.Text);
+                var y = double.Parse(InputY.Text);
+                var result = systemSolverService.SolveSystem(group, x, y);
+                OutputX.Text = string.Format("{0:0.########}", result.X);
+                OutputY.Text = string.Format("{0:0.########}", result.Y);
+                OutputTime.Text = result.Time.ToString();
+                OutputItters.Text = result.Itterations.ToString();
+            }
+            catch (Exception e)
+            {
+                _ = MessageBox.Show($"Something gone wrong! Exception: {e.Message}");
+            }
         }
     }
 }
