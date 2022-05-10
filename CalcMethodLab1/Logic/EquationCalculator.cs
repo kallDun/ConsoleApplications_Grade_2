@@ -6,9 +6,9 @@ namespace CalcMethodLab1.Logic
     class EquationCalculator
     {
         IEquationMethod method;
-        public EquationCalculator(double epsilon)
+        public EquationCalculator(double epsilon, int itters)
         {
-            method = new SimpleItterationEquationMethod(epsilon);
+            method = new SimpleItterationEquationMethod(epsilon, itters);
         }
         public IEnumerable<double> GetEquationResults(Equation equation)
         {

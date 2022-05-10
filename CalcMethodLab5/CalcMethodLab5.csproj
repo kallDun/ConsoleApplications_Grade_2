@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5E4E217A-1DE3-47B6-BA7F-26102990A47B}</ProjectGuid>
+    <ProjectGuid>{20EFD4D4-E411-462F-9BFB-2C9533F76E7C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CalcMethodLab1</RootNamespace>
-    <AssemblyName>CalcMethodLab1</AssemblyName>
+    <RootNamespace>CalcMethodLab5</RootNamespace>
+    <AssemblyName>CalcMethodLab5</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -74,11 +74,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Logic\Equation.cs" />
-    <Compile Include="Logic\EquationCalculator.cs" />
-    <Compile Include="Logic\IEquationMethod.cs" />
-    <Compile Include="Logic\SimpleItterationEquationMethod.cs" />
-    <Compile Include="Logic\ValidationDoubleRule.cs" />
+    <Compile Include="Logic\Derivatives\DerivativeCalculator.cs" />
+    <Compile Include="Logic\Derivatives\FirstDerivativeCalculator.cs" />
+    <Compile Include="Logic\Derivatives\SecondDerivativeCalculator.cs" />
+    <Compile Include="Logic\Func.cs" />
+    <Compile Include="Logic\Logger\LogEntity.cs" />
+    <Compile Include="Logic\Logger\LoggerSingleton.cs" />
+    <Compile Include="Logic\Logger\LoggerManager.cs" />
+    <Compile Include="Logic\TaskSolver.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

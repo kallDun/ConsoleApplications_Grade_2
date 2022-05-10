@@ -1,0 +1,61 @@
+﻿<Window x:Class="CalcMethodLab5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalcMethodLab5"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="Derivative Calculator" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="56*"/>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="709*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="175"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="0,45">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Border VerticalAlignment="Center" BorderThickness="1.25" CornerRadius="1"
+                        BorderBrush="{StaticResource MaterialDesignSnackbarMouseOver}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="1">
+                        <TextBlock Text="x + " FontSize="18"
+                               VerticalAlignment="Center"/>
+                        <TextBox Text="2" FontSize="18"
+                             VerticalAlignment="Center" x:Name="YCountTextBox"/>
+                        <TextBlock Text="y = " FontSize="18"
+                               VerticalAlignment="Center"/>
+                        <TextBox Text="100" FontSize="18"
+                             VerticalAlignment="Center" x:Name="WallSizeTextBox"/>
+                    </StackPanel>
+                </Border>
+                <Border VerticalAlignment="Center" BorderThickness="1.25" Margin="20 0" CornerRadius="1"
+                        BorderBrush="{StaticResource MaterialDesignSnackbarMouseOver}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="1">
+                        <TextBlock Text="Step:" FontSize="18"
+                               VerticalAlignment="Center"/>
+                        <TextBox Text="0.1" FontSize="18" Margin="4 0 0 0"
+                               VerticalAlignment="Center" x:Name="StepTextBox"/>
+                    </StackPanel>
+                </Border>
+                <Button Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                        Height="35" Width="100" Click="Button_Click">
+                    <TextBlock Text="Find Y" FontSize="18"/>
+                </Button>
+            </StackPanel>
+            <TextBox IsReadOnly="True" TextAlignment="Center" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="" x:Name="ReturnValueTextBox"/>
+        </StackPanel>
+        <DataGrid Grid.Row="1" x:Name="LogsData" Grid.ColumnSpan="3"/>
+    </Grid>
+</Window>

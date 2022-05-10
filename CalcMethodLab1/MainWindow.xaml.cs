@@ -19,7 +19,8 @@ namespace CalcMethodLab1
             {
                 var func = new Function("f(x) = " + InputData.Text);
                 if (!func.checkSyntax()) throw new Exception("Function syntax error.");
-                EquationCalculator calculator = new EquationCalculator(double.Parse(InputEpsilon.Text));
+                var itterations = int.Parse(InputItterations.Text);
+                EquationCalculator calculator = new EquationCalculator(double.Parse(InputEpsilon.Text), itterations);
                 Equation equation = new Equation(double.Parse(InputMin.Text), double.Parse(InputMax.Text),
                     x => func.calculate(x));
                 var (divs, roots) = calculator.DivideIntoSegments(equation);

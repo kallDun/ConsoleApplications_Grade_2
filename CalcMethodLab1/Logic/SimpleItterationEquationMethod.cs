@@ -6,10 +6,10 @@ namespace CalcMethodLab1.Logic
     {
         public readonly double eps;
         public readonly int itters;
-        public SimpleItterationEquationMethod(double eps)
+        public SimpleItterationEquationMethod(double eps, int itters)
         {
             this.eps = eps;
-            itters = 4000;
+            this.itters = itters;
         }
 
         public double FindX(Equation eq)

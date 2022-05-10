@@ -129,6 +129,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_2_3_Delegates_2", "Lab_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcMethodLab4", "CalcMethodLab4\CalcMethodLab4.csproj", "{7914214A-82FA-4E8A-A07C-9C735824B238}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcMethodLab5", "CalcMethodLab5\CalcMethodLab5.csproj", "{20EFD4D4-E411-462F-9BFB-2C9533F76E7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -315,6 +317,10 @@ Global
 		{7914214A-82FA-4E8A-A07C-9C735824B238}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7914214A-82FA-4E8A-A07C-9C735824B238}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7914214A-82FA-4E8A-A07C-9C735824B238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20EFD4D4-E411-462F-9BFB-2C9533F76E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20EFD4D4-E411-462F-9BFB-2C9533F76E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20EFD4D4-E411-462F-9BFB-2C9533F76E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20EFD4D4-E411-462F-9BFB-2C9533F76E7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -364,6 +370,7 @@ Global
 		{0F0235FA-9E76-490F-8617-249498315DD7} = {E2D1FB57-A357-4BA4-99C9-7448A43D0A7F}
 		{E6F1F845-5F38-4FA6-8CF0-A32BF695706F} = {56528EA3-69DA-4DFB-AD12-4ABBDE302F27}
 		{7914214A-82FA-4E8A-A07C-9C735824B238} = {E2D1FB57-A357-4BA4-99C9-7448A43D0A7F}
+		{20EFD4D4-E411-462F-9BFB-2C9533F76E7C} = {E2D1FB57-A357-4BA4-99C9-7448A43D0A7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33D460CD-8598-4DE8-BEFA-A60312C5E7E4}
