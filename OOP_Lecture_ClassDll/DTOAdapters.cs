@@ -11,17 +11,20 @@ namespace OOP_Lecture_ClassDll.Adapters
     }
     public class SupervisorAdapter : IAdapter<Supervisor, SupervisorDTO>
     {
+        private IAdapter<User, UserDTO> adapter = new UserAdapter();
+
         public SupervisorDTO ConvertToDTO(Supervisor model) => new SupervisorDTO
         {
             Name = model.Name,
             Surname = model.Surname,
-            Birthday = model.Birthday
+            Birthday = model.Birthday,
+            User = adapter.ConvertToDTO(model.User)
         };
-        public Supervisor ConvertToModel(SupervisorDTO dto) => new Supervisor(dto.Name, dto.Surname, dto.Birthday);
+        public Supervisor ConvertToModel(SupervisorDTO dto) => new Supervisor(dto.Name, dto.Surname, dto.Birthday, adapter.ConvertToModel(dto.User));
     }
     public class SectionAdapter : IAdapter<Section, SectionDTO>
     {
-        private SupervisorAdapter adapter = new SupervisorAdapter();
+        private IAdapter<Supervisor, SupervisorDTO> adapter = new SupervisorAdapter();
 
         public SectionDTO ConvertToDTO(Section model) => new SectionDTO
         {
@@ -37,7 +40,7 @@ namespace OOP_Lecture_ClassDll.Adapters
     }
     public class ChildrenCreativityHouseAdapter : IAdapter<ChildrenCreativityHouse, ChildrenCreativityHouseDTO>
     {
-        private SectionAdapter adapter = new SectionAdapter();
+        private IAdapter<Section, SectionDTO> adapter = new SectionAdapter();
 
         public ChildrenCreativityHouseDTO ConvertToDTO(ChildrenCreativityHouse model) => new ChildrenCreativityHouseDTO
         {
@@ -54,5 +57,27 @@ namespace OOP_Lecture_ClassDll.Adapters
             }
             return house;
         } 
+    }
+
+    public class UserAdapter : IAdapter<User, UserDTO>
+    {
+        public UserDTO ConvertToDTO(User model)
+        {
+            return new UserDTO
+            {
+                Id = model.Id,
+                Username = model.Username,
+                Email = model.Email,
+                Phone = model.Phone,
+                Password = model.Password,
+                Salt = model.Salt
+            };
+        }
+
+        public User ConvertToModel(UserDTO dto)
+        {
+            var user = new User(dto.Id, dto.Username, dto.Email, dto.Phone, dto.Password, dto.Salt);
+            return user;
+        }
     }
 }

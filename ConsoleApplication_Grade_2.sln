@@ -133,6 +133,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcMethodLab5", "CalcMetho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassDll_Lab5", "ClassDll_Lab5\ClassDll_Lab5.csproj", "{37CEA58E-5AAD-4525-8485-2F5108A49AC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppReflection", "ConsoleAppReflection\ConsoleAppReflection.csproj", "{2518581A-28D3-46A4-BE36-7A4E2952B7CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -327,6 +329,10 @@ Global
 		{37CEA58E-5AAD-4525-8485-2F5108A49AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37CEA58E-5AAD-4525-8485-2F5108A49AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37CEA58E-5AAD-4525-8485-2F5108A49AC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2518581A-28D3-46A4-BE36-7A4E2952B7CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2518581A-28D3-46A4-BE36-7A4E2952B7CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2518581A-28D3-46A4-BE36-7A4E2952B7CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2518581A-28D3-46A4-BE36-7A4E2952B7CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -378,6 +384,7 @@ Global
 		{7914214A-82FA-4E8A-A07C-9C735824B238} = {E2D1FB57-A357-4BA4-99C9-7448A43D0A7F}
 		{20EFD4D4-E411-462F-9BFB-2C9533F76E7C} = {E2D1FB57-A357-4BA4-99C9-7448A43D0A7F}
 		{37CEA58E-5AAD-4525-8485-2F5108A49AC4} = {0C490386-D50F-488C-9C5F-070E79252306}
+		{2518581A-28D3-46A4-BE36-7A4E2952B7CD} = {0C490386-D50F-488C-9C5F-070E79252306}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33D460CD-8598-4DE8-BEFA-A60312C5E7E4}

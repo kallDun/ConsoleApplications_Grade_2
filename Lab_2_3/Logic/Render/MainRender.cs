@@ -1,9 +1,11 @@
 ﻿using Lab_2_3.Logic.Services;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Lab_2_3.Logic.Render
 {
@@ -26,6 +28,7 @@ namespace Lab_2_3.Logic.Render
         public async void Start()
         {
             render_started = true;
+            Console.WriteLine("Render Thread: " + Thread.CurrentThread.ManagedThreadId);
             while (render_started)
             {
                 await Task.Delay(1000 / FramesPerSecond);

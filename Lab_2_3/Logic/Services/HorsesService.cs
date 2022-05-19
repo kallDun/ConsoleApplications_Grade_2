@@ -1,9 +1,11 @@
 ﻿using Lab_2_3.Logic.Models;
 using Lab_2_3.Logic.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Lab_2_3.Logic.Services
@@ -30,6 +32,7 @@ namespace Lab_2_3.Logic.Services
         }
         public async Task StartRaceAsync(int traceEnds)
         {
+            Console.WriteLine("Horses Thread: " + Thread.CurrentThread.ManagedThreadId);
             Stopwatch timer = new Stopwatch();
             List<Task> tasks = new List<Task>();
             timer.Start();
