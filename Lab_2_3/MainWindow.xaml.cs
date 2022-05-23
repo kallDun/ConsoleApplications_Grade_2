@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,6 +37,7 @@ namespace Lab_2_3
         {
             InitializeComponent();
             Init__();
+            Console.WriteLine("Main Thread: " + Thread.CurrentThread.ManagedThreadId);
         }
 
         private void Init__()
@@ -54,7 +56,7 @@ namespace Lab_2_3
                 SelectedHorse_Percent_TextBlock.Text = string.Format("{0:0.##}%", percent);                
             };
             Render.Start();
-            Info_Grid.ItemsSource = _HorsesService.Horses;            
+            Info_Grid.ItemsSource = _HorsesService.Horses;
         }
         private async void TurnOnAutoSorting()
         {
@@ -114,5 +116,5 @@ namespace Lab_2_3
             index = (index + 1) % _HorsesService.Horses.Count;
             ChangeObserver(index);
         }
-    }    
+    }
 }

@@ -1,48 +1,67 @@
 ﻿using Newtonsoft.Json;
-using OOP_Lecture_ClassDll;
 using OOP_Lecture_ClassDll.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OOP_Lecture_ClassDll.DTOs
 {
     public class SupervisorDTO
     {
-        [JsonProperty("name")]
+        [MinLength(5)]
+        [MaxLength(20)]
         public string Name { get; set; }
 
-        [JsonProperty("surname")]
+        [MinLength(5)]
+        [MaxLength(20)]
         public string Surname { get; set; }
 
-        [JsonProperty("birthday")]
         public DateTime Birthday { get; set; }
+        public UserDTO User { get; set; }
     }
     public class SectionDTO
     {
-        [JsonProperty("name")]
+        [MinLength(5)]
+        [MaxLength(20)]
         public string Name { get; set; }
 
-        [JsonProperty("supervisor")]
         public SupervisorDTO Supervisor { get; set; }
 
-        [JsonProperty("type")]
         public SectionType Type { get; set; }
 
-        [JsonProperty("payment")]
+        [Range(0, 10000)]
         public int Payment { get; set; }
 
+        [Range(0, 10000)]
         [JsonProperty("lessons_per_month")]
         public int LessonsPerMonth { get; set; }
 
+        [Range(0, 10000)]
         [JsonProperty("students_count")]
         public int StudentsCount { get; set; }
     }
     public class ChildrenCreativityHouseDTO
     {
-        [JsonProperty("address")]
+        [MinLength(10)]
+        [MaxLength(100)]
         public string Address { get; set; }
+        public List<SectionDTO> Sections { get; set; } = new List<SectionDTO>();
+    }
 
-        [JsonProperty("sections")]
-        public List<SectionDTO> Sections { get; set; }
+    public class UserDTO
+    {
+        public Guid Id { get; set; }
+
+        [MinLength(5)]
+        [MaxLength(30)]
+        public string Username { get; set; }
+
+        [RegularExpression("^[A-Za-z0-9+_.-]+@(.+)$")]
+        public string Email { get; set; }
+
+        [RegularExpression("")]
+        public string Phone { get; set; }
+        public string Password { get; set; }
+        public string Salt { get; set; }
     }
 }

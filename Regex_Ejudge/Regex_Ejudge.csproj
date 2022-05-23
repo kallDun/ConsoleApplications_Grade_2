@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{37CEA58E-5AAD-4525-8485-2F5108A49AC4}</ProjectGuid>
+    <ProjectGuid>{70429CC6-D245-460B-9C01-069176441400}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ClassDll_Lab5</RootNamespace>
-    <AssemblyName>ClassDll_Lab5</AssemblyName>
+    <RootNamespace>Regex_Ejudge</RootNamespace>
+    <AssemblyName>Regex_Ejudge</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,7 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,19 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalRepository.cs" />
-    <Compile Include="KeyboardAssist.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OOP_Lecture_ClassDll\OOP_Lecture_ClassDll.csproj">
-      <Project>{3a95141c-00d3-4105-8f8a-aa64fda76b0a}</Project>
-      <Name>OOP_Lecture_ClassDll</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

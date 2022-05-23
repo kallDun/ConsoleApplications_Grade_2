@@ -17,13 +17,8 @@ namespace OOP_Lecture_ClassDll.Models
             Birthday = birthday;
             User = user;
         }
-
-        [MinLength(5)]
-        [MaxLength(20)]
+        
         public string Name { get; private set; }
-
-        [MinLength(5)]
-        [MaxLength(20)]
         public string Surname { get; private set; }
         public DateTime Birthday { get; private set; }
         public User User { get; private set; }
@@ -33,7 +28,7 @@ namespace OOP_Lecture_ClassDll.Models
         public bool Equals(Supervisor other) => CompareTo(other) == 0;
 
         public override int GetHashCode() => (Name.GetHashCode() * 17 + Surname.GetHashCode()) * 17 + Birthday.GetHashCode();
-        public override string ToString() => $"Supervisor {Name} {Surname} birthday:{string.Format("{0:dd/MM/yyyy}", Birthday)}";
+        public override string ToString() => $"Supervisor {Name} {Surname}, user: {User}, birthday:{string.Format("{0:dd/MM/yyyy}", Birthday)}";
     }
     public class Section : ICloneable, IComparable<Section>, IEquatable<Section>
     {
@@ -45,20 +40,15 @@ namespace OOP_Lecture_ClassDll.Models
             Payment = payment;
             LessonsPerMonth = lessonsPerMonth;
             StudentsCount = studentsCount;
-        }
-        [MinLength(5)]
-        [MaxLength(20)]
+        }        
         public string Name { get; private set; }
         public Supervisor Supervisor { get; private set; }
         public SectionType Type { get; private set; }
 
-        [Range(0, 10000)]
         public int Payment { get; private set; }
 
-        [Range(0, 10000)]
         public int LessonsPerMonth { get; private set; }
 
-        [Range(0, 10000)]
         public int StudentsCount { get; private set; }
 
         public object Clone() => new Section(Name, Supervisor.Clone() as Supervisor, Type, Payment, LessonsPerMonth, StudentsCount);
@@ -83,8 +73,7 @@ namespace OOP_Lecture_ClassDll.Models
             Address = address;
             Sections = new List<Section>();
         }
-        [MinLength(10)]
-        [MaxLength(100)]
+        
         public string Address { get; private set; }
         public List<Section> Sections { get; private set; }
         public void AddSection(Section section) => Sections.Add(section);
@@ -125,35 +114,13 @@ namespace OOP_Lecture_ClassDll.Models
             Password = password;
             Salt = salt;
         }
-        public User(string username, string email, string phone, string password, string salt)
-        {
-            Username = username;
-            Email = email;
-            Phone = phone;
-            Password = password;
-            Salt = salt;
-        }
-        public Guid Id { get; private set; } = Guid.NewGuid();
-
-        [MinLength(5)]
-        [MaxLength(30)]
+        public Guid Id { get; private set; }        
         public string Username { get; private set; }
-
-        [RegularExpression("")]
         public string Email { get; private set; }
-
-        [RegularExpression("")]
         public string Phone { get; private set; }
         public string Password { get; private set; }
         public string Salt { get; private set; }
-        public Supervisor Supervisor { get; private set; }
-        public void SetSupervisor(Supervisor supervisor) => Supervisor = supervisor;
-        public object Clone()
-        {
-            var user = new User(Id, Username, Email, Phone, Password, Salt);
-            user.SetSupervisor(Supervisor);
-            return user;
-        }
+        public object Clone() => new User(Id, Username, Email, Phone, Password, Salt);
         public int CompareTo(User other)
         {
             bool equals =
@@ -162,10 +129,10 @@ namespace OOP_Lecture_ClassDll.Models
                 Email == other.Email &&
                 Phone == other.Phone &&
                 Password == other.Password &&
-                Salt == other.Salt &&
-                Supervisor.Equals(other.Supervisor);
+                Salt == other.Salt;
             return equals ? 0 : -1;
         }
         public bool Equals(User other) => CompareTo(other) == 0;
+        public override string ToString() => $"User {Id}-{Username} with email: {Email} and phone: {Phone}";
     }
 }
